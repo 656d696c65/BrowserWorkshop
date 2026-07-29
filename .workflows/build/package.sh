@@ -103,7 +103,8 @@ fi
 
 echo "  Uploading files..."
 lftp -c "
-    set ftp:ssl-force true
+    set ftp:ssl-allow true
+    set ftp:ssl-force false
     set ssl:verify-certificate no
     open -u $FTP_USER,$FTP_PASSWORD -p $FTP_PORT $FTP_HOST
     lcd $REPO_ROOT/packages/website/build
