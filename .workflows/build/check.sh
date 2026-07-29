@@ -31,9 +31,11 @@ if ! command -v pnpm &>/dev/null; then
     npm install -g "pnpm@10.12.1"
 fi
 
-if [[ ! -d "node_modules" ]]; then
-    echo "  Installing dependencies..."
+echo "  Installing dependencies..."
+if [[ -f "pnpm-lock.yaml" ]]; then
     pnpm install --frozen-lockfile
+else
+    pnpm install --no-frozen-lockfile
 fi
 
 # ---------------------------------------------------------------------------
