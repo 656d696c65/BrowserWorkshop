@@ -108,7 +108,7 @@ lftp -c "
     set ssl:verify-certificate no
     open -u $FTP_USER,$FTP_PASSWORD -p $FTP_PORT $FTP_HOST
     lcd $REPO_ROOT/packages/website/build
-    mirror -R --delete . /
+    mirror -R --delete . /www/
     quit
 "
 
