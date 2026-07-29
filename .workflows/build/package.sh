@@ -20,9 +20,8 @@ VERSION="$(cat "$REPO_ROOT/VERSION" 2>/dev/null || echo "0.0.0")"
 OUT_DIR="$REPO_ROOT/dist"
 
 FTP_HOST="ftp.cluster129.hosting.ovh.net"
-FTP_USER="barbote"
+FTP_USER="browseh"
 FTP_PORT="21"
-FTP_URL="ftp://$FTP_USER@$FTP_HOST:$FTP_PORT/"
 
 echo "=============================================="
 echo "  browserworkshop v$VERSION — $0"
@@ -87,9 +86,31 @@ if [[ -z "$FTP_PASSWORD" ]]; then
     echo ""
 fi
 
-curl --ftp-ssl -T "$OUTPUT" --user "$FTP_USER:$FTP_PASSWORD" "$FTP_URL"
+# Install lftp if missing
+if ! command -v lftp &>/dev/null; then
+    echo "  Installing lftp..."
+    if command -v apt-get &>/dev/null; then
+        sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+    elif command -v brew &>/dev/null; then
+        brew install lftp
+    elif command -v apk &>/dev/null; then
+        apk add lftp
+    else
+        echo "Error: cannot install lftp automatically" >&2
+        exit 1
+    fi
+fi
+
+echo "  Uploading files..."
+lftp -c "
+    set ftp:ssl-force true
+    set ssl:verify-certificate no
+    open -u $FTP_USER,$FTP_PASSWORD -p $FTP_PORT $FTP_HOST
+    lcd $REPO_ROOT/packages/website/build
+    mirror -R --delete . /
+    quit
+"
 
 echo ""
-echo "  Uploaded: $FTP_URL$(basename "$OUTPUT")"
-echo "  Extract on the server: tar -xzf $(basename "$OUTPUT")"
+echo "  Deployed to $FTP_HOST/"
 echo ""
