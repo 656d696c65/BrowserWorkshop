@@ -12,10 +12,14 @@
     "dependencies": {
         "@browserworkshop/tools-conversion": "workspace:*",
         "@browserworkshop/ui": "workspace:*",
+        "@hookform/resolvers": "5.2.2",
         "@tabler/icons-react": "3.36.0",
+        "@tanstack/react-query": "5.90.12",
         "@tanstack/react-router": "1.143.3",
+        "@tanstack/react-table": "8.21.3",
         "react": "19.2.3",
         "react-dom": "19.2.3",
+        "react-hook-form": "7.69.0",
         "valibot": "1.2.0"
     },
     "devDependencies": {
