@@ -1,12 +1,7 @@
 import { css } from "../../../styled-system/css/css"
 import { cx } from "../../../styled-system/css/cx"
 
-
-export function LinkContent(props: {
-    disabled?: boolean
-    children?: string
-    className?: string
-}) {
+export function LinkContent(props: { disabled?: boolean; children?: string; className?: string }) {
     return (
         <span
             aria-disabled={props.disabled}

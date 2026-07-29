@@ -9,7 +9,7 @@ dev-up:
     ./.workflows/dev/up.sh
 
 dev-down:
-    ./.scripts/dev-down.sh
+    ./.workflows/dev/down.sh
 
 # ==============================================================================
 # Build Pipeline
@@ -28,28 +28,28 @@ build cmd:
 # Build all production images — mirrors the publish GitHub Action
 build-ci:
     @echo "=============================================="
-    @echo "  Boilerplate Build (api + website + worker)"
+    @echo "  browserworkshop Build (api + website + worker)"
     @echo "=============================================="
     @echo ""
     VERSION=$(cat VERSION) \
     VITE_API_BASE_URL=http://localhost:3000 \
     VITE_WEBSITE_BASE_URL=http://localhost:3001 \
-    {{COMPOSE_BUILD}} --progress=plain build --no-cache boilerplate-api boilerplate-website boilerplate-worker
+    {{COMPOSE_BUILD}} --progress=plain build --no-cache browserworkshop-api browserworkshop-website browserworkshop-worker
     @echo ""
     @echo "=============================================="
     @echo "  Build succeeded"
     @echo "============================================="
     @echo "=============================================="
-    @echo "  Boilerplate Image Build (api + website + worker)"
+    @echo "  browserworkshop Image Build (api + website + worker)"
     @echo "=============================================="
     @echo ""
     VERSION=$(cat VERSION) \
     VITE_API_BASE_URL=http://localhost:3000 \
     VITE_WEBSITE_BASE_URL=http://localhost:3001 \
-    {{COMPOSE_BUILD}} --progress=plain build --no-cache boilerplate-api boilerplate-website boilerplate-worker
+    {{COMPOSE_BUILD}} --progress=plain build --no-cache browserworkshop-api browserworkshop-website browserworkshop-worker
     @echo ""
     @echo "=============================================="
-    @echo "  Images built: boilerplate-api, boilerplate-website, boilerplate-worker ($(cat VERSION))"
+    @echo "  Images built: browserworkshop-api, browserworkshop-website, browserworkshop-worker ($(cat VERSION))"
     @echo "=============================================="
 
 # Start built production images locally to check for startup errors
@@ -61,6 +61,6 @@ build-start:
     @echo "  Press Ctrl+C to stop"
     @echo "=============================================="
     @echo ""
-    -./.scripts/dev-down.sh 2>/dev/null || true
+    -./.workflows/dev/down.sh 2>/dev/null || true
     -VERSION=$(cat VERSION) {{COMPOSE_BUILD}} down --remove-orphans 2>/dev/null || true
     VERSION=$(cat VERSION) {{COMPOSE_BUILD}} up --force-recreate --remove-orphans

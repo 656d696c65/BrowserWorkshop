@@ -6,6 +6,6 @@ export const homeLayoutRoute = createRoute({
     getParentRoute: () => rootLayoutRoute,
     id: "homeLayout",
     pendingComponent: () => <CircularLoader />,
-    beforeLoad: () => { },
+    beforeLoad: () => {},
     component: () => <Outlet />,
 })

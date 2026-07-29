@@ -1,5 +1,4 @@
-import type { routeDefinition } from "@boilerplate/metadata/utilities"
-import { toast } from "@boilerplate/ui"
+import { toast } from "@browserworkshop/ui"
 import type * as v from "valibot"
 import { ClientError } from "./clientError.js"
 import { getCookie } from "./cookies/getCookie.js"
@@ -9,10 +8,10 @@ import { cookiePrefix } from "./variables.js"
 export async function getResponseBodyFromAPI<
     TSchemaBody extends v.ObjectSchema<v.ObjectEntries, undefined>,
     TSchemaReturn extends
-    | v.ObjectSchema<v.ObjectEntries, undefined>
-    | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>,
+        | v.ObjectSchema<v.ObjectEntries, undefined>
+        | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>,
 >(parameters: {
-    routeDefinition: ReturnType<typeof routeDefinition<string, TSchemaBody, TSchemaReturn>>
+    routeDefinition: { path: string; schemas: { output: TSchemaReturn } }
     body: v.InferOutput<TSchemaBody>
     signal?: AbortSignal
     hasToastMessage?: boolean
@@ -25,7 +24,7 @@ export async function getResponseBodyFromAPI<
     }
 
     const abortController = parameters.signal ? undefined : new AbortController()
-    const signal = parameters.signal ?? abortController!.signal
+    const signal = parameters.signal ?? abortController?.signal
     try {
         const headers: Record<string, string> = {
             "Content-Type": "application/json",
@@ -107,8 +106,8 @@ export async function getResponseBodyFromAPI<
                 error instanceof ClientError
                     ? error
                     : new ClientError({
-                        rawError: error,
-                    }),
+                          rawError: error,
+                      }),
         }
     }
 }

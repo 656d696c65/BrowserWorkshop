@@ -2,15 +2,13 @@ import type { InputHTMLAttributes } from "react"
 import type { FieldError } from "react-hook-form"
 import { css, type Styles } from "../../../styled-system/css"
 
-
-export function InputText(props:
-    & Omit<InputHTMLAttributes<HTMLInputElement>, "className" | "value" | "onChange">
-    & {
+export function InputText(
+    props: Omit<InputHTMLAttributes<HTMLInputElement>, "className" | "value" | "onChange"> & {
         value?: string | null
         onChange?: (value?: string | null | undefined) => void
         error?: FieldError
         className?: Styles
-    }
+    },
 ) {
     function input(value: string | undefined | null) {
         if (value === null) return ""
@@ -43,11 +41,11 @@ export function InputText(props:
                         outlineColor: "neutral/10",
                     },
                 },
-                (props.error === undefined)
+                props.error === undefined
                     ? undefined
                     : {
-                        borderColor: "red"
-                    },
+                          borderColor: "red",
+                      },
                 props.className,
             )}
         >
@@ -68,7 +66,7 @@ export function InputText(props:
                     },
                     _focus: {
                         outline: "none",
-                    }
+                    },
                 })}
                 value={input(props.value)}
                 onChange={(e) => {

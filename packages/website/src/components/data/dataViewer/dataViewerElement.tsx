@@ -1,10 +1,7 @@
 import type { ReactNode } from "react"
 import { css } from "../../../../styled-system/css"
 
-
-export function DataViewerElement(props: {
-    children: ReactNode
-}) {
+export function DataViewerElement(props: { children: ReactNode }) {
     return (
         <div
             className={css({

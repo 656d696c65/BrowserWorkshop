@@ -1,10 +1,7 @@
 import type { ReactNode } from "react"
 import { css } from "../../../../styled-system/css"
 
-
-export function SectionHeader(props: {
-    children: ReactNode
-}) {
+export function SectionHeader(props: { children: ReactNode }) {
     return (
         <div
             className={css({

@@ -1,82 +1,9 @@
 
-x-config:
-  # PostgreSQL
-  postgres-user: &pg-user postgres
-  postgres-password: &pg-password admin
-  postgres-db: &pg-db default
-  postgres-url: &pg-url postgresql://postgres:admin@boilerplate-postgres:5432/default
-
-
 services:
-  # ============================================================================
-  # Infrastructure Services
-  # ============================================================================
-
-  # PostgreSQL - Relational database for application data
-  boilerplate-postgres:
-    container_name: boilerplate-postgres
-    image: postgres:18.3
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: *pg-user
-      POSTGRES_PASSWORD: *pg-password
-      POSTGRES_DB: *pg-db
-    ports:
-      - "127.0.0.1:${POSTGRES_HOST_PORT}:5432"  # Host access for DB clients (DBeaver, pgAdmin, etc.)
-    volumes:
-      - postgres_data:/var/lib/postgresql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d default"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # ============================================================================
-  # Application Services
-  # ============================================================================
-
-  # API - Backend service
-  boilerplate-api:
-    container_name: boilerplate-api
-    image: boilerplate-api
-    build:
-      context: ../..
-      dockerfile: ./.workflows/dev/api/Dockerfile
-      args:
-        NODE_VERSION: "22.16.0"
-        PNPM_VERSION: "10.12.1"
-    environment:
-      # App
-      ENV: development
-      VERBOSE: "true"
-      PORT: "3000"
-      # Auth
-      CORS_ORIGIN: "http://localhost:${WEBSITE_HOST_PORT}"
-      COOKIES_DOMAIN: localhost
-      COOKIES_KEY: boilerplate-dev-secret-key-change-in-production
-      # URLs
-      API_BASE_URL: "http://localhost:${API_HOST_PORT}"
-      WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
-      # Database
-      SQL_DATABASE_URL: *pg-url
-      # Tools (used by migrate/seed scripts)
-      NODE_ENV: development
-    ports:
-      - "127.0.0.1:${API_HOST_PORT}:3000"
-    volumes:
-      # Full application package - bind-mounted from host (including node_modules)
-      - ../..:/workspace:cached
-      # Dev scripts (entrypoint, migrate, seed, start) — mounted outside /workspace
-      # to avoid creating an application/dev/ directory on the host
-      - .:/dev-scripts:cached
-    depends_on:
-      boilerplate-postgres:
-        condition: service_healthy
-
   # Website - Frontend interface (React + Vite)
-  boilerplate-website:
-    container_name: boilerplate-website
-    image: boilerplate-website
+  browserworkshop-website:
+    container_name: browserworkshop-website
+    image: browserworkshop-website
     build:
       context: ../..
       dockerfile: ./.workflows/dev/website/Dockerfile
@@ -84,7 +11,6 @@ services:
         NODE_VERSION: "22.16.0"
         PNPM_VERSION: "10.12.1"
     environment:
-      VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
       VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
     ports:
       - "127.0.0.1:${WEBSITE_HOST_PORT}:5174"
@@ -92,30 +18,3 @@ services:
       # Full application package - bind-mounted from host (including node_modules)
       - ../..:/workspace:cached
 
-  # Worker - Background job processor
-  boilerplate-worker:
-    container_name: boilerplate-worker
-    image: boilerplate-worker
-    build:
-      context: ../..
-      dockerfile: ./.workflows/dev/worker/Dockerfile
-      args:
-        NODE_VERSION: "22.16.0"
-        PNPM_VERSION: "10.12.1"
-    environment:
-      ENV: development
-      VERBOSE: "true"
-      SQL_DATABASE_URL: *pg-url
-      NODE_ENV: development
-    volumes:
-      - ../..:/workspace:cached
-    depends_on:
-      boilerplate-postgres:
-        condition: service_healthy
-
-# ==============================================================================
-# Named Volumes
-# ==============================================================================
-volumes:
-  # Persistent infrastructure data - survives container restarts
-  postgres_data:

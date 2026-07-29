@@ -1,5 +1,4 @@
-import { css, cx, sva, type Styles } from "../../../styled-system/css"
-
+import { css, cx, type Styles, sva } from "../../../styled-system/css"
 
 export function Chip(props: {
     text: string | null | undefined
@@ -7,10 +6,10 @@ export function Chip(props: {
     className?: Styles
 }) {
     if (props.text === null) {
-        return (null)
+        return null
     }
     if (props.text === undefined) {
-        return (null)
+        return null
     }
 
     const chipRecipe = sva({
@@ -31,56 +30,56 @@ export function Chip(props: {
                 fontSize: "0.75rem",
                 lineHeight: "normal",
                 fontWeight: "semibold",
-                textWrap: "nowrap"
-            }
+                textWrap: "nowrap",
+            },
         },
         variants: {
             color: {
                 default: {
                     div: {
                         backgroundColor: "neutral/5",
-                        borderColor: "neutral/25"
+                        borderColor: "neutral/25",
                     },
                     span: {
-                        color: "neutral"
-                    }
+                        color: "neutral",
+                    },
                 },
                 information: {
                     div: {
                         backgroundColor: "blue/5",
-                        borderColor: "blue/25"
+                        borderColor: "blue/25",
                     },
                     span: {
-                        color: "blue"
-                    }
+                        color: "blue",
+                    },
                 },
                 success: {
                     div: {
                         backgroundColor: "green/5",
-                        borderColor: "green/25"
+                        borderColor: "green/25",
                     },
                     span: {
-                        color: "green"
-                    }
+                        color: "green",
+                    },
                 },
                 error: {
                     div: {
                         backgroundColor: "red/5",
-                        borderColor: "red/25"
+                        borderColor: "red/25",
                     },
                     span: {
-                        color: "red"
-                    }
+                        color: "red",
+                    },
                 },
                 warning: {
                     div: {
                         backgroundColor: "orange/5",
-                        borderColor: "orange/25"
+                        borderColor: "orange/25",
                     },
                     span: {
-                        color: "orange"
-                    }
-                }
+                        color: "orange",
+                    },
+                },
             },
         },
     })
@@ -90,17 +89,8 @@ export function Chip(props: {
     })
 
     return (
-        <div
-            className={cx(
-                chipSlots.div,
-                css(props.className)
-            )}
-        >
-            <span
-                className={chipSlots.span}
-            >
-                {props.text}
-            </span>
+        <div className={cx(chipSlots.div, css(props.className))}>
+            <span className={chipSlots.span}>{props.text}</span>
         </div>
     )
 }

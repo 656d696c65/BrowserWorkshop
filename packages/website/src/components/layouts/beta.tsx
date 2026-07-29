@@ -1,6 +1,5 @@
 import { css } from "../../../styled-system/css"
 
-
 export function Beta() {
     return (
         <div

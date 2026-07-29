@@ -2095,6 +2095,7 @@ content?: ConditionalValue<CssProperties["content"] | AnyString>
    * @see https://developer.mozilla.org/docs/Web/CSS/content-visibility
    */
 contentVisibility?: ConditionalValue<CssVars | CssProperties["contentVisibility"] | AnyString>
+ cornerShape?: ConditionalValue<CssProperties["cornerShape"] | AnyString>
  /**
    * The **`counter-increment`** CSS property increases or decreases the value of a CSS counter by a given value.
    *

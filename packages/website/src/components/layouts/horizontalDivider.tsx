@@ -1,10 +1,6 @@
 import { css, type Styles } from "../../../styled-system/css"
 
-
-export function HorizontalDivider(props: {
-    text?: string
-    className?: Styles
-}) {
+export function HorizontalDivider(props: { text?: string; className?: Styles }) {
     return (
         <div
             className={css(
@@ -21,26 +17,22 @@ export function HorizontalDivider(props: {
                 props.className,
             )}
         >
-            {
-                (props.text === undefined)
-                    ? (null)
-                    : (
-                        <span
-                            className={css({
-                                position: "absolute",
-                                top: "50%",
-                                left: "50%",
-                                transform: "translate(-50%, -60%)",
-                                backgroundColor: "white",
-                                paddingX: "1rem",
-                                fontSize: "1rem",
-                                color: "neutral/50",
-                            })}
-                        >
-                            {props.text}
-                        </span>
-                    )
-            }
+            {props.text === undefined ? null : (
+                <span
+                    className={css({
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -60%)",
+                        backgroundColor: "white",
+                        paddingX: "1rem",
+                        fontSize: "1rem",
+                        color: "neutral/50",
+                    })}
+                >
+                    {props.text}
+                </span>
+            )}
         </div>
     )
 }

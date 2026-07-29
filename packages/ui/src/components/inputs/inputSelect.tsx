@@ -6,47 +6,48 @@ import { ButtonGhostContent } from "../button"
 import { FormatNull } from "../formatNull"
 import { Popover } from "../layouts/popover"
 
-
-
-export function InputSelect<TValue extends string>(props:
-    & Omit<InputHTMLAttributes<HTMLSelectElement>, "className" | "value" | "onChange">
-    & {
+export function InputSelect<TValue extends string>(
+    props: Omit<InputHTMLAttributes<HTMLSelectElement>, "className" | "value" | "onChange"> & {
         value?: TValue | null
         defaultValue?: TValue | null
         onChange?: (value?: TValue | null | undefined) => void
         error?: FieldError
-        options: Array<{
-            key: TValue
-            label: string
-        }> | undefined
+        options:
+            | Array<{
+                  key: TValue
+                  label: string
+              }>
+            | undefined
         className?: Styles
         popoverProps?: ComponentProps<typeof Popover>
-    }
+    },
 ) {
-
     function input(value: TValue | null | undefined) {
         return value
     }
 
-    function output(value: TValue | undefined | null) {
+    function _output(value: TValue | undefined | null) {
         if (value === null) return null
         if (value === undefined) return undefined
         return value
     }
 
-    const currentOption = props.options?.find(x => x.key === input(props.value ?? props.defaultValue))
+    const currentOption = props.options?.find((x) => x.key === input(props.value ?? props.defaultValue))
     return (
         <Popover
             {...props.popoverProps}
             triggerElement={
                 <button
-                    className={css({
-                        width: "fit-content",
-                        maxWidth: "100%",
-                        cursor: "pointer",
-                        minWidth: "fit-content",
-                        height: "fit-content",
-                    }, props.className
+                    type="button"
+                    className={css(
+                        {
+                            width: "fit-content",
+                            maxWidth: "100%",
+                            cursor: "pointer",
+                            minWidth: "fit-content",
+                            height: "fit-content",
+                        },
+                        props.className,
                     )}
                 >
                     <div
@@ -86,11 +87,11 @@ export function InputSelect<TValue extends string>(props:
                                         whiteSpace: "nowrap",
                                         color: "neutral",
                                     },
-                                    (currentOption?.label === undefined)
+                                    currentOption?.label === undefined
                                         ? {
-                                            color: "neutral/25",
-                                            fontStyle: "italic",
-                                        }
+                                              color: "neutral/25",
+                                              fontStyle: "italic",
+                                          }
                                         : undefined,
                                 )}
                             >
@@ -105,7 +106,7 @@ export function InputSelect<TValue extends string>(props:
                                     width: "1rem",
                                     minHeight: "1rem",
                                     height: "1rem",
-                                    color: "neutral"
+                                    color: "neutral",
                                 })}
                             />
                         </div>
@@ -127,59 +128,52 @@ export function InputSelect<TValue extends string>(props:
                             alignItems: "start",
                         })}
                     >
-                        {
-                            (props.options === undefined)
-                                ? (
-                                    <FormatNull
-                                        text="No available options"
-                                    />
-                                )
-                                : (props.options.length === 0)
-                                    ? (
-                                        <FormatNull
-                                            text="No available options"
-                                            className={{
-                                                padding: "0.5rem",
-                                            }}
+                        {props.options === undefined ? (
+                            <FormatNull text="No available options" />
+                        ) : props.options.length === 0 ? (
+                            <FormatNull
+                                text="No available options"
+                                className={{
+                                    padding: "0.5rem",
+                                }}
+                            />
+                        ) : (
+                            props.options.map((option) => {
+                                const isSelected = props.value === option.key
+                                return (
+                                    <button
+                                        type="button"
+                                        key={option.key}
+                                        onClick={(event) => {
+                                            event.preventDefault()
+
+                                            if (props.onChange === undefined) {
+                                                return
+                                            }
+
+                                            if (isSelected === true) {
+                                                props.onChange(null)
+                                            } else {
+                                                props.onChange(option.key)
+                                            }
+
+                                            context.setIsOpen(false)
+                                        }}
+                                        className={css({
+                                            width: "100%",
+                                        })}
+                                    >
+                                        <ButtonGhostContent
+                                            key={option.key}
+                                            text={option.label}
+                                            className={css({
+                                                width: "100%",
+                                            })}
                                         />
-                                    )
-                                    : props.options.map((option) => {
-                                        const isSelected = (props.value === option.key)
-                                        return (
-                                            <button
-                                                type="button"
-                                                key={option.key}
-                                                onClick={(event) => {
-                                                    event.preventDefault()
-
-                                                    if (props.onChange === undefined) {
-                                                        return
-                                                    }
-
-                                                    if (isSelected === true) {
-                                                        props.onChange(null)
-                                                    }
-                                                    else {
-                                                        props.onChange(option.key)
-                                                    }
-
-                                                    context.setIsOpen(false)
-                                                }}
-                                                className={css({
-                                                    width: "100%",
-                                                })}
-                                            >
-                                                <ButtonGhostContent
-                                                    key={option.key}
-                                                    text={option.label}
-                                                    className={css({
-                                                        width: "100%",
-                                                    })}
-                                                />
-                                            </button>
-                                        )
-                                    })
-                        }
+                                    </button>
+                                )
+                            })
+                        )}
                     </div>
                 )
             }}

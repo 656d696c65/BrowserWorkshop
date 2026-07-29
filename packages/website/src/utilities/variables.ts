@@ -1,1 +1,1 @@
-export const cookiePrefix = "boilerplate"
+export const cookiePrefix = "browserworkshop"

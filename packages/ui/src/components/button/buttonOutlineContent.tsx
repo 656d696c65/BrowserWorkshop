@@ -1,4 +1,5 @@
 import { sva } from "../../../styled-system/css/sva"
+import { useButtonLoading } from "./button"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const outlineRecipe = sva({
@@ -82,5 +83,6 @@ const outlineRecipe = sva({
 
 export function ButtonOutlineContent(props: ButtonContentProps) {
     const classes = outlineRecipe({ color: props.color ?? "neutral" })
-    return renderButtonContent(props, classes)
+    const contextLoading = useButtonLoading()
+    return renderButtonContent({ ...props, isLoading: props.isLoading ?? contextLoading }, classes)
 }

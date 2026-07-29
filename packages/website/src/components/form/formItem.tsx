@@ -1,11 +1,10 @@
 import type { HTMLAttributes } from "react"
 import { css, type Styles } from "../../../styled-system/css"
 
-
-export function FormItem(props:
-    HTMLAttributes<HTMLDivElement> & {
+export function FormItem(
+    props: HTMLAttributes<HTMLDivElement> & {
         className?: Styles
-    }
+    },
 ) {
     return (
         <div
@@ -19,7 +18,7 @@ export function FormItem(props:
                     alignItems: "start",
                     gap: "0.5rem",
                 },
-                props.className
+                props.className,
             )}
         />
     )

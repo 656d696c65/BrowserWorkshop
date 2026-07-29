@@ -6,7 +6,7 @@ export const homeRootRoute = createRoute({
     getParentRoute: () => homeLayoutRoute,
     path: "/",
     beforeLoad: () => ({
-        title: "Boilerplate",
+        title: "BrowserWorkshop",
     }),
     component: () => <HomePage />,
 })

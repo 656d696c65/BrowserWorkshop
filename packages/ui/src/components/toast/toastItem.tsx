@@ -5,11 +5,11 @@ import {
     IconInfoSquare,
     type IconProps,
     IconX,
-} from "@tabler/icons-react";
-import type { ReactElement } from "react";
-import { css } from "../../../styled-system/css/css";
-import type { ToastVariant, ToasterToast } from "../../contexts/toasts/useToast.ts";
-import { Button, ButtonGhostContent } from "../button";
+} from "@tabler/icons-react"
+import type { ReactElement } from "react"
+import { css } from "../../../styled-system/css/css"
+import type { ToasterToast, ToastVariant } from "../../contexts/toasts/useToast.ts"
+import { Button, ButtonGhostContent } from "../button"
 
 const toastIcons: Record<ToastVariant, ReactElement<IconProps & React.RefAttributes<Icon>>> = {
     error: <IconAlertTriangle size={20} className={css({ color: "error" })} />,

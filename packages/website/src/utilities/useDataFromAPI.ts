@@ -1,4 +1,3 @@
-import type { routeDefinition } from "@boilerplate/metadata/utilities"
 import { useQuery } from "@tanstack/react-query"
 import type * as v from "valibot"
 import { ClientError } from "./clientError.js"
@@ -7,11 +6,11 @@ import { getResponseBodyFromAPI } from "./getResponseBodyFromAPI.js"
 export function useDataFromAPI<
     TSchemaBody extends v.ObjectSchema<v.ObjectEntries, undefined>,
     TSchemaReturn extends
-    | v.ObjectSchema<v.ObjectEntries, undefined>
-    | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>,
+        | v.ObjectSchema<v.ObjectEntries, undefined>
+        | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>,
     TSelected = v.InferOutput<TSchemaReturn>,
 >(parameters: {
-    routeDefinition: ReturnType<typeof routeDefinition<string, TSchemaBody, TSchemaReturn>>
+    routeDefinition: { path: string; schemas: { output: TSchemaReturn } }
     body: v.InferOutput<TSchemaBody>
     enabled?: boolean
     select?: (data: v.InferOutput<TSchemaReturn>) => TSelected

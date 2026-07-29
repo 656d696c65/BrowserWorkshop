@@ -4,7 +4,6 @@ import { PageHeader } from "./pageHeader"
 import { PageRoot } from "./pageRoot"
 import { PageTitle } from "./pageTitle"
 
-
 export const Page = {
     Root: PageRoot,
     Header: PageHeader,

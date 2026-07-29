@@ -1,5 +1,5 @@
 {
-    "name": "@boilerplate/ui",
+    "name": "@browserworkshop/ui",
     "type": "module",
     "private": true,
     "scripts": {

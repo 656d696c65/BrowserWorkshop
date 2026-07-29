@@ -1,11 +1,11 @@
-import { type ReactElement, cloneElement, useEffect, useState } from "react"
-
+import { cloneElement, type ReactElement, useEffect, useState } from "react"
 
 export function InputDebounced<T>(props: {
     value: T
     initialValue?: T
     onChange: (value: T) => void
     debounce?: number
+    // biome-ignore lint/suspicious/noExplicitAny: accepts any input-like element
     children: ReactElement<any>
 }) {
     const [value, setValue] = useState<T>(props.initialValue || props.value)
@@ -15,17 +15,20 @@ export function InputDebounced<T>(props: {
     }, [props.initialValue, props.value])
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            props.onChange(value)
-        }, (!props.debounce) ? 300 : props.debounce)
+        const timeout = setTimeout(
+            () => {
+                props.onChange(value)
+            },
+            !props.debounce ? 300 : props.debounce,
+        )
 
         return () => clearTimeout(timeout)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [value])
+    }, [value, props.onChange, props.debounce])
 
     return cloneElement(props.children, {
         value: value,
-        onChange: (value: T) => setValue(value)
+        onChange: (value: T) => setValue(value),
     })
 }

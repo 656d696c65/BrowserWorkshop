@@ -1,5 +1,5 @@
 # ==============================================================================
-# boilerplate Platform - Production Environment
+# browserworkshop Platform - Production Environment
 # ==============================================================================
 # Docker Compose configuration for production deployment
 #
@@ -22,40 +22,15 @@
 # ==============================================================================
 
 services:
-  # API - Backend service
-  boilerplate-api:
-    image: boilerplate-api:${VERSION:-latest}
-    build:
-      context: ../..
-      dockerfile: ./.workflows/build/api/Dockerfile
-      args:
-        VERSION: ${VERSION:-latest}
-    volumes:
-      - ./packages/api/.env:/root/packages/api/.env:ro
-    ports:
-      - "3000:3000"
-    restart: unless-stopped
-
   # Website - Frontend (static build served by Nginx)
-  boilerplate-website:
-    image: boilerplate-website:${VERSION:-latest}
+  browserworkshop-website:
+    image: browserworkshop-website:${VERSION:-latest}
     build:
       context: ../.. 
       dockerfile: ./.workflows/build/website/Dockerfile
       args:
         VERSION: ${VERSION:-latest}
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL:?VITE_API_BASE_URL must be set}
         VITE_WEBSITE_BASE_URL: ${VITE_WEBSITE_BASE_URL:?VITE_WEBSITE_BASE_URL must be set}
     ports:
       - "3001:80"
-    restart: unless-stopped
-
-  # Worker - Background job processor
-  boilerplate-worker:
-    image: boilerplate-worker:${VERSION:-latest}
-    build:
-      context: ../..
-      dockerfile: ./.workflows/build/worker/Dockerfile
-      args:
-        VERSION: ${VERSION:-latest}
     restart: unless-stopped

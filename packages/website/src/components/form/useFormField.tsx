@@ -3,7 +3,6 @@ import { useFormContext } from "react-hook-form"
 import { ClientError } from "../../utilities/clientError"
 import { FormFieldContext } from "./formFieldContext"
 
-
 export const useFormField = () => {
     const fieldContext = useContext(FormFieldContext)
     const { getFieldState, formState } = useFormContext()

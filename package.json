@@ -1,17 +1,17 @@
 {
-    "name": "boilerplate",
+    "name": "browserworkshop",
     "private": true,
     "scripts": {
         "dev": "pnpm --recursive --if-present --parallel --filter='./packages/**' run dev",
-        "build": "pnpm --recursive --if-present --filter='./packages/**' run build"
+        "build": "pnpm --recursive --if-present --filter='./packages/**' run build",
+        "format": "biome format --write",
+        "lint": "biome check",
+        "lint:fix": "biome check --write"
     },
     "workspaces": [
         "./packages/*"
     ],
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "core-js-pure",
-            "esbuild"
-        ]
+    "devDependencies": {
+        "@biomejs/biome": "^2.5.5"
     }
 }

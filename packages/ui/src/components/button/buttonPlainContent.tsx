@@ -1,4 +1,5 @@
 import { sva } from "../../../styled-system/css/sva"
+import { useButtonLoading } from "./button"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const plainRecipe = sva({
@@ -77,5 +78,6 @@ const plainRecipe = sva({
 
 export function ButtonPlainContent(props: ButtonContentProps) {
     const classes = plainRecipe({ color: props.color ?? "neutral" })
-    return renderButtonContent(props, classes)
+    const contextLoading = useButtonLoading()
+    return renderButtonContent({ ...props, isLoading: props.isLoading ?? contextLoading }, classes)
 }

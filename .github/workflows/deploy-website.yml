@@ -1,0 +1,22 @@
+name: Deploy website to OVH
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and deploy
+        env:
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: ./.workflows/build/package.sh --upload

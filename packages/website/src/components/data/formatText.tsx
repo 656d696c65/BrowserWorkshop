@@ -1,13 +1,7 @@
 import { css, type Styles } from "../../../styled-system/css"
 import { FormatNull } from "./formatNull"
 
-
-export function FormatText(props: {
-    wrap?: boolean
-    className?: Styles
-    children?: string | null
-}
-) {
+export function FormatText(props: { wrap?: boolean; className?: Styles; children?: string | null }) {
     if (props.children === undefined) {
         return <FormatNull />
     }
@@ -15,17 +9,19 @@ export function FormatText(props: {
         return <FormatNull />
     }
     return (
-        <span className={css(
-            {
-                fontSize: "1rem",
-            },
-            (props.wrap === undefined)
-                ? undefined
-                : {
-                    whiteSpace: "nowrap",
+        <span
+            className={css(
+                {
+                    fontSize: "1rem",
                 },
-            props.className
-        )}>
+                props.wrap === undefined
+                    ? undefined
+                    : {
+                          whiteSpace: "nowrap",
+                      },
+                props.className,
+            )}
+        >
             {props.children}
         </span>
     )

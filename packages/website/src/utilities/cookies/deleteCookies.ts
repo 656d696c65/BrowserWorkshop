@@ -10,8 +10,10 @@ export function deleteCookies() {
                 d.join(".") +
                 " ;path="
             const p = location.pathname.split("/")
+            // biome-ignore lint/suspicious/noDocumentCookie: necessary for clearing cookies
             document.cookie = `${cookieBase}/`
             while (p.length > 0) {
+                // biome-ignore lint/suspicious/noDocumentCookie: necessary for clearing cookies
                 document.cookie = cookieBase + p.join("/")
                 p.pop()
             }

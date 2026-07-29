@@ -1,6 +1,6 @@
-import { IconLoader2 } from "@tabler/icons-react";
-import { css } from "../../styled-system/css/css";
-import { cx } from "../../styled-system/css/cx";
+import { IconLoader2 } from "@tabler/icons-react"
+import { css } from "../../styled-system/css/css"
+import { cx } from "../../styled-system/css/cx"
 
 export function CircularLoader(props: { text?: string; className?: string; size?: number }) {
     return (

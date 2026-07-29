@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router"
 import type { ComponentProps, MouseEventHandler, ReactNode } from "react"
 import { css } from "../../../styled-system/css/css.js"
 import { cx } from "../../../styled-system/css/cx.js"
-import type { ValidParams, ValidRoutes } from "../../routes/applicationRouter.js"
+import type { ValidParams, ValidRoutes } from "../../routes/websiteRouter.js"
 
 /**
  * LinkButton - a neutral container wrapping TanStack Router's Link

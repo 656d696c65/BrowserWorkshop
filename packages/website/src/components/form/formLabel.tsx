@@ -2,8 +2,6 @@ import type { HTMLAttributes } from "react"
 import { css } from "../../../styled-system/css"
 import { useFormField } from "./useFormField"
 
-
-
 export function FormLabel(props: {
     label: string | undefined
     description: string | undefined
@@ -16,7 +14,7 @@ export function FormLabel(props: {
         <label
             {...props.labelProps}
             htmlFor={formItemId}
-            aria-required={props.isRequired}
+            data-required={props.isRequired}
             className={css({
                 display: "flex",
                 flexDirection: "column",
@@ -33,49 +31,37 @@ export function FormLabel(props: {
                     gap: "0.25rem",
                 })}
             >
-                {
-                    (props.label === undefined)
-                        ? (null)
-                        : (
-                            <span
-                                className={css({
-                                    fontSize: "0.875rem",
-                                    color: "neutral/75",
-                                })}
-                            >
-                                {props.label}
-                            </span>
-                        )
-                }
-                {
-                    (props.isRequired === false)
-                        ? (null)
-                        : (
-                            <span
-                                className={css({
-                                    fontSize: "0.75rem",
-                                    color: "red"
-                                })}
-                            >
-                                *
-                            </span>
-                        )
-                }
+                {props.label === undefined ? null : (
+                    <span
+                        className={css({
+                            fontSize: "0.875rem",
+                            color: "neutral/75",
+                        })}
+                    >
+                        {props.label}
+                    </span>
+                )}
+                {props.isRequired === false ? null : (
+                    <span
+                        className={css({
+                            fontSize: "0.75rem",
+                            color: "red",
+                        })}
+                    >
+                        *
+                    </span>
+                )}
             </div>
-            {
-                (props.description === undefined)
-                    ? null
-                    : (
-                        <span
-                            className={css({
-                                fontSize: "0.75rem",
-                                color: "neutral/50",
-                            })}
-                        >
-                            {props.description}
-                        </span>
-                    )
-            }
+            {props.description === undefined ? null : (
+                <span
+                    className={css({
+                        fontSize: "0.75rem",
+                        color: "neutral/50",
+                    })}
+                >
+                    {props.description}
+                </span>
+            )}
         </label>
     )
 }

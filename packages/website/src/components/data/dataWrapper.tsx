@@ -1,24 +1,20 @@
-import type { routeDefinition } from "@boilerplate/metadata/utilities"
-import { Fragment, useMemo, type ComponentProps, type ReactElement } from "react"
+import { type ComponentProps, Fragment, type ReactElement, useMemo } from "react"
 import * as v from "valibot"
 import { css, cx } from "../../../styled-system/css"
 import { useDataFromAPI } from "../../utilities/useDataFromAPI"
 import { CircularLoader } from "../circularLoader"
 import { FormatError } from "./formatError"
 
-
 export function DataWrapper<
     TSchemaInput extends v.ObjectSchema<v.ObjectEntries, undefined>,
-    TSchemaOutput extends v.ObjectSchema<v.ObjectEntries, undefined> | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>
+    TSchemaOutput extends
+        | v.ObjectSchema<v.ObjectEntries, undefined>
+        | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>,
 >(props: {
-    routeDefinition: ReturnType<typeof routeDefinition<
-        string,
-        TSchemaInput,
-        TSchemaOutput
-    >>
+    routeDefinition: { path: string; schemas: { output: TSchemaOutput } }
     body: v.InferInput<TSchemaInput>
     children: (data: v.InferOutput<TSchemaOutput>) => ReactElement | Array<ReactElement> | null
-    className?: ComponentProps<'div'>['className']
+    className?: ComponentProps<"div">["className"]
     loaderProps?: ComponentProps<typeof CircularLoader>
     errorProps?: ComponentProps<typeof FormatError>
 }) {
@@ -26,7 +22,7 @@ export function DataWrapper<
         routeDefinition: props.routeDefinition,
         body: props.body,
     })
-    const key = useMemo(() => crypto.randomUUID(), [response.data])
+    const key = useMemo(() => crypto.randomUUID(), [])
 
     if (response.data === undefined) {
         if (response.isPending) {
@@ -34,10 +30,7 @@ export function DataWrapper<
                 <CircularLoader
                     {...props.loaderProps}
                     text={props.loaderProps?.text}
-                    className={cx(
-                        css({}),
-                        props.loaderProps?.className,
-                    )}
+                    className={cx(css({}), props.loaderProps?.className)}
                 />
             )
         }
@@ -52,9 +45,5 @@ export function DataWrapper<
         )
     }
 
-    return (
-        <Fragment key={key}>
-            {props.children(response.data)}
-        </Fragment>
-    )
+    return <Fragment key={key}>{props.children(response.data)}</Fragment>
 }

@@ -1,9 +1,6 @@
 import { css } from "../../../../styled-system/css"
 
-
-export function SectionTitle(props: {
-    children: string
-}) {
+export function SectionTitle(props: { children: string }) {
     return (
         <h1
             className={css({

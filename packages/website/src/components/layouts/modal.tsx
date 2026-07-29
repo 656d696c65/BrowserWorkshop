@@ -1,16 +1,10 @@
-import { ButtonGhostContent } from "@boilerplate/ui";
-import { IconX } from "@tabler/icons-react";
-import { useEffect } from "react";
-import { createPortal } from "react-dom";
-import { css } from "../../../styled-system/css";
+import { ButtonGhostContent } from "@browserworkshop/ui"
+import { IconX } from "@tabler/icons-react"
+import { useEffect } from "react"
+import { createPortal } from "react-dom"
+import { css } from "../../../styled-system/css"
 
-
-export function Modal(props: {
-    isOpen: boolean;
-    onClose: () => void;
-    title?: string;
-    children: React.ReactNode;
-}) {
+export function Modal(props: { isOpen: boolean; onClose: () => void; title?: string; children: React.ReactNode }) {
     useEffect(() => {
         function handleKey(e: KeyboardEvent) {
             if (e.key === "Escape") props.onClose()
@@ -24,8 +18,14 @@ export function Modal(props: {
     }
 
     return createPortal(
+        // biome-ignore lint/a11y/noStaticElementInteractions: modal backdrop overlay
         <div
             id="modal"
+            role="presentation"
+            onClick={props.onClose}
+            onKeyDown={(e) => {
+                if (e.key === "Escape") props.onClose()
+            }}
             className={css({
                 position: "fixed",
                 zIndex: 50,
@@ -39,9 +39,8 @@ export function Modal(props: {
                 padding: "1rem",
                 md: {
                     padding: "4rem",
-                }
+                },
             })}
-            onClick={props.onClose}
         >
             <div
                 className={css({
@@ -59,6 +58,9 @@ export function Modal(props: {
                     alignItems: "start",
                 })}
                 onClick={(e) => e.stopPropagation()}
+                onKeyDown={(e) => {
+                    if (e.key === "Escape") props.onClose()
+                }}
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="modal-title"
@@ -74,10 +76,9 @@ export function Modal(props: {
                         borderBottomColor: "neutral/25",
                     })}
                 >
-                    <span>
-                        {props.title}
-                    </span>
+                    <span>{props.title}</span>
                     <button
+                        type="button"
                         onClick={props.onClose}
                         className={css({
                             display: "flex",
@@ -85,9 +86,7 @@ export function Modal(props: {
                             alignItems: "center",
                         })}
                     >
-                        <ButtonGhostContent
-                            leftIcon={<IconX />}
-                        />
+                        <ButtonGhostContent leftIcon={<IconX />} />
                     </button>
                 </div>
                 <div
@@ -103,6 +102,6 @@ export function Modal(props: {
                 </div>
             </div>
         </div>,
-        document.body
+        document.body,
     )
 }

@@ -1,23 +1,22 @@
-
-import { ButtonGhostContent, ButtonOutlineContent, InputDebounced, InputText, Popover } from "@boilerplate/ui"
+import { ButtonGhostContent, ButtonOutlineContent, InputDebounced, InputText, Popover } from "@browserworkshop/ui"
 import { IconSortAscending, IconSortDescending, IconTableColumn } from "@tabler/icons-react"
 import {
+    type Column,
+    type ColumnDef,
     flexRender,
     getCoreRowModel,
     getExpandedRowModel,
     getFilteredRowModel,
     getSortedRowModel,
-    useReactTable,
-    type ColumnDef,
     type Row,
-    type SortingState
-} from '@tanstack/react-table'
-import { useMemo, useState, type ReactElement } from "react"
+    type SortingState,
+    useReactTable,
+} from "@tanstack/react-table"
+import { type ReactElement, type ReactNode, useMemo, useState } from "react"
 import { css } from "../../../styled-system/css"
 import { CircularLoader } from "../circularLoader"
 import { Section } from "../layouts/section/section"
 import { FormatNull } from "./formatNull"
-
 
 export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     children?: ReactElement | null
@@ -26,7 +25,6 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     columns: Array<ColumnDef<TData>>
     onRowClick?: (context: Row<TData>) => void
 }) {
-
     const memoizedData = useMemo(() => props.data, [props.data])
     const [globalFilter, setGlobalFilter] = useState("")
     const [sorting, setSorting] = useState<SortingState>([])
@@ -36,7 +34,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         data: memoizedData,
         columns: props.columns.map((column) => ({
             ...column,
-            enableMultiSort: true
+            enableMultiSort: true,
         })),
         getRowCanExpand: () => true,
         getCoreRowModel: getCoreRowModel(),
@@ -50,14 +48,12 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         state: {
             globalFilter: globalFilter,
             sorting: sorting,
-            columnVisibility
-        }
+            columnVisibility,
+        },
     })
 
     if (props.isLoading) {
-        return (
-            <CircularLoader />
-        )
+        return <CircularLoader />
     }
     return (
         <Section.Root>
@@ -83,15 +79,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                 >
                     <Popover
                         triggerElement={
-                            <button>
-                                <ButtonOutlineContent
-                                    leftIcon={<IconTableColumn />}
-                                />
+                            <button type="button">
+                                <ButtonOutlineContent leftIcon={<IconTableColumn />} />
                             </button>
                         }
                         position="bottom"
                     >
-                        {(context) => {
+                        {(_context) => {
                             return (
                                 <div
                                     className={css({
@@ -103,39 +97,34 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                         padding: "1rem",
                                     })}
                                 >
-                                    {
-                                        table
-                                            .getAllColumns()
-                                            .filter(col => col.getCanHide())
-                                            .map((column: any) => (
-                                                <label
-                                                    key={column.id}
-                                                    className={css({
-                                                        display: "flex",
-                                                        flexDirection: "row",
-                                                        justifyContent: "start",
-                                                        alignItems: "center",
-                                                        gap: "0.5rem",
-                                                    })}
-                                                >
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={column.getIsVisible()}
-                                                        onChange={column.getToggleVisibilityHandler()}
-                                                        className={css({})}
-                                                    />
-                                                    {column.columnDef.header}
-                                                </label>
-                                            ))
-                                    }
+                                    {table
+                                        .getAllColumns()
+                                        .filter((col) => col.getCanHide())
+                                        .map((column: Column<TData>) => (
+                                            <label
+                                                key={column.id}
+                                                className={css({
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    justifyContent: "start",
+                                                    alignItems: "center",
+                                                    gap: "0.5rem",
+                                                })}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={column.getIsVisible()}
+                                                    onChange={column.getToggleVisibilityHandler()}
+                                                    className={css({})}
+                                                />
+                                                {column.columnDef.header as ReactNode}
+                                            </label>
+                                        ))}
                                 </div>
                             )
                         }}
                     </Popover>
-                    <InputDebounced
-                        value={globalFilter ?? ""}
-                        onChange={(value) => setGlobalFilter(value)}
-                    >
+                    <InputDebounced value={globalFilter ?? ""} onChange={(value) => setGlobalFilter(value)}>
                         <InputText
                             placeholder="Search"
                             className={css.raw({
@@ -177,84 +166,63 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                             borderBottomColor: "neutral/25",
                         })}
                     >
-                        <tr
-                            className={css({})}
-                        >
-                            {
-                                table
-                                    .getFlatHeaders()
-                                    .map((header) => {
-                                        return (
-                                            <th
-                                                key={header.id}
-                                                colSpan={header.colSpan}
-                                                className={css({})}
-                                            >
-                                                <div
-                                                    className={css({
-                                                        display: "flex",
-                                                        justifyContent: "start",
-                                                        alignItems: "center",
-                                                        padding: "0.5rem",
-                                                    })}
-                                                >
-                                                    {
-                                                        (header.column.getCanSort() === false)
-                                                            ? (null)
-                                                            : (
-                                                                <button
-                                                                    onClick={header.column.getToggleSortingHandler()}
-                                                                >
-                                                                    <ButtonGhostContent
-                                                                        leftIcon={{
-                                                                            asc: <IconSortAscending size={16} />,
-                                                                            desc: <IconSortDescending size={16} />,
-                                                                        }[String(header.column.getIsSorted())]}
-                                                                        text={header.column.columnDef.header?.toString()}
-                                                                    />
-                                                                </button>
-                                                            )
-                                                    }
-                                                </div>
-                                            </th>
-                                        )
-                                    })
-                            }
+                        <tr className={css({})}>
+                            {table.getFlatHeaders().map((header) => {
+                                return (
+                                    <th key={header.id} colSpan={header.colSpan} className={css({})}>
+                                        <div
+                                            className={css({
+                                                display: "flex",
+                                                justifyContent: "start",
+                                                alignItems: "center",
+                                                padding: "0.5rem",
+                                            })}
+                                        >
+                                            {header.column.getCanSort() === false ? null : (
+                                                <button type="button" onClick={header.column.getToggleSortingHandler()}>
+                                                    <ButtonGhostContent
+                                                        leftIcon={
+                                                            {
+                                                                asc: <IconSortAscending size={16} />,
+                                                                desc: <IconSortDescending size={16} />,
+                                                            }[String(header.column.getIsSorted())]
+                                                        }
+                                                        text={header.column.columnDef.header?.toString()}
+                                                    />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </th>
+                                )
+                            })}
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            (table.getRowModel().rows.length > 0)
-                                ? (null)
-                                : (
-                                    <tr
+                        {table.getRowModel().rows.length > 0 ? null : (
+                            <tr
+                                className={css({
+                                    // width: "100%",
+                                })}
+                            >
+                                <td className={css({})} colSpan={table.getAllColumns().length}>
+                                    <div
                                         className={css({
-                                            // width: "100%",
+                                            display: "flex",
+                                            justifyContent: "start",
+                                            alignItems: "center",
+                                            padding: "1rem",
                                         })}
                                     >
-                                        <td
-                                            className={css({})}
-                                            colSpan={table.getAllColumns().length}
-                                        >
-                                            <div
-                                                className={css({
-                                                    display: "flex",
-                                                    justifyContent: "start",
-                                                    alignItems: "center",
-                                                    padding: "1rem",
-                                                })}
-                                            >
-                                                <FormatNull
-                                                    text="No data"
-                                                    className={css.raw({
-                                                        // whiteSpace: "nowrap"
-                                                    })}
-                                                />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                        }
+                                        <FormatNull
+                                            text="No data"
+                                            className={css.raw({
+                                                // whiteSpace: "nowrap"
+                                            })}
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        )}
                         {table.getRowModel().rows.map((row) => {
                             return (
                                 <tr
@@ -271,23 +239,21 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             borderBottomColor: "neutral/5",
                                             _last: {
                                                 borderBottomWidth: "0",
-                                            }
+                                            },
                                         },
-                                        (props.onRowClick === undefined)
+                                        props.onRowClick === undefined
                                             ? undefined
                                             : {
-                                                cursor: "pointer",
-                                                _hover: {
-                                                    backgroundColor: "neutral/5"
-                                                }
-                                            }
+                                                  cursor: "pointer",
+                                                  _hover: {
+                                                      backgroundColor: "neutral/5",
+                                                  },
+                                              },
                                     )}
                                 >
-                                    {row.getVisibleCells().map(cell => {
+                                    {row.getVisibleCells().map((cell) => {
                                         return (
-                                            <td
-                                                key={cell.id}
-                                            >
+                                            <td key={cell.id}>
                                                 <div
                                                     className={css({
                                                         display: "flex",
@@ -296,10 +262,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                         padding: "1rem",
                                                     })}
                                                 >
-                                                    {flexRender(
-                                                        cell.column.columnDef.cell,
-                                                        cell.getContext()
-                                                    )}
+                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                 </div>
                                             </td>
                                         )

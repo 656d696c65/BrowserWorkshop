@@ -1,17 +1,15 @@
 import type { InputHTMLAttributes } from "react"
 import type { FieldError } from "react-hook-form"
-import { IMaskInput } from 'react-imask'
+import { IMaskInput } from "react-imask"
 import { css, type Styles } from "../../../styled-system/css"
 
-
-export function InputMoney(props:
-    & Omit<InputHTMLAttributes<HTMLInputElement>, "className" | "value" | "onChange">
-    & {
+export function InputMoney(
+    props: Omit<InputHTMLAttributes<HTMLInputElement>, "className" | "value" | "onChange"> & {
         value?: number | null
         onChange?: (value?: number | null | undefined) => void
         error?: FieldError
         className?: Styles
-    }
+    },
 ) {
     function input(value: number | undefined | null) {
         if (value === null) return ""
@@ -44,11 +42,11 @@ export function InputMoney(props:
                         outlineColor: "neutral/10",
                     },
                 },
-                (props.error === undefined)
+                props.error === undefined
                     ? undefined
                     : {
-                        borderColor: "red"
-                    },
+                          borderColor: "red",
+                      },
                 props.className,
             )}
         >
@@ -86,7 +84,7 @@ export function InputMoney(props:
                     },
                     _focus: {
                         outline: "none",
-                    }
+                    },
                 })}
             />
         </div>

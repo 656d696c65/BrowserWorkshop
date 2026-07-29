@@ -1,7 +1,12 @@
-import { IconAlertHexagon, IconAlertTriangle, IconBulb, IconInfoCircle, IconMessageExclamation } from "@tabler/icons-react"
+import {
+    IconAlertHexagon,
+    IconAlertTriangle,
+    IconBulb,
+    IconInfoCircle,
+    IconMessageExclamation,
+} from "@tabler/icons-react"
 import type { ReactElement } from "react"
 import { sva } from "../../../styled-system/css"
-
 
 export default function Alert(props: {
     type: "note" | "tip" | "important" | "warning" | "caution"
@@ -58,7 +63,7 @@ export default function Alert(props: {
                 justifyContent: "start",
                 alignItems: "start",
                 padding: "1rem",
-            }
+            },
         },
         variants: {
             type: {
@@ -72,7 +77,7 @@ export default function Alert(props: {
                         borderBottomColor: "blue/25",
                     },
                     icon: {
-                        stroke: "blue"
+                        stroke: "blue",
                     },
                     title: {
                         color: "blue",
@@ -88,11 +93,11 @@ export default function Alert(props: {
                         borderBottomColor: "green/25",
                     },
                     icon: {
-                        stroke: "green"
+                        stroke: "green",
                     },
                     title: {
                         color: "green",
-                    }
+                    },
                 },
                 important: {
                     container: {
@@ -104,7 +109,7 @@ export default function Alert(props: {
                         borderBottomColor: "purple/25",
                     },
                     icon: {
-                        stroke: "purple"
+                        stroke: "purple",
                     },
                     title: {
                         color: "purple",
@@ -120,7 +125,7 @@ export default function Alert(props: {
                         borderBottomColor: "orange/25",
                     },
                     icon: {
-                        stroke: "orange"
+                        stroke: "orange",
                     },
                     title: {
                         color: "orange",
@@ -136,7 +141,7 @@ export default function Alert(props: {
                         borderBottomColor: "red/25",
                     },
                     icon: {
-                        stroke: "red"
+                        stroke: "red",
                     },
                     title: {
                         color: "red",
@@ -151,27 +156,12 @@ export default function Alert(props: {
     })
 
     return (
-        <div
-            className={alertSlots.container}
-        >
-            <div
-                className={alertSlots.header}
-            >
-                <Icon
-                    size={24}
-                    className={alertSlots.icon}
-                />
-                <span
-                    className={alertSlots.title}
-                >
-                    {text}
-                </span>
+        <div className={alertSlots.container}>
+            <div className={alertSlots.header}>
+                <Icon size={24} className={alertSlots.icon} />
+                <span className={alertSlots.title}>{text}</span>
             </div>
-            <div
-                className={alertSlots.body}
-            >
-                {props.children}
-            </div>
+            <div className={alertSlots.body}>{props.children}</div>
         </div>
     )
 }

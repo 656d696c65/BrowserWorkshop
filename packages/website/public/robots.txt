@@ -1,6 +1,6 @@
-# robots.txt for https://console.boilerplate.com
+# robots.txt for https://console.browserworkshop.com
 
 User-agent: *
 Allow: /
 
-Sitemap: https://console.boilerplate.com/sitemap.xml
+Sitemap: https://console.browserworkshop.com/sitemap.xml

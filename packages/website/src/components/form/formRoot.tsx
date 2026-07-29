@@ -1,4 +1,4 @@
-import { Button, type ButtonContentProps, ButtonPlainContent } from "@boilerplate/ui"
+import { Button, type ButtonContentProps, ButtonPlainContent } from "@browserworkshop/ui"
 import { valibotResolver } from "@hookform/resolvers/valibot"
 import { type ReactElement, useEffect, useRef } from "react"
 import { type DefaultValues, FormProvider, type UseFormReturn, useForm } from "react-hook-form"
@@ -14,13 +14,17 @@ export function FormRoot<T extends Record<string, unknown>, U extends v.GenericS
     resetOnSubmit?: boolean
     submitOnPressEnterKey?: boolean
     submitButtonProps: ButtonContentProps
-    children: (form: UseFormReturn<v.InferOutput<U>, any, v.InferOutput<U>>) => ReactElement
+    children: (
+        // biome-ignore lint/suspicious/noExplicitAny: react-hook-form requires this type parameter
+        form: UseFormReturn<v.InferOutput<U>, any, v.InferOutput<U>>,
+    ) => ReactElement
 }) {
     const form = useForm<T>({
         mode: "onSubmit",
         criteriaMode: "all",
         shouldFocusError: true,
         defaultValues: props.defaultValues,
+        // biome-ignore lint/suspicious/noExplicitAny: valibotResolver requires this type parameter
         resolver: valibotResolver<T, any, T>(props.schema),
     })
     const submitButtonRef = useRef<HTMLButtonElement>(null)

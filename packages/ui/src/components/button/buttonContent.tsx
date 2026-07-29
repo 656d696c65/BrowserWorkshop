@@ -3,7 +3,6 @@ import { cloneElement, type ReactElement } from "react"
 import { css } from "../../../styled-system/css/css"
 import { cx } from "../../../styled-system/css/cx"
 import { CircularLoader } from "../circularLoader"
-import { useButtonLoading } from "./button"
 
 export type ButtonColor = "neutral" | "danger" | "success"
 
@@ -23,16 +22,15 @@ export function renderButtonContent(
     props: ButtonContentProps,
     classes: Partial<Record<"container" | "leftIcon" | "text" | "rightIcon", string>>,
 ) {
-    const contextLoading = useButtonLoading()
-    const isLoading = props.isLoading ?? contextLoading
+    const isLoading = props.isLoading ?? false
     const isDisabled = props.isDisabled || isLoading
 
     const iconOnlyStyles =
         props.text === undefined
             ? css({
-                width: "auto",
-                justifyContent: "center",
-            })
+                  width: "auto",
+                  justifyContent: "center",
+              })
             : ""
 
     // const activeContainerStyles = props.isActive ? css({ backgroundColor: "neutral/5" }) : ""

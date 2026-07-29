@@ -1,4 +1,16 @@
-import { cloneElement, Fragment, useEffect, useRef, useState, type ButtonHTMLAttributes, type Dispatch, type ReactElement, type ReactNode, type RefAttributes, type SetStateAction } from "react"
+import {
+    type ButtonHTMLAttributes,
+    cloneElement,
+    type Dispatch,
+    Fragment,
+    type ReactElement,
+    type ReactNode,
+    type RefAttributes,
+    type SetStateAction,
+    useEffect,
+    useRef,
+    useState,
+} from "react"
 import { createPortal } from "react-dom"
 import { css, cx, type Styles } from "../../../styled-system/css"
 
@@ -9,21 +21,24 @@ function generatePopoverId() {
     return popoverCount.toString()
 }
 
-
 export function Popover(props: {
     triggerElement: ReactElement<ButtonHTMLAttributes<HTMLButtonElement> & RefAttributes<HTMLButtonElement>>
-    children: ((context: { isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>> }) => ReactNode)
+    children: (context: { isOpen: boolean; setIsOpen: Dispatch<SetStateAction<boolean>> }) => ReactNode
     position: "top" | "bottom" | "left" | "right"
     className?: Styles
 }) {
     const [isOpen, setIsOpen] = useState(false)
-    const [coords, setCoords] = useState({ top: 0, left: 0, })
+    const [coords, setCoords] = useState({ top: 0, left: 0 })
     const popoverRef = useRef<HTMLDivElement>(null)
     const triggerRef = useRef<HTMLButtonElement>(null)
 
     useEffect(() => {
-        if (triggerRef.current === null) { return }
-        if (popoverRef.current === null) { return }
+        if (triggerRef.current === null) {
+            return
+        }
+        if (popoverRef.current === null) {
+            return
+        }
         const rect = triggerRef.current.getBoundingClientRect()
         switch (props.position) {
             case "bottom":
@@ -41,19 +56,19 @@ export function Popover(props: {
             default:
                 break
         }
-    }, [triggerRef, popoverRef, isOpen])
+    }, [props.position])
 
     useEffect(() => {
         function handleClickOutside(e: MouseEvent) {
             if (
-                !popoverRef.current?.contains(e.target as Node)
-                && !triggerRef.current?.contains(e.target as Node)
-                && !(e.target as HTMLElement).closest('[data-ignore-clickoutside]')
+                !popoverRef.current?.contains(e.target as Node) &&
+                !triggerRef.current?.contains(e.target as Node) &&
+                !(e.target as HTMLElement).closest("[data-ignore-clickoutside]")
             ) {
                 setIsOpen(false)
             }
         }
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside)
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [])
 
@@ -63,72 +78,61 @@ export function Popover(props: {
     return (
         <Fragment>
             {/* Render trigger button */}
-            {
-                cloneElement(
-                    props.triggerElement,
-                    {
-                        ref: triggerRef,
-                        type: "button",
-                        onClick: (event) => {
-                            event.preventDefault()
-                            setIsOpen(!isOpen)
-                        },
-                        "aria-haspopup": "true",
-                        "aria-expanded": isOpen
-                    }
-                )
-            }
+            {cloneElement(props.triggerElement, {
+                ref: triggerRef,
+                type: "button",
+                onClick: (event) => {
+                    event.preventDefault()
+                    setIsOpen(!isOpen)
+                },
+                "aria-haspopup": "true",
+                "aria-expanded": isOpen,
+            })}
 
             {/* Modal */}
-            {
-                (isOpen === false)
-                    ? (null)
-                    : (triggerRef.current === null)
-                        ? (null)
-                        : createPortal(
-                            <div
-                                ref={popoverRef}
-                                id={`popover-${generatePopoverId()}`}
-                                className={cx(
-                                    css({
-                                        position: "absolute",
-                                        zIndex: inModal
-                                            ? 51
-                                            : 49,
-                                        width: "fit-content",
-                                        height: "fit-content",
-                                        backgroundColor: "white",
-                                        boxShadow: "md",
-                                        justifyContent: "start",
-                                        alignItems: "start",
-                                        borderWidth: "1px",
-                                        borderColor: "neutral/20",
-                                        borderRadius: "0.5rem",
-                                    }),
-                                    {
-                                        top: css({ marginTop: "-0.25rem" }),
-                                        bottom: css({ marginTop: "0.25rem" }),
-                                        left: css({ marginRight: "0.25rem" }),
-                                        right: css({ marginLeft: "0.25rem" }),
-                                    }[props.position]
-                                )}
-                                style={{
-                                    display: isOpen ? "flex" : "none",
-                                    minWidth: triggerRef.current?.offsetWidth,
-                                    top: coords.top,
-                                    left: coords.left,
-                                }}
-                            >
+            {isOpen === false
+                ? null
+                : triggerRef.current === null
+                  ? null
+                  : createPortal(
+                        <div
+                            ref={popoverRef}
+                            id={`popover-${generatePopoverId()}`}
+                            className={cx(
+                                css({
+                                    position: "absolute",
+                                    zIndex: inModal ? 51 : 49,
+                                    width: "fit-content",
+                                    height: "fit-content",
+                                    backgroundColor: "white",
+                                    boxShadow: "md",
+                                    justifyContent: "start",
+                                    alignItems: "start",
+                                    borderWidth: "1px",
+                                    borderColor: "neutral/20",
+                                    borderRadius: "0.5rem",
+                                }),
                                 {
-                                    props.children({
-                                        isOpen: isOpen,
-                                        setIsOpen: setIsOpen,
-                                    })
-                                }
-                            </div>,
-                            document.body,
-                        )
-            }
+                                    top: css({ marginTop: "-0.25rem" }),
+                                    bottom: css({ marginTop: "0.25rem" }),
+                                    left: css({ marginRight: "0.25rem" }),
+                                    right: css({ marginLeft: "0.25rem" }),
+                                }[props.position],
+                            )}
+                            style={{
+                                display: isOpen ? "flex" : "none",
+                                minWidth: triggerRef.current?.offsetWidth,
+                                top: coords.top,
+                                left: coords.left,
+                            }}
+                        >
+                            {props.children({
+                                isOpen: isOpen,
+                                setIsOpen: setIsOpen,
+                            })}
+                        </div>,
+                        document.body,
+                    )}
         </Fragment>
     )
 }

@@ -1,10 +1,6 @@
 import { css, type Styles } from "../../../styled-system/css"
 
-
-export function FormatError(props: {
-    text: string
-    className?: Styles
-}) {
+export function FormatError(props: { text: string; className?: Styles }) {
     return (
         <span
             className={css(
@@ -13,7 +9,7 @@ export function FormatError(props: {
                     fontWeight: "semibold",
                     color: "red",
                 },
-                props.className
+                props.className,
             )}
         >
             {props.text}

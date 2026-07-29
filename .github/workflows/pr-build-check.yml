@@ -16,11 +16,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install just
-        uses: extractions/setup-just@v2
-
-      - name: Mark scripts executable
-        run: chmod +x .scripts/*.sh
-
-      - name: Run CI build (lint + test + build)
-        run: just build ci
+      - name: Check build and lint
+        run: ./.workflows/build/check.sh

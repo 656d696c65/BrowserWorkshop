@@ -1,7 +1,7 @@
-import { signInRouteDefinition } from "@boilerplate/metadata/routes"
-import { ButtonGhostContent, ButtonOutlineContent, InputPassword, InputText, toast } from "@boilerplate/ui"
+import { ButtonGhostContent, ButtonOutlineContent, InputPassword, InputText, toast } from "@browserworkshop/ui"
 import { IconBook2, IconLogin2, IconUserPlus } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
+import * as v from "valibot"
 import { css } from "../../../styled-system/css/css.js"
 import { LinkButton } from "../../components/button/linkButton.js"
 import { FormError } from "../../components/form/formError.js"
@@ -11,7 +11,7 @@ import { FormLabel } from "../../components/form/formLabel.js"
 import { FormRoot } from "../../components/form/formRoot.js"
 import { Logo } from "../../components/layouts/logo.js"
 import { Separator } from "../../components/layouts/separator.js"
-import { applicationRouter } from "../../routes/applicationRouter.js"
+import { websiteRouter } from "../../routes/websiteRouter.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
 
 export function SignInPage() {
@@ -101,7 +101,7 @@ export function SignInPage() {
                     </div>
 
                     <FormRoot
-                        schema={signInRouteDefinition.schemas.input}
+                        schema={v.object({ email: v.string(), password: v.string() })}
                         defaultValues={{}}
                         submitButtonProps={{
                             leftIcon: <IconLogin2 />,
@@ -111,7 +111,10 @@ export function SignInPage() {
                         submitOnPressEnterKey={true}
                         onSubmit={async (data) => {
                             const response = await getResponseBodyFromAPI({
-                                routeDefinition: signInRouteDefinition,
+                                routeDefinition: {
+                                    path: "/sign-in",
+                                    schemas: { output: v.object({}) as v.ObjectSchema<v.ObjectEntries, undefined> },
+                                },
                                 body: data,
                             })
                             if (response.ok === false) {
@@ -124,7 +127,7 @@ export function SignInPage() {
                         }}
                         onCancel={undefined}
                         onSuccess={() => {
-                            applicationRouter.navigate({
+                            websiteRouter.navigate({
                                 to: "/dashboard",
                                 reloadDocument: true,
                             })
@@ -137,11 +140,7 @@ export function SignInPage() {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel
-                                                label="Email"
-                                                isRequired={false}
-                                                description={undefined}
-                                            />
+                                            <FormLabel label="Email" isRequired={false} description={undefined} />
                                             <InputText value={field.value} onChange={field.onChange} type="email" />
                                             <FormError />
                                         </FormItem>

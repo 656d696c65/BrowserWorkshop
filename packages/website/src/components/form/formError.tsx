@@ -2,16 +2,13 @@ import type { InputHTMLAttributes } from "react"
 import { css, type Styles } from "../../../styled-system/css"
 import { useFormField } from "./useFormField"
 
-
-export function FormError(props:
-    InputHTMLAttributes<HTMLParagraphElement> & {
+export function FormError(
+    props: InputHTMLAttributes<HTMLParagraphElement> & {
         className?: Styles
-    }
+    },
 ) {
     const { error, formMessageId } = useFormField()
-    const body = error
-        ? String(error?.message)
-        : props.children
+    const body = error ? String(error?.message) : props.children
 
     if (!body) return null
     return (
@@ -24,7 +21,7 @@ export function FormError(props:
                     fontSize: "0.75rem",
                     color: "red",
                 },
-                props.className
+                props.className,
             )}
         >
             {body}

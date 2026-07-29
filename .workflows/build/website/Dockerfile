@@ -8,12 +8,10 @@ FROM node:22-alpine AS base
 RUN npm i -g pnpm@10.12.1
 
 # Define build arguments for Vite environment variables
-ARG VITE_API_BASE_URL
 ARG VITE_WEBSITE_BASE_URL
 ARG VERSION=0.0.0-unknown
 
 # Set environment variables during the build process
-ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 ENV VITE_WEBSITE_BASE_URL=$VITE_WEBSITE_BASE_URL
 ENV VERSION=$VERSION
 ENV NODE_OPTIONS="--max-old-space-size=4096"

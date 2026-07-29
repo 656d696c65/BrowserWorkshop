@@ -1,10 +1,6 @@
 import { css } from "../../../../styled-system/css"
 
-
-export function DataViewerLabel(props: {
-    label: string
-    description?: string
-}) {
+export function DataViewerLabel(props: { label: string; description?: string }) {
     return (
         <div
             className={css({
@@ -24,20 +20,16 @@ export function DataViewerLabel(props: {
             >
                 {props.label}
             </span>
-            {
-                (props.description !== undefined)
-                    ? (
-                        <span
-                            className={css({
-                                fontSize: "0.75rem",
-                                color: "neutral/50",
-                            })}
-                        >
-                            {props.description}
-                        </span>
-                    )
-                    : (null)
-            }
+            {props.description !== undefined ? (
+                <span
+                    className={css({
+                        fontSize: "0.75rem",
+                        color: "neutral/50",
+                    })}
+                >
+                    {props.description}
+                </span>
+            ) : null}
         </div>
     )
 }
