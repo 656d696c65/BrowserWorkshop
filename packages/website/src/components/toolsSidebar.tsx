@@ -1,9 +1,15 @@
 import {
     IconArrowsLeftRight,
+    IconBrandGithub,
+    IconHeart,
     IconRuler,
     IconScale,
+    IconTool,
 } from "@tabler/icons-react"
-import { useLocation } from "@tanstack/react-router"
+import {
+    Link,
+    useLocation,
+} from "@tanstack/react-router"
 import {
     type ReactElement,
     useState,
@@ -40,6 +46,31 @@ const toolTree: TreeItem[] = [
         ],
     },
 ]
+
+const linkClass = css({
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "start",
+    alignItems: "center",
+    gap: "0.5rem",
+    padding: "0.5rem",
+    borderRadius: "0.25rem",
+    fontSize: "0.875rem",
+    color: "neutral",
+    textDecoration: "none",
+    _hover: {
+        backgroundColor: "neutral/5",
+    },
+})
+
+const iconContainer = css({
+    width: "1.25rem",
+    height: "1.25rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+})
 
 export function ToolsSidebar() {
     const location = useLocation()
@@ -83,6 +114,43 @@ export function ToolsSidebar() {
                 overflowY: "auto",
             })}
         >
+            <Link
+                to="/"
+                className={css({
+                    display: "flex",
+                    flexDirection:
+                        "row",
+                    justifyContent:
+                        "start",
+                    alignItems:
+                        "center",
+                    gap: "0.5rem",
+                    padding: "0.5rem",
+                    borderRadius:
+                        "0.25rem",
+                    fontSize: "1rem",
+                    fontWeight: "700",
+                    color: "primary",
+                    textDecoration:
+                        "none",
+                    marginBottom:
+                        "0.5rem",
+                    _hover: {
+                        backgroundColor:
+                            "neutral/5",
+                    },
+                })}
+            >
+                <span
+                    className={
+                        iconContainer
+                    }
+                >
+                    <IconTool />
+                </span>
+                BrowserWorkshop
+            </Link>
+
             {toolTree.map((item) => (
                 <div key={item.label}>
                     <button
@@ -121,18 +189,9 @@ export function ToolsSidebar() {
                     >
                         {item.icon && (
                             <span
-                                className={css(
-                                    {
-                                        width: "1.25rem",
-                                        height: "1.25rem",
-                                        display:
-                                            "flex",
-                                        alignItems:
-                                            "center",
-                                        justifyContent:
-                                            "center",
-                                    },
-                                )}
+                                className={
+                                    iconContainer
+                                }
                             >
                                 {
                                     item.icon
@@ -256,6 +315,7 @@ export function ToolsSidebar() {
                                                                     "center",
                                                                 justifyContent:
                                                                     "center",
+                                                                flexShrink: 0,
                                                             },
                                                         )}
                                                     >
@@ -277,6 +337,56 @@ export function ToolsSidebar() {
                         )}
                 </div>
             ))}
+
+            <div
+                className={css({
+                    marginTop: "auto",
+                    display: "flex",
+                    flexDirection:
+                        "column",
+                    gap: "0.125rem",
+                    paddingTop: "1rem",
+                    borderTopWidth:
+                        "1px",
+                    borderTopColor:
+                        "neutral/10",
+                })}
+            >
+                <a
+                    href="https://github.com/barbote/BrowserWorkshop"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={
+                        linkClass
+                    }
+                >
+                    <span
+                        className={
+                            iconContainer
+                        }
+                    >
+                        <IconBrandGithub />
+                    </span>
+                    GitHub
+                </a>
+                <a
+                    href="https://github.com/sponsors/barbote"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={
+                        linkClass
+                    }
+                >
+                    <span
+                        className={
+                            iconContainer
+                        }
+                    >
+                        <IconHeart />
+                    </span>
+                    Donate
+                </a>
+            </div>
         </nav>
     )
 }
