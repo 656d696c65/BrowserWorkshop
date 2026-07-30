@@ -5,13 +5,15 @@ export function HomePage() {
         <div
             className={css({
                 width: "100%",
-                minHeight: "fit-content",
+                minHeight:
+                    "fit-content",
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "start",
                 alignItems: "stretch",
-                backgroundColor: "background",
+                backgroundColor:
+                    "background",
             })}
         >
             <span>home</span>

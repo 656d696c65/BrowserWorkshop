@@ -1,6 +1,6 @@
-# robots.txt for https://console.browserworkshop.com
+# robots.txt for https://browserworkshop.com
 
 User-agent: *
 Allow: /
 
-Sitemap: https://console.browserworkshop.com/sitemap.xml
+Sitemap: https://browserworkshop.com/sitemap.xml

@@ -12,33 +12,23 @@ importers:
         specifier: ^2.5.5
         version: 2.5.5
 
-  packages/tools-conversion:
+  packages/shared:
     dependencies:
-      '@browserworkshop/ui':
-        specifier: workspace:*
-        version: link:../ui
-      react:
-        specifier: 19.2.3
-        version: 19.2.3
-      react-dom:
-        specifier: 19.2.3
-        version: 19.2.3(react@19.2.3)
-    devDependencies:
-      '@types/react':
-        specifier: 19.2.7
-        version: 19.2.7
-      '@types/react-dom':
-        specifier: 19.2.3
-        version: 19.2.3(@types/react@19.2.7)
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-
-  packages/ui:
-    dependencies:
+      '@hookform/resolvers':
+        specifier: 5.2.2
+        version: 5.2.2(react-hook-form@7.69.0(react@19.2.3))
       '@tabler/icons-react':
         specifier: 3.36.0
         version: 3.36.0(react@19.2.3)
+      '@tanstack/react-query':
+        specifier: 5.90.12
+        version: 5.90.12(react@19.2.3)
+      '@tanstack/react-router':
+        specifier: 1.143.3
+        version: 1.143.3(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@tanstack/react-table':
+        specifier: 8.21.3
+        version: 8.21.3(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -51,6 +41,9 @@ importers:
       react-imask:
         specifier: 7.6.1
         version: 7.6.1(react@19.2.3)
+      valibot:
+        specifier: 1.2.0
+        version: 1.2.0(typescript@5.9.3)
     devDependencies:
       '@pandacss/dev':
         specifier: 1.7.1
@@ -65,14 +58,36 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
+  packages/tools-conversion:
+    dependencies:
+      '@browserworkshop/shared':
+        specifier: workspace:*
+        version: link:../shared
+      react:
+        specifier: 19.2.3
+        version: 19.2.3
+      react-dom:
+        specifier: 19.2.3
+        version: 19.2.3(react@19.2.3)
+    devDependencies:
+      '@types/react':
+        specifier: 19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
   packages/website:
     dependencies:
+      '@browserworkshop/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@browserworkshop/tools-conversion':
         specifier: workspace:*
         version: link:../tools-conversion
-      '@browserworkshop/ui':
-        specifier: workspace:*
-        version: link:../ui
       '@hookform/resolvers':
         specifier: 5.2.2
         version: 5.2.2(react-hook-form@7.69.0(react@19.2.3))
@@ -2960,7 +2975,7 @@ snapshots:
       '@vue/shared': 3.5.25
       estree-walker: 2.0.2
       magic-string: 0.30.21
-      postcss: 8.5.6
+      postcss: 8.5.23
       source-map-js: 1.2.1
 
   '@vue/compiler-ssr@3.5.25':
@@ -3052,7 +3067,7 @@ snapshots:
 
   caniuse-api@3.0.0:
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.7
       caniuse-lite: 1.0.30001806
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
@@ -3587,7 +3602,7 @@ snapshots:
 
   postcss-merge-rules@7.0.7(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.7
       caniuse-api: 3.0.0
       cssnano-utils: 5.0.3(postcss@8.5.6)
       postcss: 8.5.6

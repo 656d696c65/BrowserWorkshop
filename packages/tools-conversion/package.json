@@ -6,7 +6,7 @@
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
-        "@browserworkshop/ui": "workspace:*",
+        "@browserworkshop/shared": "workspace:*",
         "react": "19.2.3",
         "react-dom": "19.2.3"
     },

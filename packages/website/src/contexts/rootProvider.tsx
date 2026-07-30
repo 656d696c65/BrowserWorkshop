@@ -1,12 +1,12 @@
-import { ToasterProvider } from "@browserworkshop/ui"
-import { DataProvider } from "./data/dataProvider.js"
+import { ToasterProvider } from "@browserworkshop/shared"
+import { Fragment } from "react/jsx-runtime"
 import { RouterProvider } from "./router/routerProvider.js"
 
 export function RootProvider() {
     return (
-        <DataProvider>
+        <Fragment>
             <RouterProvider />
             <ToasterProvider />
-        </DataProvider>
+        </Fragment>
     )
 }
