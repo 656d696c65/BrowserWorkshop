@@ -11,9 +11,9 @@ services:
         NODE_VERSION: "22.16.0"
         PNPM_VERSION: "10.12.1"
     environment:
-      VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
+      VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT:-5174}"
     ports:
-      - "127.0.0.1:${WEBSITE_HOST_PORT}:5174"
+      - "127.0.0.1:${WEBSITE_HOST_PORT:-5174}:5174"
     volumes:
       # Full application package - bind-mounted from host (including node_modules)
       - ../..:/workspace:cached
