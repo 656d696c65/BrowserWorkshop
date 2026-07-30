@@ -1,6 +1,7 @@
 import {
     IconArrowsLeftRight,
     IconBrandGithub,
+    IconCoin,
     IconHeart,
     IconRuler,
     IconScale,
@@ -42,6 +43,11 @@ const toolTree: TreeItem[] = [
                 label: "Weight",
                 icon: <IconScale />,
                 path: "/tools/conversion/weight",
+            },
+            {
+                label: "Currency",
+                icon: <IconCoin />,
+                path: "/tools/conversion/currency",
             },
         ],
     },

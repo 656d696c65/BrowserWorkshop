@@ -1,8 +1,8 @@
 import {
     IconArrowsLeftRight,
     IconBrandGithub,
+    IconCoin,
     IconHeart,
-    IconRuler,
     IconTool,
 } from "@tabler/icons-react"
 import { Link } from "@tanstack/react-router"
@@ -185,7 +185,8 @@ export function HomePage() {
                             )}
                         >
                             Length ·
-                            Weight
+                            Weight ·
+                            Currency
                         </span>
                     </div>
                     <span
@@ -197,7 +198,7 @@ export function HomePage() {
                             color: "neutral/40",
                         })}
                     >
-                        <IconRuler
+                        <IconCoin
                             size={16}
                         />
                     </span>

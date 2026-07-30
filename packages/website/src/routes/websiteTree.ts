@@ -4,6 +4,7 @@ import { homeLayoutRoute } from "./root/home/homeLayoutRoute.js"
 import { homeRootRoute } from "./root/home/homeRootRoute.js"
 import { conversionLayoutRoute } from "./root/tools/conversion/conversionLayoutRoute.js"
 import { conversionRootRoute } from "./root/tools/conversion/conversionRootRoute.js"
+import { currencyRoute } from "./root/tools/conversion/currency/currencyRoute.js"
 import { lengthRoute } from "./root/tools/conversion/length/lengthRoute.js"
 import { weightRoute } from "./root/tools/conversion/weight/weightRoute.js"
 import { toolsLayoutRoute } from "./root/tools/toolsLayoutRoute.js"
@@ -20,6 +21,7 @@ export const websiteTree: AnyRoute =
             conversionLayoutRoute.addChildren(
                 [
                     conversionRootRoute,
+                    currencyRoute,
                     lengthRoute,
                     weightRoute,
                 ],
