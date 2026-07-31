@@ -371,6 +371,51 @@ export function CurrencyConverter() {
                     {toUnit}
                 </div>
             )}
+
+            <div
+                className={css({
+                    marginTop: "0.5rem",
+                    paddingTop:
+                        "0.75rem",
+                    borderTopWidth:
+                        "1px",
+                    borderTopColor:
+                        "neutral/10",
+                    display: "flex",
+                    flexDirection:
+                        "column",
+                    gap: "0.125rem",
+                })}
+            >
+                <span
+                    className={css({
+                        fontSize:
+                            "0.75rem",
+                        color: "neutral/50",
+                    })}
+                >
+                    Exchange rates by{" "}
+                    <a
+                        href="https://www.frankfurter.app/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className={css({
+                            color: "primary",
+                            textDecoration:
+                                "underline",
+                            _hover: {
+                                textDecoration:
+                                    "none",
+                            },
+                        })}
+                    >
+                        Frankfurter
+                    </a>{" "}
+                    — daily rates from
+                    the European Central
+                    Bank.
+                </span>
+            </div>
         </div>
     )
 }
