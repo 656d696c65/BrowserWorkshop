@@ -23,6 +23,14 @@ export function InputText(
         className?: Styles
     },
 ) {
+    const {
+        className,
+        error,
+        value,
+        onChange,
+        ...rest
+    } = props
+
     function input(
         value:
             | string
@@ -48,68 +56,67 @@ export function InputText(
                     display: "flex",
                     justifyContent:
                         "start",
-                    alignItems: "start",
+                    alignItems:
+                        "center",
                     borderStyle:
                         "solid",
                     borderWidth: "1px",
                     borderColor:
-                        "neutral/25",
+                        "neutral/20",
                     borderRadius:
-                        "0.25rem",
+                        "0.375rem",
+                    transition:
+                        "all 0.15s",
                     _focusWithin: {
                         borderColor:
-                            "neutral/50",
+                            "primary",
+                        outlineWidth:
+                            "2px",
                         outlineStyle:
                             "solid",
-                        outlineWidth:
-                            "1px",
+                        outlineColor:
+                            "primary/20",
                         outlineOffset:
                             "0px",
-                        outlineColor:
-                            "neutral/10",
                     },
                 },
-                props.error ===
-                    undefined
+                error === undefined
                     ? undefined
                     : {
                           borderColor:
                               "red",
                       },
-                props.className,
+                className,
             )}
         >
             <input
-                {...props}
-                type="text"
+                {...rest}
                 className={css({
                     width: "100%",
-                    height: "2rem",
-                    fontSize: "1rem",
+                    height: "2.5rem",
+                    fontSize:
+                        "0.875rem",
                     lineHeight: "1rem",
                     backgroundColor:
                         "transparent",
-                    paddingX: "0.5rem",
-                    paddingY: "0.25rem",
+                    paddingX: "0.75rem",
                     borderRadius:
                         "inherit",
                     _placeholder: {
-                        color: "neutral/25",
+                        color: "neutral/40",
                     },
                     _focus: {
                         outline: "none",
                     },
                 })}
-                value={input(
-                    props.value,
-                )}
+                value={input(value)}
                 onChange={(e) => {
                     if (
-                        props.onChange ===
+                        onChange ===
                         undefined
                     )
                         return
-                    props.onChange(
+                    onChange(
                         output(
                             e
                                 .currentTarget

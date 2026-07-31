@@ -1,40 +1,102 @@
 import {
-    IconArrowsLeftRight,
+    IconBolt,
     IconBrandGithub,
-    IconCoin,
+    IconGift,
     IconHeart,
+    IconShieldCheck,
+    IconSparkles,
     IconTool,
+    IconUserOff,
+    IconWifiOff,
 } from "@tabler/icons-react"
-import { Link } from "@tanstack/react-router"
 import { css } from "../../../styled-system/css/css"
 
-const linkCard = css({
+interface ProsItem {
+    icon: typeof IconShieldCheck
+    title: string
+    description: string
+}
+
+const prosItems: ProsItem[] = [
+    {
+        icon: IconShieldCheck,
+        title: "100% Private",
+        description:
+            "Everything runs in your browser — nothing is uploaded to a server.",
+    },
+    {
+        icon: IconGift,
+        title: "Free forever",
+        description:
+            "Open source, no accounts, no subscriptions, no paywalls.",
+    },
+    {
+        icon: IconUserOff,
+        title: "No account",
+        description:
+            "No sign-up, no ads, no tracking. Just open and use.",
+    },
+    {
+        icon: IconBolt,
+        title: "Instant",
+        description:
+            "Results appear as you type — no waiting, no page reloads.",
+    },
+    {
+        icon: IconWifiOff,
+        title: "Works offline",
+        description:
+            "Installable as a PWA, so tools keep working without a connection.",
+    },
+    {
+        icon: IconSparkles,
+        title: "Always growing",
+        description:
+            "New tools are added regularly to cover everyday tasks.",
+    },
+]
+
+const prosCard = css({
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "start",
-    alignItems: "center",
-    gap: "1rem",
+    alignItems: "start",
+    gap: "0.5rem",
     padding: "1rem",
     borderRadius: "0.5rem",
     borderWidth: "1px",
     borderColor: "neutral/10",
-    textDecoration: "none",
-    color: "neutral",
-    transition: "all 0.15s",
-    _hover: {
-        borderColor: "primary",
-        backgroundColor: "primary/5",
-    },
 })
 
-const iconWrap = css({
-    width: "2rem",
-    height: "2rem",
+const helpSection = css({
     display: "flex",
-    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "start",
+    alignItems: "start",
+    gap: "0.75rem",
+    padding: "1rem",
+    borderRadius: "0.5rem",
+    borderWidth: "1px",
+    borderColor: "neutral/10",
+})
+
+const helpButton = css({
+    display: "flex",
+    flexDirection: "row",
     justifyContent: "center",
-    flexShrink: 0,
-    color: "primary",
+    alignItems: "center",
+    gap: "0.5rem",
+    padding: "0.5rem 1rem",
+    borderRadius: "0.375rem",
+    borderWidth: "1px",
+    borderColor: "neutral/20",
+    fontSize: "0.875rem",
+    fontWeight: "600",
+    color: "neutral",
+    textDecoration: "none",
+    _hover: {
+        backgroundColor: "neutral/5",
+    },
 })
 
 export function HomePage() {
@@ -127,7 +189,7 @@ export function HomePage() {
                     display: "flex",
                     flexDirection:
                         "column",
-                    gap: "0.75rem",
+                    gap: "1rem",
                 })}
             >
                 <h2
@@ -140,158 +202,188 @@ export function HomePage() {
                         margin: 0,
                     })}
                 >
-                    Tools
+                    Why BrowserWorkshop?
                 </h2>
-
-                <Link
-                    to="/tools/conversion/length"
-                    className={linkCard}
+                <div
+                    className={css({
+                        display: "grid",
+                        gridTemplateColumns:
+                            "repeat(auto-fill, minmax(11rem, 1fr))",
+                        gap: "0.75rem",
+                    })}
                 >
-                    <span
-                        className={
-                            iconWrap
-                        }
-                    >
-                        <IconArrowsLeftRight />
-                    </span>
-                    <div
-                        className={css({
-                            display:
-                                "flex",
-                            flexDirection:
-                                "column",
-                            gap: "0.125rem",
-                        })}
-                    >
-                        <span
-                            className={css(
-                                {
-                                    fontSize:
-                                        "0.875rem",
-                                    fontWeight:
-                                        "600",
-                                },
-                            )}
-                        >
-                            Conversion
-                        </span>
-                        <span
-                            className={css(
-                                {
-                                    fontSize:
-                                        "0.75rem",
-                                    color: "neutral/50",
-                                },
-                            )}
-                        >
-                            Length ·
-                            Weight ·
-                            Currency
-                        </span>
-                    </div>
-                    <span
-                        className={css({
-                            marginLeft:
-                                "auto",
-                            fontSize:
-                                "0.75rem",
-                            color: "neutral/40",
-                        })}
-                    >
-                        <IconCoin
-                            size={16}
-                        />
-                    </span>
-                </Link>
+                    {prosItems.map(
+                        (item) => {
+                            const Icon =
+                                item.icon
+                            return (
+                                <div
+                                    key={
+                                        item.title
+                                    }
+                                    className={
+                                        prosCard
+                                    }
+                                >
+                                    <span
+                                        className={css(
+                                            {
+                                                color: "primary",
+                                                display:
+                                                    "flex",
+                                            },
+                                        )}
+                                    >
+                                        <Icon
+                                            size={
+                                                20
+                                            }
+                                        />
+                                    </span>
+                                    <span
+                                        className={css(
+                                            {
+                                                fontSize:
+                                                    "0.875rem",
+                                                fontWeight:
+                                                    "600",
+                                            },
+                                        )}
+                                    >
+                                        {
+                                            item.title
+                                        }
+                                    </span>
+                                    <span
+                                        className={css(
+                                            {
+                                                fontSize:
+                                                    "0.75rem",
+                                                color: "neutral/60",
+                                                lineHeight:
+                                                    "1.4",
+                                            },
+                                        )}
+                                    >
+                                        {
+                                            item.description
+                                        }
+                                    </span>
+                                </div>
+                            )
+                        },
+                    )}
+                </div>
             </div>
 
             <div
                 className={css({
                     display: "flex",
                     flexDirection:
-                        "row",
-                    justifyContent:
-                        "start",
-                    alignItems:
-                        "center",
-                    gap: "0.75rem",
-                    flexWrap: "wrap",
+                        "column",
+                    gap: "1rem",
                 })}
             >
-                <a
-                    href="https://github.com/barbote/BrowserWorkshop"
-                    target="_blank"
-                    rel="noreferrer"
-                    className={css({
-                        display: "flex",
-                        flexDirection:
-                            "row",
-                        justifyContent:
-                            "center",
-                        alignItems:
-                            "center",
-                        gap: "0.5rem",
-                        padding:
-                            "0.5rem 1rem",
-                        borderRadius:
-                            "0.375rem",
-                        borderWidth:
-                            "1px",
-                        borderColor:
-                            "neutral/20",
-                        fontSize:
-                            "0.875rem",
-                        color: "neutral",
-                        textDecoration:
-                            "none",
-                        _hover: {
-                            backgroundColor:
-                                "neutral/5",
-                        },
-                    })}
+                <div
+                    className={
+                        helpSection
+                    }
                 >
-                    <IconBrandGithub
-                        size={18}
-                    />
-                    GitHub
-                </a>
-                <a
-                    href="https://github.com/sponsors/barbote"
-                    target="_blank"
-                    rel="noreferrer"
-                    className={css({
-                        display: "flex",
-                        flexDirection:
-                            "row",
-                        justifyContent:
-                            "center",
-                        alignItems:
-                            "center",
-                        gap: "0.5rem",
-                        padding:
-                            "0.5rem 1rem",
-                        borderRadius:
-                            "0.375rem",
-                        borderWidth:
-                            "1px",
-                        borderColor:
-                            "neutral/20",
-                        fontSize:
-                            "0.875rem",
-                        color: "neutral",
-                        textDecoration:
-                            "none",
-                        _hover: {
-                            backgroundColor:
-                                "neutral/5",
-                        },
-                    })}
+                    <span
+                        className={css({
+                            fontSize:
+                                "0.875rem",
+                            fontWeight:
+                                "600",
+                        })}
+                    >
+                        Open source
+                    </span>
+                    <span
+                        className={css({
+                            fontSize:
+                                "0.75rem",
+                            color: "neutral/60",
+                            lineHeight:
+                                "1.5",
+                        })}
+                    >
+                        BrowserWorkshop
+                        is open source
+                        and free to use.
+                        If you want to
+                        help, you can
+                        report issues,
+                        suggest tools,
+                        or contribute
+                        code on GitHub.
+                    </span>
+                    <a
+                        href="https://github.com/barbote/BrowserWorkshop"
+                        target="_blank"
+                        rel="noreferrer"
+                        className={
+                            helpButton
+                        }
+                    >
+                        <IconBrandGithub
+                            size={18}
+                        />
+                        GitHub
+                    </a>
+                </div>
+
+                <div
+                    className={
+                        helpSection
+                    }
                 >
-                    <IconHeart
-                        size={18}
-                    />
-                    Donate
-                </a>
+                    <span
+                        className={css({
+                            fontSize:
+                                "0.875rem",
+                            fontWeight:
+                                "600",
+                        })}
+                    >
+                        Support the
+                        project
+                    </span>
+                    <span
+                        className={css({
+                            fontSize:
+                                "0.75rem",
+                            color: "neutral/60",
+                            lineHeight:
+                                "1.5",
+                        })}
+                    >
+                        BrowserWorkshop
+                        is built and
+                        maintained in
+                        spare time, with
+                        no ads and no
+                        paywalls. A
+                        small donation
+                        goes a long way
+                        in keeping it
+                        free for
+                        everyone.
+                    </span>
+                    <a
+                        href="https://github.com/sponsors/barbote"
+                        target="_blank"
+                        rel="noreferrer"
+                        className={
+                            helpButton
+                        }
+                    >
+                        <IconHeart
+                            size={18}
+                        />
+                        Donate
+                    </a>
+                </div>
             </div>
         </div>
     )

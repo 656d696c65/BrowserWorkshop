@@ -10,7 +10,8 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@browserworkshop/tools-conversion": "workspace:*",
+        "@browserworkshop/tools-conversion-files-image": "workspace:*",
+        "@browserworkshop/tools-conversion-units": "workspace:*",
         "@browserworkshop/shared": "workspace:*",
         "@hookform/resolvers": "5.2.2",
         "@tabler/icons-react": "3.36.0",

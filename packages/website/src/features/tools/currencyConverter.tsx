@@ -1,11 +1,13 @@
-import { UnitSelect } from "@browserworkshop/shared"
+import {
+    InputText,
+    UnitSelect,
+} from "@browserworkshop/shared"
 import {
     convertCurrency,
     currencyUnits,
     fetchRates,
-} from "@browserworkshop/tools-conversion"
+} from "@browserworkshop/tools-conversion-units"
 import {
-    type ChangeEvent,
     useEffect,
     useMemo,
     useState,
@@ -29,11 +31,16 @@ export function CurrencyConverter() {
     const [error, setError] = useState<
         string | null
     >(null)
+    const [retryKey, setRetryKey] =
+        useState(0)
 
     useEffect(() => {
         let cancelled = false
         setLoading(true)
         setError(null)
+        if (retryKey > 0) {
+            setRates(null)
+        }
 
         fetchRates(fromUnit)
             .then((r) => {
@@ -57,7 +64,7 @@ export function CurrencyConverter() {
         return () => {
             cancelled = true
         }
-    }, [fromUnit])
+    }, [fromUnit, retryKey])
 
     const numValue = parseFloat(value)
     const isValidValue =
@@ -116,7 +123,7 @@ export function CurrencyConverter() {
             })}
         >
             <div>
-                <label
+                <div
                     className={css({
                         display: "flex",
                         flexDirection:
@@ -133,41 +140,18 @@ export function CurrencyConverter() {
                     >
                         Amount
                     </span>
-                    <input
-                        type="number"
+                    <InputText
                         value={value}
-                        onChange={(
-                            e: ChangeEvent<HTMLInputElement>,
-                        ) =>
+                        onChange={(v) =>
                             setValue(
-                                e.target
-                                    .value,
+                                v ?? "",
                             )
                         }
-                        className={css({
-                            width: "100%",
-                            padding:
-                                "0.5rem",
-                            borderRadius:
-                                "0.25rem",
-                            borderWidth:
-                                "1px",
-                            borderColor:
-                                "neutral/20",
-                            fontSize:
-                                "1rem",
-                            backgroundColor:
-                                "transparent",
-                            color: "neutral",
-                            outline:
-                                "none",
-                            _focus: {
-                                borderColor:
-                                    "primary",
-                            },
-                        })}
+                        type="number"
+                        inputMode="decimal"
+                        placeholder="0.00"
                     />
-                </label>
+                </div>
             </div>
 
             <div
@@ -294,6 +278,14 @@ export function CurrencyConverter() {
             {error && (
                 <div
                     className={css({
+                        display: "flex",
+                        flexDirection:
+                            "column",
+                        justifyContent:
+                            "center",
+                        alignItems:
+                            "center",
+                        gap: "0.75rem",
                         padding: "1rem",
                         textAlign:
                             "center",
@@ -302,7 +294,47 @@ export function CurrencyConverter() {
                         color: "red",
                     })}
                 >
-                    {error}
+                    <span>{error}</span>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            setRetryKey(
+                                (k) =>
+                                    k +
+                                    1,
+                            )
+                        }
+                        className={css({
+                            display:
+                                "flex",
+                            flexDirection:
+                                "row",
+                            justifyContent:
+                                "center",
+                            alignItems:
+                                "center",
+                            padding:
+                                "0.375rem 0.75rem",
+                            borderRadius:
+                                "0.375rem",
+                            borderWidth:
+                                "1px",
+                            borderColor:
+                                "red/40",
+                            fontSize:
+                                "0.875rem",
+                            color: "red",
+                            backgroundColor:
+                                "transparent",
+                            cursor: "pointer",
+                            _hover: {
+                                backgroundColor:
+                                    "red/10",
+                            },
+                        })}
+                    >
+                        Retry
+                    </button>
                 </div>
             )}
 

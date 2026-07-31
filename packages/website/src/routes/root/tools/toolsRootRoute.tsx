@@ -12,7 +12,7 @@ export const toolsRootRoute =
         path: "/",
         beforeLoad: () => {
             throw redirect({
-                to: "/tools/conversion",
+                to: "/tools/conversion/units/length",
             })
         },
         component: () => <Outlet />,

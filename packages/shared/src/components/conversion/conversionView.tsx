@@ -77,14 +77,35 @@ export function ConversionView(props: {
                 gap: "1rem",
             })}
         >
-            <InputText
-                value={value}
-                onChange={(v) =>
-                    setValue(v ?? "")
-                }
-                type="number"
-                placeholder="Enter a value"
-            />
+            <div
+                className={css({
+                    display: "flex",
+                    flexDirection:
+                        "column",
+                    gap: "0.25rem",
+                })}
+            >
+                <span
+                    className={css({
+                        fontSize:
+                            "0.875rem",
+                        color: "neutral/60",
+                    })}
+                >
+                    Value
+                </span>
+                <InputText
+                    value={value}
+                    onChange={(v) =>
+                        setValue(
+                            v ?? "",
+                        )
+                    }
+                    type="number"
+                    inputMode="decimal"
+                    placeholder="Enter a value"
+                />
+            </div>
 
             <div
                 className={css({

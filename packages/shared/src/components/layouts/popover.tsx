@@ -55,46 +55,78 @@ export function Popover(props: {
         useRef<HTMLButtonElement>(null)
 
     useEffect(() => {
+        if (!isOpen) return
         if (
-            triggerRef.current === null
-        ) {
-            return
-        }
-        if (
+            triggerRef.current ===
+                null ||
             popoverRef.current === null
         ) {
             return
         }
-        const rect =
-            triggerRef.current.getBoundingClientRect()
-        switch (props.position) {
-            case "bottom":
-                setCoords({
-                    top:
-                        rect.bottom +
-                        window.scrollY,
-                    left:
-                        rect.left +
-                        window.scrollX,
-                })
-                break
-            case "top":
-                setCoords({
-                    top:
-                        rect.top +
-                        window.scrollY -
-                        popoverRef
-                            .current
-                            ?.offsetHeight,
-                    left:
-                        rect.left +
-                        window.scrollX,
-                })
-                break
-            default:
-                break
+
+        function updateCoords() {
+            if (
+                triggerRef.current ===
+                    null ||
+                popoverRef.current ===
+                    null
+            ) {
+                return
+            }
+            const rect =
+                triggerRef.current.getBoundingClientRect()
+            switch (props.position) {
+                case "bottom":
+                    setCoords({
+                        top:
+                            rect.bottom +
+                            window.scrollY,
+                        left:
+                            rect.left +
+                            window.scrollX,
+                    })
+                    break
+                case "top":
+                    setCoords({
+                        top:
+                            rect.top +
+                            window.scrollY -
+                            popoverRef
+                                .current
+                                ?.offsetHeight,
+                        left:
+                            rect.left +
+                            window.scrollX,
+                    })
+                    break
+                default:
+                    break
+            }
         }
-    }, [props.position])
+
+        updateCoords()
+        window.addEventListener(
+            "scroll",
+            updateCoords,
+            true,
+        )
+        window.addEventListener(
+            "resize",
+            updateCoords,
+        )
+
+        return () => {
+            window.removeEventListener(
+                "scroll",
+                updateCoords,
+                true,
+            )
+            window.removeEventListener(
+                "resize",
+                updateCoords,
+            )
+        }
+    }, [isOpen, props.position])
 
     useEffect(() => {
         function handleClickOutside(

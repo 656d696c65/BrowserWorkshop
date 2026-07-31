@@ -1,4 +1,7 @@
-import { IconSelector } from "@tabler/icons-react"
+import {
+    IconCheck,
+    IconSelector,
+} from "@tabler/icons-react"
 import {
     type ComponentProps,
     type InputHTMLAttributes,
@@ -80,13 +83,8 @@ export function InputSelect<
                     type="button"
                     className={css(
                         {
-                            width: "fit-content",
-                            maxWidth:
-                                "100%",
+                            width: "100%",
                             cursor: "pointer",
-                            minWidth:
-                                "fit-content",
-                            height: "fit-content",
                         },
                         props.className,
                     )}
@@ -94,7 +92,7 @@ export function InputSelect<
                     <div
                         className={css({
                             width: "100%",
-                            height: "auto",
+                            height: "2.5rem",
                             display:
                                 "flex",
                             flexDirection:
@@ -102,83 +100,97 @@ export function InputSelect<
                             justifyContent:
                                 "start",
                             alignItems:
-                                "start",
+                                "center",
+                            gap: "0.5rem",
+                            paddingX:
+                                "0.75rem",
                             borderRadius:
-                                "0.25rem",
+                                "0.375rem",
                             borderWidth:
                                 "1px",
+                            borderStyle:
+                                "solid",
                             borderColor:
-                                "neutral/25",
-                            padding:
-                                "0.5rem",
-                            gap: "0.5rem",
+                                "neutral/20",
+                            transition:
+                                "all 0.15s",
                             _hover: {
-                                backgroundColor:
-                                    "neutral/5",
+                                borderColor:
+                                    "primary",
                             },
+                            _focusWithin:
+                                {
+                                    borderColor:
+                                        "primary",
+                                    outlineWidth:
+                                        "2px",
+                                    outlineStyle:
+                                        "solid",
+                                    outlineColor:
+                                        "primary/20",
+                                    outlineOffset:
+                                        "0px",
+                                },
                         })}
                     >
-                        <div
+                        <span
                             className={css(
                                 {
-                                    width: "100%",
+                                    flex: 1,
+                                    minWidth: 0,
+                                    overflow:
+                                        "hidden",
+                                    textOverflow:
+                                        "ellipsis",
+                                    whiteSpace:
+                                        "nowrap",
+                                    textAlign:
+                                        "start",
+                                    fontSize:
+                                        "0.875rem",
+                                    color: "neutral",
+                                },
+                                currentOption?.label ===
+                                    undefined
+                                    ? {
+                                          color: "neutral/40",
+                                          fontStyle:
+                                              "italic",
+                                      }
+                                    : undefined,
+                            )}
+                        >
+                            {currentOption?.label ??
+                                props.placeholder ??
+                                "No option selected"}
+                        </span>
+                        <span
+                            className={css(
+                                {
                                     display:
                                         "flex",
-                                    flexDirection:
-                                        "column",
-                                    justifyContent:
-                                        "start",
                                     alignItems:
-                                        "start",
-                                    gap: "0.25rem",
+                                        "center",
+                                    justifyContent:
+                                        "center",
+                                    flexShrink: 0,
                                 },
                             )}
                         >
-                            <span
-                                className={css(
-                                    {
-                                        fontSize:
-                                            "1rem",
-                                        fontWeight:
-                                            "300",
-                                        lineHeight:
-                                            "1rem",
-                                        whiteSpace:
-                                            "nowrap",
-                                        color: "neutral",
-                                    },
-                                    currentOption?.label ===
-                                        undefined
-                                        ? {
-                                              color: "neutral/25",
-                                              fontStyle:
-                                                  "italic",
-                                          }
-                                        : undefined,
-                                )}
-                            >
-                                {currentOption?.label ??
-                                    props.placeholder ??
-                                    "No option selected"}
-                            </span>
-                        </div>
-                        <div>
                             <IconSelector
                                 className={css(
                                     {
                                         strokeWidth:
                                             "1.5px",
+                                        width: "1rem",
+                                        height: "1rem",
                                         minWidth:
                                             "1rem",
-                                        width: "1rem",
-                                        minHeight:
-                                            "1rem",
-                                        height: "1rem",
-                                        color: "neutral",
+                                        color: "neutral/50",
                                     },
                                 )}
                             />
-                        </div>
+                        </span>
                     </div>
                 </button>
             }
@@ -201,6 +213,9 @@ export function InputSelect<
                                 "start",
                             alignItems:
                                 "start",
+                            gap: "0.125rem",
+                            padding:
+                                "0.25rem",
                         })}
                     >
                         {props.options ===
@@ -263,6 +278,8 @@ export function InputSelect<
                                             className={css(
                                                 {
                                                     width: "100%",
+                                                    padding:
+                                                        "0.125rem 0",
                                                 },
                                             )}
                                         >
@@ -272,6 +289,14 @@ export function InputSelect<
                                                 }
                                                 text={
                                                     option.label
+                                                }
+                                                isCurrent={
+                                                    isSelected
+                                                }
+                                                rightIcon={
+                                                    isSelected ? (
+                                                        <IconCheck />
+                                                    ) : undefined
                                                 }
                                                 className={css(
                                                     {

@@ -11,7 +11,7 @@ export const conversionRootRoute =
         path: "/",
         beforeLoad: () => {
             throw redirect({
-                to: "/tools/conversion/length",
+                to: "/tools/conversion/units/length",
             })
         },
         component: () => null,
