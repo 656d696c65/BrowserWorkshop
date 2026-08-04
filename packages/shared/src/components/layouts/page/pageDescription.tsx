@@ -1,8 +1,6 @@
 import { css } from "../../../../../website/styled-system/css"
 
-export function PageDescription(props: {
-    children: string
-}) {
+export function PageDescription(props: { children: string }) {
     return (
         <span
             className={css({

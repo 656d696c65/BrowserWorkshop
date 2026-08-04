@@ -1,8 +1,6 @@
 import { css } from "../../../../../website/styled-system/css"
 
-export function PageTitle(props: {
-    children: string
-}) {
+export function PageTitle(props: { children: string }) {
     return (
         <h1
             className={css({

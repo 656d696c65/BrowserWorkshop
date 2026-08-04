@@ -1,5 +1,6 @@
 {
     "name": "browserworkshop",
+    "version": "0.2.0",
     "private": true,
     "scripts": {
         "dev": "pnpm --recursive --if-present --parallel --filter='./packages/**' run dev",

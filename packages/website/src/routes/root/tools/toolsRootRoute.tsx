@@ -1,19 +1,13 @@
-import {
-    createRoute,
-    Outlet,
-    redirect,
-} from "@tanstack/react-router"
+import { createRoute, Outlet, redirect } from "@tanstack/react-router"
 import { toolsLayoutRoute } from "./toolsLayoutRoute"
 
-export const toolsRootRoute =
-    createRoute({
-        getParentRoute: () =>
-            toolsLayoutRoute,
-        path: "/",
-        beforeLoad: () => {
-            throw redirect({
-                to: "/tools/conversion/units/length",
-            })
-        },
-        component: () => <Outlet />,
-    })
+export const toolsRootRoute = createRoute({
+    getParentRoute: () => toolsLayoutRoute,
+    path: "/",
+    beforeLoad: () => {
+        throw redirect({
+            to: "/tools/convert/units",
+        })
+    },
+    component: () => <Outlet />,
+})

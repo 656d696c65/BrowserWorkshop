@@ -1,2 +1,1 @@
-export const cookiePrefix =
-    "browserworkshop"
+export const cookiePrefix = "browserworkshop"

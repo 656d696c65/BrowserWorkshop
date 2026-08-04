@@ -8,18 +8,14 @@ export function LinkContent(props: {
 }) {
     return (
         <span
-            aria-disabled={
-                props.disabled
-            }
+            aria-disabled={props.disabled}
             className={cx(
                 css({
                     color: "primary",
-                    textDecoration:
-                        "underline",
+                    textDecoration: "underline",
                     cursor: "pointer",
                     _hover: {
-                        textDecoration:
-                            "none",
+                        textDecoration: "none",
                     },
                     _disabled: {
                         opacity: 0.3,

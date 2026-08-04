@@ -6,9 +6,7 @@ type ToastViewportProps = {
     children: ReactNode
 }
 
-export function ToastViewport(
-    props: ToastViewportProps,
-) {
+export function ToastViewport(props: ToastViewportProps) {
     return createPortal(
         <div
             className={css({

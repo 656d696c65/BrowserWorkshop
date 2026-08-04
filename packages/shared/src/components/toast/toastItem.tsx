@@ -12,17 +12,11 @@ import type {
     ToasterToast,
     ToastVariant,
 } from "../../contexts/toasts/useToast.ts"
-import {
-    Button,
-    ButtonGhostContent,
-} from "../button"
+import { Button, ButtonGhostContent } from "../button"
 
 const toastIcons: Record<
     ToastVariant,
-    ReactElement<
-        IconProps &
-            React.RefAttributes<Icon>
-    >
+    ReactElement<IconProps & React.RefAttributes<Icon>>
 > = {
     error: (
         <IconAlertTriangle
@@ -62,9 +56,7 @@ export function ToastItem(props: {
     toast: ToasterToast
     onDismiss: (id: string) => void
 }) {
-    const variant =
-        props.toast.variant ??
-        "information"
+    const variant = props.toast.variant ?? "information"
 
     return (
         <div
@@ -72,21 +64,15 @@ export function ToastItem(props: {
                 pointerEvents: "auto",
                 position: "relative",
                 width: "100%",
-                display: props.toast
-                    .open
-                    ? "flex"
-                    : "none",
+                display: props.toast.open ? "flex" : "none",
                 alignItems: "center",
-                justifyContent:
-                    "flex-start",
+                justifyContent: "flex-start",
                 gap: "0.5rem",
                 padding: "1rem",
                 borderRadius: "lg",
                 border: "1px solid",
-                borderColor:
-                    "neutral/10",
-                backgroundColor:
-                    "white",
+                borderColor: "neutral/10",
+                backgroundColor: "white",
                 boxShadow: "sm",
             })}
         >
@@ -94,10 +80,8 @@ export function ToastItem(props: {
                 className={css({
                     width: "fit-content",
                     display: "flex",
-                    justifyContent:
-                        "center",
-                    alignItems:
-                        "center",
+                    justifyContent: "center",
+                    alignItems: "center",
                     gap: "0.5rem",
                     padding: "0.5rem",
                 })}
@@ -107,59 +91,39 @@ export function ToastItem(props: {
             <div
                 className={css({
                     display: "flex",
-                    flexDirection:
-                        "column",
-                    justifyContent:
-                        "center",
-                    alignItems:
-                        "flex-start",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "flex-start",
                     flex: "1",
                     minWidth: "0",
                 })}
             >
-                {props.toast.title ===
-                undefined ? null : (
+                {props.toast.title === undefined ? null : (
                     <span
                         className={css({
-                            fontSize:
-                                "md",
+                            fontSize: "md",
                             color: "neutral",
                         })}
                     >
-                        {
-                            props.toast
-                                .title
-                        }
+                        {props.toast.title}
                     </span>
                 )}
-                {props.toast
-                    .description ===
-                undefined ? null : (
+                {props.toast.description === undefined ? null : (
                     <span
                         className={css({
-                            fontSize:
-                                "sm",
+                            fontSize: "sm",
                             color: "neutral/50",
                         })}
                     >
-                        {
-                            props.toast
-                                .description
-                        }
+                        {props.toast.description}
                     </span>
                 )}
             </div>
             <Button
                 title="Fermer"
-                onClick={() =>
-                    props.onDismiss(
-                        props.toast.id,
-                    )
-                }
+                onClick={() => props.onDismiss(props.toast.id)}
             >
-                <ButtonGhostContent
-                    leftIcon={<IconX />}
-                />
+                <ButtonGhostContent leftIcon={<IconX />} />
             </Button>
         </div>
     )

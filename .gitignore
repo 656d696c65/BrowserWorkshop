@@ -6,6 +6,8 @@ dist
 .env
 .npmrc
 .old
+.local
+.vscode
 
 .pnpm-store
 

@@ -1,9 +1,6 @@
 import { sva } from "../../../styled-system/css/sva"
 import { useButtonLoading } from "./button"
-import {
-    type ButtonContentProps,
-    renderButtonContent,
-} from "./buttonContent"
+import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const plainRecipe = sva({
     slots: [
@@ -25,29 +22,23 @@ const plainRecipe = sva({
             cursor: "pointer",
             transition: "all",
             transitionDuration: "200ms",
-            transitionTimingFunction:
-                "ease-in-out",
+            transitionTimingFunction: "ease-in-out",
             border: "1px solid",
-            borderColor:
-                "rgba(31, 35, 40, 0.15)",
+            borderColor: "rgba(31, 35, 40, 0.15)",
             backgroundColor: "primary",
             color: "white",
             stroke: "white",
-            boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.25)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25)",
             _hover: {
-                backgroundColor:
-                    "primary/90",
+                backgroundColor: "primary/90",
             },
             _active: {
-                backgroundColor:
-                    "primary/90",
+                backgroundColor: "primary/90",
             },
             _disabled: {
                 opacity: 0.5,
                 cursor: "not-allowed",
-                backgroundColor:
-                    "primary",
+                backgroundColor: "primary",
             },
         },
         leftIcon: {
@@ -80,17 +71,13 @@ const plainRecipe = sva({
             neutral: {},
             danger: {
                 container: {
-                    backgroundColor:
-                        "error",
-                    borderColor:
-                        "rgba(31, 35, 40, 0.15)",
+                    backgroundColor: "error",
+                    borderColor: "rgba(31, 35, 40, 0.15)",
                     _hover: {
-                        backgroundColor:
-                            "#c2341f",
+                        backgroundColor: "#c2341f",
                     },
                     _active: {
-                        backgroundColor:
-                            "#a22015",
+                        backgroundColor: "#a22015",
                     },
                 },
             },
@@ -102,20 +89,15 @@ const plainRecipe = sva({
     },
 })
 
-export function ButtonPlainContent(
-    props: ButtonContentProps,
-) {
+export function ButtonPlainContent(props: ButtonContentProps) {
     const classes = plainRecipe({
         color: props.color ?? "neutral",
     })
-    const contextLoading =
-        useButtonLoading()
+    const contextLoading = useButtonLoading()
     return renderButtonContent(
         {
             ...props,
-            isLoading:
-                props.isLoading ??
-                contextLoading,
+            isLoading: props.isLoading ?? contextLoading,
         },
         classes,
     )

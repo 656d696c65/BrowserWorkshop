@@ -1,9 +1,6 @@
 import { sva } from "../../../styled-system/css/sva"
 import { useButtonLoading } from "./button"
-import {
-    type ButtonContentProps,
-    renderButtonContent,
-} from "./buttonContent"
+import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const ghostRecipe = sva({
     slots: [
@@ -25,20 +22,16 @@ const ghostRecipe = sva({
             cursor: "pointer",
             transition: "all",
             transitionDuration: "200ms",
-            transitionTimingFunction:
-                "ease-in-out",
+            transitionTimingFunction: "ease-in-out",
             borderWidth: "1px",
             borderStyle: "solid",
             borderColor: "transparent",
-            backgroundColor:
-                "transparent",
+            backgroundColor: "transparent",
             _hover: {
-                backgroundColor:
-                    "neutral/5",
+                backgroundColor: "neutral/5",
             },
             _current: {
-                backgroundColor:
-                    "primary/5",
+                backgroundColor: "primary/5",
             },
             _disabled: {
                 opacity: 0.5,
@@ -90,11 +83,9 @@ const ghostRecipe = sva({
             danger: {
                 container: {
                     _hover: {
-                        backgroundColor:
-                            "error/5",
+                        backgroundColor: "error/5",
                         _disabled: {
-                            backgroundColor:
-                                "transparent",
+                            backgroundColor: "transparent",
                         },
                     },
                 },
@@ -114,8 +105,7 @@ const ghostRecipe = sva({
             success: {
                 container: {
                     _hover: {
-                        backgroundColor:
-                            "success/8",
+                        backgroundColor: "success/8",
                     },
                 },
                 leftIcon: {
@@ -138,20 +128,15 @@ const ghostRecipe = sva({
     },
 })
 
-export function ButtonGhostContent(
-    props: ButtonContentProps,
-) {
+export function ButtonGhostContent(props: ButtonContentProps) {
     const classes = ghostRecipe({
         color: props.color ?? "neutral",
     })
-    const contextLoading =
-        useButtonLoading()
+    const contextLoading = useButtonLoading()
     return renderButtonContent(
         {
             ...props,
-            isLoading:
-                props.isLoading ??
-                contextLoading,
+            isLoading: props.isLoading ?? contextLoading,
         },
         classes,
     )

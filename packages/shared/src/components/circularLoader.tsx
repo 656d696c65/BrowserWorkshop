@@ -12,10 +12,8 @@ export function CircularLoader(props: {
             className={cx(
                 css({
                     display: "flex",
-                    justifyContent:
-                        "flex-start",
-                    alignItems:
-                        "center",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
                     gap: "0.5rem",
                     stroke: "neutral/50",
                 }),
@@ -25,8 +23,7 @@ export function CircularLoader(props: {
             <IconLoader2
                 size={props.size ?? 16}
                 className={css({
-                    animation:
-                        "spin 1s linear infinite",
+                    animation: "spin 1s linear infinite",
                     stroke: "inherit",
                 })}
             />
@@ -34,13 +31,10 @@ export function CircularLoader(props: {
                 <span
                     className={css({
                         fontSize: "xs",
-                        lineHeight:
-                            "none",
+                        lineHeight: "none",
                         color: "neutral/25",
-                        fontStyle:
-                            "italic",
-                        whiteSpace:
-                            "nowrap",
+                        fontStyle: "italic",
+                        whiteSpace: "nowrap",
                     })}
                 >
                     {props.text}

@@ -9,19 +9,13 @@ import type { ReactElement } from "react"
 import { sva } from "../../../../website/styled-system/css"
 
 export default function Alert(props: {
-    type:
-        | "note"
-        | "tip"
-        | "important"
-        | "warning"
-        | "caution"
+    type: "note" | "tip" | "important" | "warning" | "caution"
     children: ReactElement
 }) {
     const Icon = {
         note: IconInfoCircle,
         tip: IconBulb,
-        important:
-            IconMessageExclamation,
+        important: IconMessageExclamation,
         warning: IconAlertTriangle,
         caution: IconAlertHexagon,
     }[props.type]
@@ -60,8 +54,7 @@ export default function Alert(props: {
                 justifyContent: "start",
                 alignItems: "start",
                 gap: "0.5rem",
-                borderBottomWidth:
-                    "1px",
+                borderBottomWidth: "1px",
                 padding: "1rem",
             },
             icon: {
@@ -82,16 +75,12 @@ export default function Alert(props: {
             type: {
                 note: {
                     container: {
-                        borderColor:
-                            "blue/25",
-                        borderLeftColor:
-                            "blue/75",
+                        borderColor: "blue/25",
+                        borderLeftColor: "blue/75",
                     },
                     header: {
-                        backgroundColor:
-                            "blue/5",
-                        borderBottomColor:
-                            "blue/25",
+                        backgroundColor: "blue/5",
+                        borderBottomColor: "blue/25",
                     },
                     icon: {
                         stroke: "blue",
@@ -102,16 +91,12 @@ export default function Alert(props: {
                 },
                 tip: {
                     container: {
-                        borderColor:
-                            "green/25",
-                        borderLeftColor:
-                            "green/75",
+                        borderColor: "green/25",
+                        borderLeftColor: "green/75",
                     },
                     header: {
-                        backgroundColor:
-                            "green/5",
-                        borderBottomColor:
-                            "green/25",
+                        backgroundColor: "green/5",
+                        borderBottomColor: "green/25",
                     },
                     icon: {
                         stroke: "green",
@@ -122,16 +107,12 @@ export default function Alert(props: {
                 },
                 important: {
                     container: {
-                        borderColor:
-                            "purple/25",
-                        borderLeftColor:
-                            "purple/75",
+                        borderColor: "purple/25",
+                        borderLeftColor: "purple/75",
                     },
                     header: {
-                        backgroundColor:
-                            "purple/5",
-                        borderBottomColor:
-                            "purple/25",
+                        backgroundColor: "purple/5",
+                        borderBottomColor: "purple/25",
                     },
                     icon: {
                         stroke: "purple",
@@ -142,16 +123,12 @@ export default function Alert(props: {
                 },
                 warning: {
                     container: {
-                        borderColor:
-                            "orange/25",
-                        borderLeftColor:
-                            "orange/75",
+                        borderColor: "orange/25",
+                        borderLeftColor: "orange/75",
                     },
                     header: {
-                        backgroundColor:
-                            "orange/5",
-                        borderBottomColor:
-                            "orange/25",
+                        backgroundColor: "orange/5",
+                        borderBottomColor: "orange/25",
                     },
                     icon: {
                         stroke: "orange",
@@ -162,16 +139,12 @@ export default function Alert(props: {
                 },
                 caution: {
                     container: {
-                        borderColor:
-                            "red/25",
-                        borderLeftColor:
-                            "red/75",
+                        borderColor: "red/25",
+                        borderLeftColor: "red/75",
                     },
                     header: {
-                        backgroundColor:
-                            "red/5",
-                        borderBottomColor:
-                            "red/25",
+                        backgroundColor: "red/5",
+                        borderBottomColor: "red/25",
                     },
                     icon: {
                         stroke: "red",
@@ -189,37 +162,12 @@ export default function Alert(props: {
     })
 
     return (
-        <div
-            className={
-                alertSlots.container
-            }
-        >
-            <div
-                className={
-                    alertSlots.header
-                }
-            >
-                <Icon
-                    size={24}
-                    className={
-                        alertSlots.icon
-                    }
-                />
-                <span
-                    className={
-                        alertSlots.title
-                    }
-                >
-                    {text}
-                </span>
+        <div className={alertSlots.container}>
+            <div className={alertSlots.header}>
+                <Icon size={24} className={alertSlots.icon} />
+                <span className={alertSlots.title}>{text}</span>
             </div>
-            <div
-                className={
-                    alertSlots.body
-                }
-            >
-                {props.children}
-            </div>
+            <div className={alertSlots.body}>{props.children}</div>
         </div>
     )
 }

@@ -1,4 +1,6 @@
 import {
+    Button,
+    ButtonContent,
     InputText,
     UnitSelect,
 } from "@browserworkshop/shared"
@@ -6,33 +8,18 @@ import {
     convertCurrency,
     currencyUnits,
     fetchRates,
-} from "@browserworkshop/tools-conversion-units"
-import {
-    useEffect,
-    useMemo,
-    useState,
-} from "react"
+} from "@browserworkshop/tools-convert-units"
+import { useEffect, useMemo, useState } from "react"
 import { css } from "../../../styled-system/css"
 
 export function CurrencyConverter() {
-    const [value, setValue] =
-        useState<string>("1")
-    const [fromUnit, setFromUnit] =
-        useState<string>("USD")
-    const [toUnit, setToUnit] =
-        useState<string>("EUR")
-    const [rates, setRates] =
-        useState<Record<
-            string,
-            number
-        > | null>(null)
-    const [loading, setLoading] =
-        useState(true)
-    const [error, setError] = useState<
-        string | null
-    >(null)
-    const [retryKey, setRetryKey] =
-        useState(0)
+    const [value, setValue] = useState<string>("1")
+    const [fromUnit, setFromUnit] = useState<string>("USD")
+    const [toUnit, setToUnit] = useState<string>("EUR")
+    const [rates, setRates] = useState<Record<string, number> | null>(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+    const [retryKey, setRetryKey] = useState(0)
 
     useEffect(() => {
         let cancelled = false
@@ -52,8 +39,7 @@ export function CurrencyConverter() {
             .catch((e: unknown) => {
                 if (!cancelled) {
                     setError(
-                        e instanceof
-                            Error
+                        e instanceof Error
                             ? e.message
                             : "Failed to fetch rates",
                     )
@@ -64,22 +50,17 @@ export function CurrencyConverter() {
         return () => {
             cancelled = true
         }
-    }, [fromUnit, retryKey])
+    }, [
+        fromUnit,
+        retryKey,
+    ])
 
     const numValue = parseFloat(value)
-    const isValidValue =
-        !Number.isNaN(numValue) &&
-        value !== ""
+    const isValidValue = !Number.isNaN(numValue) && value !== ""
 
     const result = useMemo(() => {
-        if (!isValidValue || !rates)
-            return null
-        return convertCurrency(
-            numValue,
-            fromUnit,
-            toUnit,
-            rates,
-        )
+        if (!isValidValue || !rates) return null
+        return convertCurrency(numValue, fromUnit, toUnit, rates)
     }, [
         numValue,
         fromUnit,
@@ -89,22 +70,12 @@ export function CurrencyConverter() {
     ])
 
     const fromLabel =
-        currencyUnits.find(
-            (u) => u.id === fromUnit,
-        )?.label ?? fromUnit
-    const toLabel =
-        currencyUnits.find(
-            (u) => u.id === toUnit,
-        )?.label ?? toUnit
+        currencyUnits.find((u) => u.id === fromUnit)?.label ?? fromUnit
+    const toLabel = currencyUnits.find((u) => u.id === toUnit)?.label ?? toUnit
 
-    function formatResult(
-        v: number,
-    ): string {
+    function formatResult(v: number): string {
         const fixed = v.toFixed(10)
-        return fixed.replace(
-            /\.?0+$/,
-            "",
-        )
+        return fixed.replace(/\.?0+$/, "")
     }
 
     function swap() {
@@ -126,15 +97,13 @@ export function CurrencyConverter() {
                 <div
                     className={css({
                         display: "flex",
-                        flexDirection:
-                            "column",
+                        flexDirection: "column",
                         gap: "0.25rem",
                     })}
                 >
                     <span
                         className={css({
-                            fontSize:
-                                "0.875rem",
+                            fontSize: "0.875rem",
                             color: "neutral/60",
                         })}
                     >
@@ -142,11 +111,7 @@ export function CurrencyConverter() {
                     </span>
                     <InputText
                         value={value}
-                        onChange={(v) =>
-                            setValue(
-                                v ?? "",
-                            )
-                        }
+                        onChange={(v) => setValue(v ?? "")}
                         type="number"
                         inputMode="decimal"
                         placeholder="0.00"
@@ -157,8 +122,7 @@ export function CurrencyConverter() {
             <div
                 className={css({
                     display: "flex",
-                    flexDirection:
-                        "row",
+                    flexDirection: "row",
                     gap: "0.5rem",
                     alignItems: "end",
                 })}
@@ -167,93 +131,68 @@ export function CurrencyConverter() {
                     className={css({
                         flex: 1,
                         display: "flex",
-                        flexDirection:
-                            "column",
+                        flexDirection: "column",
                         gap: "0.25rem",
                     })}
                 >
                     <span
                         className={css({
-                            fontSize:
-                                "0.875rem",
+                            fontSize: "0.875rem",
                             color: "neutral/60",
                         })}
                     >
                         From
                     </span>
                     <UnitSelect
-                        units={
-                            currencyUnits
-                        }
+                        units={currencyUnits}
                         value={fromUnit}
-                        onChange={(v) =>
-                            setFromUnit(
-                                v ??
-                                    "USD",
-                            )
-                        }
+                        onChange={(v) => setFromUnit(v ?? "USD")}
                         placeholder="Select currency"
                     />
                 </div>
 
-                <button
+                <Button
                     type="button"
                     onClick={swap}
                     className={css({
-                        padding:
-                            "0.5rem",
-                        borderRadius:
-                            "0.25rem",
+                        padding: "0.5rem",
+                        borderRadius: "0.25rem",
                         cursor: "pointer",
-                        fontSize:
-                            "0.875rem",
+                        fontSize: "0.875rem",
                         color: "neutral/50",
-                        backgroundColor:
-                            "transparent",
-                        borderWidth:
-                            "1px",
-                        borderColor:
-                            "neutral/20",
+                        backgroundColor: "transparent",
+                        borderWidth: "1px",
+                        borderColor: "neutral/20",
                         _hover: {
-                            backgroundColor:
-                                "neutral/5",
+                            backgroundColor: "neutral/5",
                             color: "neutral",
                         },
                     })}
                     aria-label="Swap currencies"
                 >
-                    ⇄
-                </button>
+                    <ButtonContent>⇄</ButtonContent>
+                </Button>
 
                 <div
                     className={css({
                         flex: 1,
                         display: "flex",
-                        flexDirection:
-                            "column",
+                        flexDirection: "column",
                         gap: "0.25rem",
                     })}
                 >
                     <span
                         className={css({
-                            fontSize:
-                                "0.875rem",
+                            fontSize: "0.875rem",
                             color: "neutral/60",
                         })}
                     >
                         To
                     </span>
                     <UnitSelect
-                        units={
-                            currencyUnits
-                        }
+                        units={currencyUnits}
                         value={toUnit}
-                        onChange={(v) =>
-                            setToUnit(
-                                v ??
-                                    "EUR",
-                            )
-                        }
+                        onChange={(v) => setToUnit(v ?? "EUR")}
                         placeholder="Select currency"
                     />
                 </div>
@@ -263,15 +202,12 @@ export function CurrencyConverter() {
                 <div
                     className={css({
                         padding: "1rem",
-                        textAlign:
-                            "center",
-                        fontSize:
-                            "0.875rem",
+                        textAlign: "center",
+                        fontSize: "0.875rem",
                         color: "neutral/50",
                     })}
                 >
-                    Loading exchange
-                    rates...
+                    Loading exchange rates...
                 </div>
             )}
 
@@ -279,127 +215,80 @@ export function CurrencyConverter() {
                 <div
                     className={css({
                         display: "flex",
-                        flexDirection:
-                            "column",
-                        justifyContent:
-                            "center",
-                        alignItems:
-                            "center",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
                         gap: "0.75rem",
                         padding: "1rem",
-                        textAlign:
-                            "center",
-                        fontSize:
-                            "0.875rem",
+                        textAlign: "center",
+                        fontSize: "0.875rem",
                         color: "red",
                     })}
                 >
                     <span>{error}</span>
-                    <button
+                    <Button
                         type="button"
-                        onClick={() =>
-                            setRetryKey(
-                                (k) =>
-                                    k +
-                                    1,
-                            )
-                        }
+                        onClick={() => setRetryKey((k) => k + 1)}
                         className={css({
-                            display:
-                                "flex",
-                            flexDirection:
-                                "row",
-                            justifyContent:
-                                "center",
-                            alignItems:
-                                "center",
-                            padding:
-                                "0.375rem 0.75rem",
-                            borderRadius:
-                                "0.375rem",
-                            borderWidth:
-                                "1px",
-                            borderColor:
-                                "red/40",
-                            fontSize:
-                                "0.875rem",
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            padding: "0.375rem 0.75rem",
+                            borderRadius: "0.375rem",
+                            borderWidth: "1px",
+                            borderColor: "red/40",
+                            fontSize: "0.875rem",
                             color: "red",
-                            backgroundColor:
-                                "transparent",
+                            backgroundColor: "transparent",
                             cursor: "pointer",
                             _hover: {
-                                backgroundColor:
-                                    "red/10",
+                                backgroundColor: "red/10",
                             },
                         })}
                     >
-                        Retry
-                    </button>
+                        <ButtonContent>Retry</ButtonContent>
+                    </Button>
                 </div>
             )}
 
-            {!loading &&
-                !error &&
-                result !== null && (
-                    <div
+            {!loading && !error && result !== null && (
+                <div
+                    className={css({
+                        marginTop: "0.5rem",
+                        padding: "1rem",
+                        borderRadius: "0.5rem",
+                        backgroundColor: "neutral/5",
+                        borderWidth: "1px",
+                        borderColor: "neutral/10",
+                        fontSize: "1.25rem",
+                        fontWeight: "500",
+                        textAlign: "center",
+                        color: "neutral",
+                    })}
+                >
+                    {value} {fromLabel} ={" "}
+                    <span
                         className={css({
-                            marginTop:
-                                "0.5rem",
-                            padding:
-                                "1rem",
-                            borderRadius:
-                                "0.5rem",
-                            backgroundColor:
-                                "neutral/5",
-                            borderWidth:
-                                "1px",
-                            borderColor:
-                                "neutral/10",
-                            fontSize:
-                                "1.25rem",
-                            fontWeight:
-                                "500",
-                            textAlign:
-                                "center",
-                            color: "neutral",
+                            color: "primary",
                         })}
                     >
-                        {value}{" "}
-                        {fromLabel} ={" "}
-                        <span
-                            className={css(
-                                {
-                                    color: "primary",
-                                },
-                            )}
-                        >
-                            {formatResult(
-                                result,
-                            )}
-                        </span>{" "}
-                        {toLabel}
-                    </div>
-                )}
+                        {formatResult(result)}
+                    </span>{" "}
+                    {toLabel}
+                </div>
+            )}
 
             {rates && !loading && (
                 <div
                     className={css({
-                        fontSize:
-                            "0.75rem",
+                        fontSize: "0.75rem",
                         color: "neutral/40",
-                        textAlign:
-                            "center",
+                        textAlign: "center",
                     })}
                 >
                     1 {fromUnit} ={" "}
-                    {formatResult(
-                        convertCurrency(
-                            1,
-                            fromUnit,
-                            toUnit,
-                            rates,
-                        ),
-                    )}{" "}
+                    {formatResult(convertCurrency(1, fromUnit, toUnit, rates))}{" "}
                     {toUnit}
                 </div>
             )}
@@ -407,22 +296,17 @@ export function CurrencyConverter() {
             <div
                 className={css({
                     marginTop: "0.5rem",
-                    paddingTop:
-                        "0.75rem",
-                    borderTopWidth:
-                        "1px",
-                    borderTopColor:
-                        "neutral/10",
+                    paddingTop: "0.75rem",
+                    borderTopWidth: "1px",
+                    borderTopColor: "neutral/10",
                     display: "flex",
-                    flexDirection:
-                        "column",
+                    flexDirection: "column",
                     gap: "0.125rem",
                 })}
             >
                 <span
                     className={css({
-                        fontSize:
-                            "0.75rem",
+                        fontSize: "0.75rem",
                         color: "neutral/50",
                     })}
                 >
@@ -433,19 +317,15 @@ export function CurrencyConverter() {
                         rel="noreferrer"
                         className={css({
                             color: "primary",
-                            textDecoration:
-                                "underline",
+                            textDecoration: "underline",
                             _hover: {
-                                textDecoration:
-                                    "none",
+                                textDecoration: "none",
                             },
                         })}
                     >
                         Frankfurter
                     </a>{" "}
-                    — daily rates from
-                    the European Central
-                    Bank.
+                    — daily rates from the European Central Bank.
                 </span>
             </div>
         </div>

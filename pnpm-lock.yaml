@@ -46,7 +46,7 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
-  packages/tools-conversion-files-image:
+  packages/tools-convert-files-image:
     dependencies:
       '@browserworkshop/shared':
         specifier: workspace:*
@@ -74,7 +74,35 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
-  packages/tools-conversion-units:
+  packages/tools-convert-files-text:
+    dependencies:
+      '@browserworkshop/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@tabler/icons-react':
+        specifier: 3.36.0
+        version: 3.36.0(react@19.2.3)
+      react:
+        specifier: 19.2.3
+        version: 19.2.3
+      react-dom:
+        specifier: 19.2.3
+        version: 19.2.3(react@19.2.3)
+    devDependencies:
+      '@pandacss/dev':
+        specifier: 1.7.1
+        version: 1.7.1(typescript@5.9.3)
+      '@types/react':
+        specifier: 19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
+  packages/tools-convert-units:
     dependencies:
       '@browserworkshop/shared':
         specifier: workspace:*
@@ -101,12 +129,15 @@ importers:
       '@browserworkshop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@browserworkshop/tools-conversion-files-image':
+      '@browserworkshop/tools-convert-files-image':
         specifier: workspace:*
-        version: link:../tools-conversion-files-image
-      '@browserworkshop/tools-conversion-units':
+        version: link:../tools-convert-files-image
+      '@browserworkshop/tools-convert-files-text':
         specifier: workspace:*
-        version: link:../tools-conversion-units
+        version: link:../tools-convert-files-text
+      '@browserworkshop/tools-convert-units':
+        specifier: workspace:*
+        version: link:../tools-convert-units
       '@hookform/resolvers':
         specifier: 5.2.2
         version: 5.2.2(react-hook-form@7.69.0(react@19.2.3))

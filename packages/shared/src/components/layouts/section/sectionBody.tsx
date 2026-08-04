@@ -1,8 +1,5 @@
 import type { ReactNode } from "react"
-import {
-    css,
-    type Styles,
-} from "../../../../../website/styled-system/css"
+import { css, type Styles } from "../../../../../website/styled-system/css"
 
 export function SectionBody(props: {
     children: ReactNode
@@ -14,13 +11,10 @@ export function SectionBody(props: {
                 {
                     width: "100%",
                     maxWidth: "100%",
-                    minHeight:
-                        "fit-content",
+                    minHeight: "fit-content",
                     display: "flex",
-                    flexDirection:
-                        "column",
-                    justifyContent:
-                        "start",
+                    flexDirection: "column",
+                    justifyContent: "start",
                     alignItems: "start",
                     gap: "1rem",
                     padding: "1rem",

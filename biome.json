@@ -27,14 +27,15 @@
         "formatWithErrors": false,
         "indentStyle": "space",
         "indentWidth": 4,
-        "lineWidth": 40,
+        "lineWidth": 80,
         "lineEnding": "lf"
     },
     "javascript": {
         "formatter": {
             "quoteStyle": "double",
             "semicolons": "asNeeded",
-            "trailingCommas": "all"
+            "trailingCommas": "all",
+            "expand": "always"
         }
     },
     "files": {

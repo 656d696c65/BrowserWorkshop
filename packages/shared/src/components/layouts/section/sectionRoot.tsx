@@ -1,9 +1,7 @@
 import type { ReactNode } from "react"
 import { css } from "../../../../../website/styled-system/css"
 
-export function SectionRoot(props: {
-    children: ReactNode
-}) {
+export function SectionRoot(props: { children: ReactNode }) {
     return (
         <div
             className={css({
@@ -15,8 +13,7 @@ export function SectionRoot(props: {
                 borderRadius: "0.5rem",
                 borderWidth: "1px",
                 borderStyle: "dashed",
-                borderColor:
-                    "neutral/25",
+                borderColor: "neutral/25",
             })}
         >
             {props.children}

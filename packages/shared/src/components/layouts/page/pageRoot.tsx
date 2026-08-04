@@ -1,9 +1,7 @@
 import type { ReactNode } from "react"
 import { css } from "../../../../../website/styled-system/css"
 
-export function PageRoot(props: {
-    children: ReactNode
-}) {
+export function PageRoot(props: { children: ReactNode }) {
     return (
         <div
             className={css({

@@ -1432,7 +1432,7 @@ const tokens = {
     "variable": "var(--colors-slate-950)"
   },
   "colors.primary": {
-    "value": "#00816D",
+    "value": "#FF9800",
     "variable": "var(--colors-primary)"
   },
   "colors.neutral.50": {

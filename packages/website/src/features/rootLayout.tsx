@@ -9,7 +9,8 @@ export function RootLayout() {
                 display: "flex",
                 flexDirection: "row",
                 width: "100%",
-                minHeight: "100dvh",
+                height: "100dvh",
+                overflow: "hidden",
             })}
         >
             <ToolsSidebar />
@@ -17,7 +18,7 @@ export function RootLayout() {
                 className={css({
                     flex: 1,
                     padding: "2rem",
-                    overflow: "auto",
+                    overflowY: "auto",
                 })}
             >
                 <Outlet />

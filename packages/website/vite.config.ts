@@ -1,8 +1,5 @@
 import react from "@vitejs/plugin-react"
-import {
-    defineConfig,
-    type Plugin,
-} from "vite"
+import { defineConfig, type Plugin } from "vite"
 
 /**
  * Panda CSS generates `.mjs` files in styled-system/, but TypeScript's
@@ -16,19 +13,12 @@ function styledSystemMjsResolve(): Plugin {
         resolveId(source, importer) {
             if (
                 importer &&
-                source.includes(
-                    "styled-system",
-                ) &&
+                source.includes("styled-system") &&
                 source.endsWith(".js")
             ) {
-                return this.resolve(
-                    source.replace(
-                        /\.js$/,
-                        ".mjs",
-                    ),
-                    importer,
-                    { skipSelf: true },
-                )
+                return this.resolve(source.replace(/\.js$/, ".mjs"), importer, {
+                    skipSelf: true,
+                })
             }
         },
     }
@@ -41,7 +31,9 @@ export default defineConfig({
         styledSystemMjsResolve(),
     ],
     resolve: {
-        conditions: ["source"],
+        conditions: [
+            "source",
+        ],
     },
     assetsInclude: [
         "**/*.md",
@@ -59,20 +51,11 @@ export default defineConfig({
         outDir: "./build",
         rollupOptions: {
             output: {
-                entryFileNames:
-                    "[name].[hash].js",
-                chunkFileNames:
-                    "[name].[hash].js",
-                assetFileNames:
-                    "[name].[hash].[ext]",
-                manualChunks(
-                    id: string,
-                ) {
-                    if (
-                        id.includes(
-                            "react-dom",
-                        )
-                    ) {
+                entryFileNames: "[name].[hash].js",
+                chunkFileNames: "[name].[hash].js",
+                assetFileNames: "[name].[hash].[ext]",
+                manualChunks(id: string) {
+                    if (id.includes("react-dom")) {
                         return "react-dom"
                     }
                 },

@@ -14,17 +14,14 @@ import { sleep } from "../../utilities/sleep.ts"
 /**
  * Context for passing loading state from Button to ButtonContent
  */
-const ButtonLoadingContext =
-    createContext<boolean>(false)
+const ButtonLoadingContext = createContext<boolean>(false)
 
 /**
  * Hook to access the loading state from a parent Button
  * Returns false if not within a Button context
  */
 export function useButtonLoading() {
-    return useContext(
-        ButtonLoadingContext,
-    )
+    return useContext(ButtonLoadingContext)
 }
 
 /**
@@ -38,25 +35,18 @@ export function useButtonLoading() {
  * </Button>
  */
 export function Button(
-    props: Omit<
-        ComponentProps<"button">,
-        "children" | "disabled"
-    > & {
+    props: Omit<ComponentProps<"button">, "children" | "disabled"> & {
         hasLoader?: boolean
         children: ReactNode
         title?: string
         isDisabled?: boolean
     },
 ) {
-    const [isLoading, setIsLoading] =
-        useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const isLoadingRef = useRef(false)
 
-    async function handleClick(
-        e: MouseEvent<HTMLButtonElement>,
-    ) {
-        if (props.onClick === undefined)
-            return
+    async function handleClick(e: MouseEvent<HTMLButtonElement>) {
+        if (props.onClick === undefined) return
         if (!props.hasLoader) {
             props.onClick(e)
             return
@@ -88,46 +78,33 @@ export function Button(
     } = props
 
     return (
-        <ButtonLoadingContext.Provider
-            value={isLoading}
-        >
+        <ButtonLoadingContext.Provider value={isLoading}>
             <button
                 {...buttonProps}
                 ref={props.ref}
                 className={cx(
                     css({
                         display: "flex",
-                        justifyContent:
-                            "flex-start",
-                        alignItems:
-                            "center",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
                         cursor: "pointer",
                         width: "fit-content",
-                        maxWidth:
-                            "100%",
+                        maxWidth: "100%",
                         height: "fit-content",
-                        maxHeight:
-                            "fit-content",
+                        maxHeight: "fit-content",
                         bg: "transparent",
                         border: "none",
                         padding: "0",
                         _disabled: {
                             cursor: "not-allowed",
-                            pointerEvents:
-                                "none",
+                            pointerEvents: "none",
                         },
                     }),
                     className,
                 )}
                 onClick={handleClick}
-                type={
-                    props.type ??
-                    "button"
-                }
-                disabled={
-                    props.isDisabled ||
-                    isLoading
-                }
+                type={props.type ?? "button"}
+                disabled={props.isDisabled || isLoading}
                 title={title}
             >
                 {children}

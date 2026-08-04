@@ -8,6 +8,7 @@ export default defineConfig({
     include: [
         "./src/**/*.{js,jsx,ts,tsx}",
         "./pages/**/*.{js,jsx,ts,tsx}",
+        "../shared/src/**/*.{js,jsx,ts,tsx}",
     ],
 
     // Files to exclude
@@ -19,7 +20,7 @@ export default defineConfig({
             tokens: {
                 colors: {
                     primary: {
-                        value: "#00816D",
+                        value: "#FF9800",
                     },
                     neutral: {
                         value: "#0C1821",
@@ -69,8 +70,7 @@ export default defineConfig({
             color: "neutral",
             margin: 0,
             padding: 0,
-            fontFamily:
-                "Monaspace, monospace",
+            fontFamily: "Monaspace, monospace",
             fontWeight: "300",
         },
     },

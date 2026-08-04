@@ -3,6 +3,8 @@ import { IconX } from "@tabler/icons-react"
 import { useEffect } from "react"
 import { createPortal } from "react-dom"
 import { css } from "../../../../website/styled-system/css"
+import { Button } from "../button/button"
+import { ButtonContent } from "../button/buttonContent"
 
 export function Modal(props: {
     isOpen: boolean
@@ -11,23 +13,15 @@ export function Modal(props: {
     children: React.ReactNode
 }) {
     useEffect(() => {
-        function handleKey(
-            e: KeyboardEvent,
-        ) {
-            if (e.key === "Escape")
-                props.onClose()
+        function handleKey(e: KeyboardEvent) {
+            if (e.key === "Escape") props.onClose()
         }
-        if (props.isOpen)
-            document.addEventListener(
-                "keydown",
-                handleKey,
-            )
-        return () =>
-            document.removeEventListener(
-                "keydown",
-                handleKey,
-            )
-    }, [props.isOpen, props.onClose])
+        if (props.isOpen) document.addEventListener("keydown", handleKey)
+        return () => document.removeEventListener("keydown", handleKey)
+    }, [
+        props.isOpen,
+        props.onClose,
+    ])
 
     if (props.isOpen === false) {
         return null
@@ -40,8 +34,7 @@ export function Modal(props: {
             role="presentation"
             onClick={props.onClose}
             onKeyDown={(e) => {
-                if (e.key === "Escape")
-                    props.onClose()
+                if (e.key === "Escape") props.onClose()
             }}
             className={css({
                 position: "fixed",
@@ -49,11 +42,9 @@ export function Modal(props: {
                 inset: 0,
                 width: "100%",
                 height: "100%",
-                backgroundColor:
-                    "neutral/25",
+                backgroundColor: "neutral/25",
                 display: "flex",
-                justifyContent:
-                    "center",
+                justifyContent: "center",
                 alignItems: "center",
                 padding: "1rem",
                 md: {
@@ -64,32 +55,21 @@ export function Modal(props: {
             <div
                 className={css({
                     borderWidth: "1px",
-                    borderColor:
-                        "neutral/20",
-                    borderRadius:
-                        "0.5rem",
+                    borderColor: "neutral/20",
+                    borderRadius: "0.5rem",
                     boxShadow: "lg",
                     width: "100%",
                     maxWidth: "lg",
                     maxHeight: "100%",
-                    backgroundColor:
-                        "white",
+                    backgroundColor: "white",
                     display: "flex",
-                    flexDirection:
-                        "column",
-                    justifyContent:
-                        "start",
+                    flexDirection: "column",
+                    justifyContent: "start",
                     alignItems: "start",
                 })}
-                onClick={(e) =>
-                    e.stopPropagation()
-                }
+                onClick={(e) => e.stopPropagation()}
                 onKeyDown={(e) => {
-                    if (
-                        e.key ===
-                        "Escape"
-                    )
-                        props.onClose()
+                    if (e.key === "Escape") props.onClose()
                 }}
                 role="dialog"
                 aria-modal="true"
@@ -99,49 +79,33 @@ export function Modal(props: {
                     className={css({
                         width: "100%",
                         display: "flex",
-                        justifyContent:
-                            "space-between",
-                        alignItems:
-                            "start",
+                        justifyContent: "space-between",
+                        alignItems: "start",
                         padding: "1rem",
-                        borderBottomWidth:
-                            "1px",
-                        borderBottomColor:
-                            "neutral/25",
+                        borderBottomWidth: "1px",
+                        borderBottomColor: "neutral/25",
                     })}
                 >
-                    <span>
-                        {props.title}
-                    </span>
-                    <button
-                        type="button"
-                        onClick={
-                            props.onClose
-                        }
+                    <span>{props.title}</span>
+                    <Button
+                        onClick={props.onClose}
                         className={css({
-                            display:
-                                "flex",
-                            justifyContent:
-                                "center",
-                            alignItems:
-                                "center",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
                         })}
                     >
-                        <ButtonGhostContent
-                            leftIcon={
-                                <IconX />
-                            }
-                        />
-                    </button>
+                        <ButtonContent>
+                            <ButtonGhostContent leftIcon={<IconX />} />
+                        </ButtonContent>
+                    </Button>
                 </div>
                 <div
                     className={css({
                         width: "100%",
                         display: "flex",
-                        justifyContent:
-                            "start",
-                        alignItems:
-                            "start",
+                        justifyContent: "start",
+                        alignItems: "start",
                         padding: "1rem",
                     })}
                 >

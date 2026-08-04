@@ -1,31 +1,18 @@
 import { Link } from "@tanstack/react-router"
-import type {
-    ComponentProps,
-    MouseEventHandler,
-    ReactNode,
-} from "react"
+import type { ComponentProps, MouseEventHandler, ReactNode } from "react"
 import { css } from "../../styled-system/css/css"
 import { cx } from "../../styled-system/css/cx"
-import type {
-    ValidParams,
-    ValidRoutes,
-} from "../routes/websiteRouter"
+import type { ValidParams, ValidRoutes } from "../routes/websiteRouter"
 
 export function LinkButton(props: {
     to: ValidRoutes
     params?: ValidParams
-    target?: ComponentProps<
-        typeof Link
-    >["target"]
-    rel?: ComponentProps<
-        typeof Link
-    >["rel"]
+    target?: ComponentProps<typeof Link>["target"]
+    rel?: ComponentProps<typeof Link>["rel"]
     title?: string
     disabled?: boolean
     className?: string
-    onClick?:
-        | MouseEventHandler<HTMLAnchorElement>
-        | undefined
+    onClick?: MouseEventHandler<HTMLAnchorElement> | undefined
     children: ReactNode
 }) {
     return (
@@ -40,15 +27,12 @@ export function LinkButton(props: {
                     maxWidth: "100%",
                     _disabled: {
                         cursor: "not-allowed",
-                        pointerEvents:
-                            "none",
+                        pointerEvents: "none",
                     },
                 }),
                 props.className,
             )}
-            aria-disabled={
-                props.disabled
-            }
+            aria-disabled={props.disabled}
             title={props.title}
             onClick={props.onClick}
         >

@@ -1,30 +1,16 @@
-import {
-    cloneElement,
-    type ReactElement,
-    useEffect,
-    useState,
-} from "react"
+import { cloneElement, type ReactElement, useEffect, useState } from "react"
 
-export function InputDebounced<
-    T,
->(props: {
+export function InputDebounced<T>(props: {
     value: T
     initialValue?: T
     onChange: (value: T) => void
     debounce?: number
     children: ReactElement<any>
 }) {
-    const [value, setValue] =
-        useState<T>(
-            props.initialValue ||
-                props.value,
-        )
+    const [value, setValue] = useState<T>(props.initialValue || props.value)
 
     useEffect(() => {
-        setValue(
-            props.initialValue ||
-                props.value,
-        )
+        setValue(props.initialValue || props.value)
     }, [
         props.initialValue,
         props.value,
@@ -35,13 +21,10 @@ export function InputDebounced<
             () => {
                 props.onChange(value)
             },
-            !props.debounce
-                ? 300
-                : props.debounce,
+            !props.debounce ? 300 : props.debounce,
         )
 
-        return () =>
-            clearTimeout(timeout)
+        return () => clearTimeout(timeout)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
@@ -50,12 +33,8 @@ export function InputDebounced<
         props.debounce,
     ])
 
-    return cloneElement(
-        props.children,
-        {
-            value: value,
-            onChange: (value: T) =>
-                setValue(value),
-        },
-    )
+    return cloneElement(props.children, {
+        value: value,
+        onChange: (value: T) => setValue(value),
+    })
 }
