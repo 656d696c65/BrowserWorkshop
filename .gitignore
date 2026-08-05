@@ -12,4 +12,6 @@ dist
 .pnpm-store
 
 *.tsbuildinfo
-.devpackages/shared/styled-system/styles.css
+.dev
+
+packages/shared/styled-system/styles.css
