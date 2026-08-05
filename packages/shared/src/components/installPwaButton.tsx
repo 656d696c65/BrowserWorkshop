@@ -1,6 +1,6 @@
 import { IconDeviceMobile } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
-import { css, cx } from "../../styled-system/css"
+import { css, cx } from "@browserworkshop/shared/styled-system/css"
 import { Button } from "./button/button"
 import { ButtonContent } from "./button/buttonContent"
 

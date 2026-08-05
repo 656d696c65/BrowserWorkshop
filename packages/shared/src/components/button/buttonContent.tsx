@@ -1,7 +1,7 @@
 import type { Icon, IconProps } from "@tabler/icons-react"
 import { cloneElement, type ReactElement, type ReactNode } from "react"
-import { css } from "../../../styled-system/css/css"
-import { cx } from "../../../styled-system/css/cx"
+import { css } from "@browserworkshop/shared/styled-system/css"
+import { cx } from "@browserworkshop/shared/styled-system/css"
 import { CircularLoader } from "../circularLoader"
 import { useButtonLoading } from "./button"
 

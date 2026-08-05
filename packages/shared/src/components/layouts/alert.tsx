@@ -6,7 +6,7 @@ import {
     IconMessageExclamation,
 } from "@tabler/icons-react"
 import type { ReactElement } from "react"
-import { sva } from "../../../../website/styled-system/css"
+import { sva } from "@browserworkshop/shared/styled-system/css"
 
 export default function Alert(props: {
     type: "note" | "tip" | "important" | "warning" | "caution"

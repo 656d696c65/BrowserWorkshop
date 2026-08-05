@@ -10,7 +10,7 @@ import {
     fetchRates,
 } from "@browserworkshop/tools-convert-units"
 import { useEffect, useMemo, useState } from "react"
-import { css } from "../../../styled-system/css"
+import { css } from "@browserworkshop/shared/styled-system/css"
 
 export function CurrencyConverter() {
     const [value, setValue] = useState<string>("1")

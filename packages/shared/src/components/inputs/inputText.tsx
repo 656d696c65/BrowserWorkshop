@@ -1,6 +1,6 @@
 import type { InputHTMLAttributes } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, type Styles } from "../../../styled-system/css"
+import { css, type Styles } from "@browserworkshop/shared/styled-system/css"
 
 export function InputText(
     props: Omit<

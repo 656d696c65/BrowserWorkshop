@@ -2,7 +2,7 @@ import { ButtonGhostContent } from "@browserworkshop/shared"
 import { IconX } from "@tabler/icons-react"
 import { useEffect } from "react"
 import { createPortal } from "react-dom"
-import { css } from "../../../../website/styled-system/css"
+import { css } from "@browserworkshop/shared/styled-system/css"
 import { Button } from "../button/button"
 import { ButtonContent } from "../button/buttonContent"
 

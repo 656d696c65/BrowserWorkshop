@@ -23,7 +23,7 @@ import {
     useRef,
     useState,
 } from "react"
-import { css, cx } from "../../styled-system/css"
+import { css, cx } from "@browserworkshop/shared/styled-system/css"
 import type { ValidRoutes } from "../routes/websiteRouter"
 import { LinkButton } from "./linkButton"
 

@@ -25,6 +25,21 @@
         ".": {
             "source": "./src/index.ts",
             "default": "./src/index.ts"
+        },
+        "./styled-system/css": {
+            "source": "./styled-system/css/index.mjs",
+            "types": "./styled-system/css/index.d.ts",
+            "default": "./styled-system/css/index.mjs"
+        },
+        "./styled-system/tokens": {
+            "source": "./styled-system/tokens/index.mjs",
+            "types": "./styled-system/tokens/index.d.ts",
+            "default": "./styled-system/tokens/index.mjs"
+        },
+        "./styled-system/patterns": {
+            "source": "./styled-system/patterns/index.mjs",
+            "types": "./styled-system/patterns/index.d.ts",
+            "default": "./styled-system/patterns/index.mjs"
         }
     }
 }

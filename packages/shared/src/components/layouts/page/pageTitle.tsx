@@ -1,4 +1,4 @@
-import { css } from "../../../../../website/styled-system/css"
+import { css } from "@browserworkshop/shared/styled-system/css"
 
 export function PageTitle(props: { children: string }) {
     return (

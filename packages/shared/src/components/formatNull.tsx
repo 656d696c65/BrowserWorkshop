@@ -1,4 +1,4 @@
-import { css, type Styles } from "../../styled-system/css"
+import { css, type Styles } from "@browserworkshop/shared/styled-system/css"
 
 export function FormatNull(props: { text?: string; className?: Styles }) {
     return (

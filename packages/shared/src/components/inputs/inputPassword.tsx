@@ -1,7 +1,7 @@
 import { IconEye, IconEyeClosed } from "@tabler/icons-react"
 import { type InputHTMLAttributes, useState } from "react"
 import type { FieldError } from "react-hook-form"
-import { css } from "../../../styled-system/css"
+import { css } from "@browserworkshop/shared/styled-system/css"
 import { Button } from "../button/button"
 import { ButtonContent } from "../button/buttonContent"
 

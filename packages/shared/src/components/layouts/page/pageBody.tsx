@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { css } from "../../../../../website/styled-system/css"
+import { css } from "@browserworkshop/shared/styled-system/css"
 
 export function PageBody(props: { children: ReactNode }) {
     return (

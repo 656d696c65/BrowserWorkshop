@@ -1,4 +1,4 @@
-import { css, cx } from "../../../styled-system/css"
+import { css, cx } from "@browserworkshop/shared/styled-system/css"
 
 export function Logo(props: { className?: string }) {
     return (
@@ -20,23 +20,57 @@ export function Logo(props: { className?: string }) {
             <title>BrowserWorkshop</title>
             <g
                 id="layer2"
-                // style="display:inline;fill:#000000;fill-opacity:1;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+                style={{
+                    display: "inline",
+                    fill: "#000000",
+                    fillOpacity: 1,
+                    stroke: "currentColor",
+                    strokeWidth: 2,
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                }}
                 transform="translate(-64.588821,-129.21789)"
             >
                 <path
                     id="path42"
-                    // style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.11667;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+                    style={{
+                        opacity: 1,
+                        fill: "#000000",
+                        fillOpacity: 1,
+                        stroke: "#000000",
+                        strokeWidth: 2.11667,
+                        strokeLinecap: "square",
+                        strokeLinejoin: "miter",
+                        strokeDasharray: "none",
+                        strokeOpacity: 1,
+                    }}
                     d="m 65.647156,138.78171 5.852872,10.13737 H 86.476375 V 134.28741 H 65.647156 Z"
                 />
                 <path
                     id="path1"
-                    // style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.11667;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+                    style={{
+                        fill: "#000000",
+                        fillOpacity: 1,
+                        stroke: "#000000",
+                        strokeWidth: 2.11667,
+                        strokeLinecap: "square",
+                        strokeLinejoin: "miter",
+                        strokeDasharray: "none",
+                        strokeOpacity: 1,
+                    }}
                     d="m 138.48889,184.98578 v -7.54061 l -7.2507,-7.21974 h -9.7558 m 17.0065,14.76035 -57.070756,-0.0847 -0.07572,-7.61633 7.250702,-7.21974 h 9.755799 v -9.78676 l -11.87247,-9.30545 v -20.69659 h 65.619415 l 4.97361,4.97359 -10.40949,18.02976 h -15.90246 l -9.27513,9.27513 v 7.67074"
                 />
             </g>
             <g id="layer1" transform="translate(-64.588821,-129.21789)">
                 <g
-                    // style="display:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+                    style={{
+                        display: "none",
+                        fill: "none",
+                        stroke: "currentColor",
+                        strokeWidth: 2,
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
+                    }}
                     id="g1"
                     transform="matrix(2.1166666,0,0,2.1166666,92.141595,63.519529)"
                 >
@@ -46,7 +80,14 @@ export function Logo(props: { className?: string }) {
                     />
                 </g>
                 <g
-                    // style="display:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+                    style={{
+                        display: "none",
+                        fill: "none",
+                        stroke: "currentColor",
+                        strokeWidth: 2,
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
+                    }}
                     id="g2"
                     transform="matrix(2.1166666,0,0,2.1166666,79.600001,123.1)"
                 >
@@ -63,26 +104,41 @@ export function Logo(props: { className?: string }) {
                     <path
                         d="M 3.6,9 H 20.4"
                         id="path3"
-                        // style="display:none"
+                        style={{
+                            display: "none",
+                        }}
                     />
                     <path
                         d="M 3.6,15 H 20.4"
                         id="path4"
-                        // style="display:none"
+                        style={{
+                            display: "none",
+                        }}
                     />
                     <path
                         d="m 11.5,3 a 17,17 0 0 0 0,18"
                         id="path5"
-                        // style="display:none"
+                        style={{
+                            display: "none",
+                        }}
                     />
                     <path
                         d="m 12.5,3 a 17,17 0 0 1 0,18"
                         id="path6"
-                        // style="display:none"
+                        style={{
+                            display: "none",
+                        }}
                     />
                 </g>
                 <g
-                    // style="display:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+                    style={{
+                        display: "none",
+                        fill: "none",
+                        stroke: "currentColor",
+                        strokeWidth: 2,
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
+                    }}
                     id="g2-4"
                     transform="matrix(2.1166666,0,0,2.1166666,66.674999,127)"
                 >
@@ -93,7 +149,13 @@ export function Logo(props: { className?: string }) {
                     <path
                         d="m 13.076829,8.1280099 h 3 v -3 l -3.5,-3.5 a 6,6 0 0 1 8.000001,8 l 6,6.0000001 a 2.1213203,2.1213203 0 0 1 -3,3 l -6,-6 A 6,6 0 0 1 9.5768294,4.6280099 l 3.4999996,3.5"
                         id="path2-9"
-                        // style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+                        style={{
+                            fill: "none",
+                            stroke: "currentColor",
+                            strokeWidth: 2,
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                        }}
                     />
                 </g>
             </g>

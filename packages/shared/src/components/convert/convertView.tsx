@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { css } from "../../../styled-system/css"
+import { css } from "@browserworkshop/shared/styled-system/css"
 import { InputText } from "../inputs/inputText"
 import { UnitSelect } from "./unitSelect"
 

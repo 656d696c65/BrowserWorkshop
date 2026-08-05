@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import { createPortal } from "react-dom"
-import { css } from "../../../styled-system/css/css"
+import { css } from "@browserworkshop/shared/styled-system/css"
 
 type ToastViewportProps = {
     children: ReactNode

@@ -9,7 +9,7 @@ import {
     IconUserOff,
     IconWifiOff,
 } from "@tabler/icons-react"
-import { css, cx } from "../../../styled-system/css"
+import { css, cx } from "@browserworkshop/shared/styled-system/css"
 
 interface ProsItem {
     icon: typeof IconShieldCheck

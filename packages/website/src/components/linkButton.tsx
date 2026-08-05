@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router"
 import type { ComponentProps, MouseEventHandler, ReactNode } from "react"
-import { css } from "../../styled-system/css/css"
-import { cx } from "../../styled-system/css/cx"
+import { css, cx } from "@browserworkshop/shared/styled-system/css"
 import type { ValidParams, ValidRoutes } from "../routes/websiteRouter"
 
 export function LinkButton(props: {

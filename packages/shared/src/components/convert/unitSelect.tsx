@@ -1,4 +1,4 @@
-import type { Styles } from "../../../styled-system/css"
+import type { Styles } from "@browserworkshop/shared/styled-system/css"
 import { InputSelect } from "../inputs/inputSelect"
 
 export function UnitSelect(props: {

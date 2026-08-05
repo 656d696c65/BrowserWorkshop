@@ -14,7 +14,7 @@ import {
     useState,
 } from "react"
 import { createPortal } from "react-dom"
-import { css, cx, type Styles } from "../../../styled-system/css"
+import { css, cx, type Styles } from "@browserworkshop/shared/styled-system/css"
 
 let popoverCount = 0
 

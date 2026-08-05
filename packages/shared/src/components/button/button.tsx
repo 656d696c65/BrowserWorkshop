@@ -7,8 +7,8 @@ import {
     useRef,
     useState,
 } from "react"
-import { css } from "../../../styled-system/css/css"
-import { cx } from "../../../styled-system/css/cx"
+import { css } from "@browserworkshop/shared/styled-system/css"
+import { cx } from "@browserworkshop/shared/styled-system/css"
 import { sleep } from "../../utilities/sleep.ts"
 
 /**

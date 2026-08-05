@@ -1,4 +1,4 @@
-import { css, type Styles } from "../../../../website/styled-system/css"
+import { css, type Styles } from "@browserworkshop/shared/styled-system/css"
 
 export function HorizontalDivider(props: {
     text?: string

@@ -7,7 +7,7 @@ import {
     IconX,
 } from "@tabler/icons-react"
 import type { ReactElement } from "react"
-import { css } from "../../../styled-system/css/css"
+import { css } from "@browserworkshop/shared/styled-system/css"
 import type {
     ToasterToast,
     ToastVariant,

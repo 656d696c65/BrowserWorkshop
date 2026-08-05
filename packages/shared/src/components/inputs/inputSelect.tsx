@@ -1,7 +1,7 @@
 import { IconCheck, IconSearch, IconSelector } from "@tabler/icons-react"
 import { type ComponentProps, type InputHTMLAttributes, useState } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, type Styles } from "../../../styled-system/css"
+import { css, type Styles } from "@browserworkshop/shared/styled-system/css"
 import { ButtonGhostContent } from "../button"
 import { Button } from "../button/button"
 import { ButtonContent } from "../button/buttonContent"

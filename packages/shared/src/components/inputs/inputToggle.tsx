@@ -1,6 +1,6 @@
 import type { InputHTMLAttributes, JSX } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, type Styles } from "../../../styled-system/css"
+import { css, type Styles } from "@browserworkshop/shared/styled-system/css"
 import { Button, ButtonGhostContent } from "../button"
 
 export function InputToggle<TValue extends string | boolean>(

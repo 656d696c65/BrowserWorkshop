@@ -1,4 +1,4 @@
-import { sva } from "../../../styled-system/css/sva"
+import { sva } from "@browserworkshop/shared/styled-system/css"
 import { useButtonLoading } from "./button"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
