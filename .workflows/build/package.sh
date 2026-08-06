@@ -58,7 +58,7 @@ pnpm build
 # Package the static build output
 mkdir -p "$OUT_DIR"
 OUTPUT="$OUT_DIR/browserworkshop-$VERSION.tar.gz"
-tar -czf "$OUTPUT" -C packages/website/build .
+tar -czf "$OUTPUT" -C build .
 
 echo ""
 echo "  Output: $OUTPUT"
@@ -107,7 +107,7 @@ lftp -c "
     set ftp:ssl-force false
     set ssl:verify-certificate no
     open -u $FTP_USER,$FTP_PASSWORD -p $FTP_PORT $FTP_HOST
-    lcd $REPO_ROOT/packages/website/build
+    lcd $REPO_ROOT/build
     mirror -R --delete . /www/
     quit
 "

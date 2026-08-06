@@ -1,10 +1,11 @@
 node_modules
 build
 dist
+src/styled-system
 
 .cache
 .env
-.npmrc
+.envrc
 .old
 .local
 .vscode
@@ -13,5 +14,3 @@ dist
 
 *.tsbuildinfo
 .dev
-
-packages/shared/styled-system/styles.css

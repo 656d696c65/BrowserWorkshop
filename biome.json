@@ -41,7 +41,8 @@
     "files": {
         "includes": [
             "*.{js,mjs,cjs,ts,tsx,json,jsonc}",
-            "packages/**/*.{js,mjs,cjs,ts,tsx,json,jsonc}",
+            "src/**/*.{js,mjs,cjs,ts,tsx,json,jsonc}",
+            "seo/**/*.{js,mjs,cjs,ts,tsx,json,jsonc}",
             "!**/node_modules",
             "!**/build",
             "!**/dist",

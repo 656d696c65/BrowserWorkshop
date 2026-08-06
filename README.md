@@ -1,7 +1,7 @@
 # BrowserWorkshop
 
-Free, browser-based tools that run **100% locally on your device**. No accounts, no
-tracking, no uploads — your data never leaves your browser.
+Browser-based tools that run **100% locally on your device**. 
+Free, no accounts, no tracking, no uploads — your data never leaves your browser.
 
 ## Tools
 
@@ -28,7 +28,12 @@ donation to help keep it that way:
 
 ## License
 
-MIT License — see [LICENSE](./LICENSE). Copyright (c) 2026 Barbote.
+**GNU Affero General Public License v3.0 (AGPL-3.0)** — see [LICENSE](./LICENSE).
+Copyright (c) 2026 Barbote.
+
+BrowserWorkshop is *libre software*: you may use, study, share, and modify it,
+but if you operate this software over a network, you must offer its complete
+source code to your users. See the license for full terms.
 
 ---
 

@@ -15,49 +15,35 @@ dev-down:
 # Build Pipeline
 # ==============================================================================
 # Uses the same compose file as CI (single source of truth):
-#   - api/website/worker services: production Docker images
+#   - browserworkshop-website: production Docker image
 #
 # Usage:
-#   just build ci      - Build all production images (mirrors the publish GH Action)
-#   just build images  - Build images tagged with VERSION from the VERSION file
-#   just build start   - Start built images locally to check for startup errors
+#   just build image     - Build the website image tagged with VERSION
+#   just build start     - Start the built image locally
 
 build cmd:
     @just build-{{cmd}}
 
-# Build all production images — mirrors the publish GitHub Action
-build-ci:
+# Build the website production image
+build-image:
     @echo "=============================================="
-    @echo "  browserworkshop Build (api + website + worker)"
-    @echo "=============================================="
-    @echo ""
-    VERSION=$(cat VERSION) \
-    VITE_API_BASE_URL=http://localhost:3000 \
-    VITE_WEBSITE_BASE_URL=http://localhost:3001 \
-    {{COMPOSE_BUILD}} --progress=plain build --no-cache browserworkshop-api browserworkshop-website browserworkshop-worker
-    @echo ""
-    @echo "=============================================="
-    @echo "  Build succeeded"
-    @echo "============================================="
-    @echo "=============================================="
-    @echo "  browserworkshop Image Build (api + website + worker)"
+    @echo "  browserworkshop Website Image Build"
     @echo "=============================================="
     @echo ""
     VERSION=$(cat VERSION) \
-    VITE_API_BASE_URL=http://localhost:3000 \
     VITE_WEBSITE_BASE_URL=http://localhost:3001 \
-    {{COMPOSE_BUILD}} --progress=plain build --no-cache browserworkshop-api browserworkshop-website browserworkshop-worker
+    {{COMPOSE_BUILD}} --progress=plain build --no-cache browserworkshop-website
     @echo ""
     @echo "=============================================="
-    @echo "  Images built: browserworkshop-api, browserworkshop-website, browserworkshop-worker ($(cat VERSION))"
+    @echo "  Image built: browserworkshop-website ($(cat VERSION))"
     @echo "=============================================="
 
-# Start built production images locally to check for startup errors
-# Requires images to be built first: just build images
-# Stops the dev environment first to free ports, then starts production images
+# Start the built production image locally to check for startup errors
+# Requires image to be built first: just build image
+# Stops the dev environment first to free ports, then starts the image
 build-start:
     @echo "=============================================="
-    @echo "  Starting production images (version: $(cat VERSION))"
+    @echo "  Starting production image (version: $(cat VERSION))"
     @echo "  Press Ctrl+C to stop"
     @echo "=============================================="
     @echo ""
