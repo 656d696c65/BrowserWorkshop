@@ -1,11 +1,14 @@
 node_modules
 build
 dist
+src/styled-system
 
 .cache
 .env
-.npmrc
+.envrc
 .old
+.local
+.vscode
 
 .pnpm-store
 

@@ -4,8 +4,8 @@
 # Multi-stage build: build React app with Vite, serve with Nginx
 # ==============================================================================
 
-FROM node:22-alpine AS base
-RUN npm i -g pnpm@10.12.1
+FROM node:26-alpine AS base
+RUN npm i -g pnpm@11.20.0
 
 # Define build arguments for Vite environment variables
 ARG VITE_WEBSITE_BASE_URL
@@ -28,6 +28,6 @@ FROM nginx:alpine AS deploy
 WORKDIR /
 COPY .workflows/build/website/nginx/default.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=build /root/packages/website/build /usr/share/nginx/html
+COPY --from=build /root/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

@@ -30,7 +30,6 @@ services:
       dockerfile: ./.workflows/build/website/Dockerfile
       args:
         VERSION: ${VERSION:-latest}
-        VITE_WEBSITE_BASE_URL: ${VITE_WEBSITE_BASE_URL:?VITE_WEBSITE_BASE_URL must be set}
     ports:
       - "3001:80"
     restart: unless-stopped

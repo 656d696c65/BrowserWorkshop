@@ -8,10 +8,8 @@ services:
       context: ../..
       dockerfile: ./.workflows/dev/website/Dockerfile
       args:
-        NODE_VERSION: "22.16.0"
-        PNPM_VERSION: "10.12.1"
-    environment:
-      VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT:-5174}"
+        NODE_VERSION: "26.6.0"
+        PNPM_VERSION: "11.20.0"
     ports:
       - "127.0.0.1:${WEBSITE_HOST_PORT:-5174}:5174"
     volumes:

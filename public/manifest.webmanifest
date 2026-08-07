@@ -1,0 +1,33 @@
+{
+    "name": "BrowserWorkshop",
+    "short_name": "BrowserWorkshop",
+    "description": "Free browser-based tools that run locally in your browser. Convert length, weight, temperature, and currency units plus image files — no uploads, no tracking, no sign-up.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#FAF9F6",
+    "theme_color": "#FF9800",
+    "lang": "en",
+    "categories": [
+        "utilities",
+        "productivity"
+    ],
+    "icons": [
+        {
+            "src": "/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

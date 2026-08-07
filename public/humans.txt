@@ -1,0 +1,10 @@
+/* TEAM */
+Name: Barbote
+Location: Europe
+Site: https://browserworkshop.com
+
+/* THANKS */
+Built with React, TypeScript, Panda CSS, and TanStack Router.
+
+/* UPDATED */
+Last updated: 2026

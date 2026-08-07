@@ -1,6 +1,3 @@
-packages:
-  - "./packages/*"
 allowBuilds:
-  core-js: set this to true or false
   core-js-pure: true
-  esbuild: set this to true or false
+  esbuild: true

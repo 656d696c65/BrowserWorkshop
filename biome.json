@@ -27,20 +27,22 @@
         "formatWithErrors": false,
         "indentStyle": "space",
         "indentWidth": 4,
-        "lineWidth": 40,
+        "lineWidth": 80,
         "lineEnding": "lf"
     },
     "javascript": {
         "formatter": {
             "quoteStyle": "double",
             "semicolons": "asNeeded",
-            "trailingCommas": "all"
+            "trailingCommas": "all",
+            "expand": "always"
         }
     },
     "files": {
         "includes": [
             "*.{js,mjs,cjs,ts,tsx,json,jsonc}",
-            "packages/**/*.{js,mjs,cjs,ts,tsx,json,jsonc}",
+            "src/**/*.{js,mjs,cjs,ts,tsx,json,jsonc}",
+            "seo/**/*.{js,mjs,cjs,ts,tsx,json,jsonc}",
             "!**/node_modules",
             "!**/build",
             "!**/dist",

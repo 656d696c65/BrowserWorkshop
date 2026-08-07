@@ -1,6 +1,0 @@
-export * from "./button"
-export * from "./buttonContent"
-export * from "./buttonGhostContent"
-export * from "./buttonOutlineContent"
-export * from "./buttonPlainContent"
-export * from "./linkContent"
