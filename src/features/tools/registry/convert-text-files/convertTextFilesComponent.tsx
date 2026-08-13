@@ -6,9 +6,10 @@ import {
     useMemo,
     useState,
 } from "react"
+import { Button } from "@/components/button/button"
+import { ButtonContent } from "@/components/button/buttonContent"
+import { InputSelect } from "@/components/inputs/inputSelect"
 import { css } from "@/styled-system/css"
-import { Button } from "../../components/button/button"
-import { ButtonContent } from "../../components/button/buttonContent"
 
 interface EncodingOption {
     id: string
@@ -58,6 +59,15 @@ const encodingOptions: EncodingOption[] = [
     },
 ]
 
+// The browser's TextEncoder only ever emits UTF-8 bytes, so only encodings
+// that reduce to UTF-8 (optionally with a BOM prefix) can be produced
+// correctly. UTF-16 / Latin-* outputs are intentionally excluded until a
+// real multi-encoding byte encoder is wired up.
+const outputEncodingOptions: EncodingOption[] = [
+    encodingOptions[0],
+    encodingOptions[1],
+]
+
 type LineEnding = "none" | "lf" | "crlf" | "cr"
 
 const lineEndingOptions: {
@@ -88,7 +98,7 @@ function formatBytes(bytes: number): string {
     return `${(bytes / (1024 * 1024)).toFixed(2)} MB`
 }
 
-export function TextConverter() {
+export default function ConvertTextFilesComponent() {
     const [sourceFile, setSourceFile] = useState<File | null>(null)
     const [sourceText, setSourceText] = useState<string | null>(null)
     const [sourceEncodingId, setSourceEncodingId] = useState<string>("utf-8")
@@ -101,8 +111,8 @@ export function TextConverter() {
     const [preview, setPreview] = useState<string | null>(null)
 
     const targetEncoding =
-        encodingOptions.find((e) => e.id === targetEncodingId) ??
-        encodingOptions[0]
+        outputEncodingOptions.find((e) => e.id === targetEncodingId) ??
+        outputEncodingOptions[0]
 
     const [fileBaseName, setFileBaseName] = useState(
         sourceFile?.name.replace(/\.[^/.]+$/, "") ?? "converted",
@@ -139,6 +149,10 @@ export function TextConverter() {
     function loadFile(file: File | undefined | null) {
         if (!file) return
         setError(null)
+        const extMatch = file.name.match(/\.([^/.]+)$/)
+        const inputExt = extMatch ? extMatch[1].toLowerCase() : null
+        setFileBaseName(file.name.replace(/\.[^/.]+$/, "") || "converted")
+        setCustomExtension(inputExt ?? "txt")
         const reader = new FileReader()
         reader.onload = () => {
             const arrayBuffer = reader.result
@@ -312,6 +326,7 @@ export function TextConverter() {
     return (
         <div
             className={css({
+                width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "start",
@@ -340,21 +355,23 @@ export function TextConverter() {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 className={css({
-                    display: "flex",
+                    display: "inline-flex",
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
                     gap: "0.5rem",
-                    padding: "2rem",
-                    borderRadius: "0.5rem",
-                    borderWidth: "2px",
+                    width: "100%",
+                    height: "fit-content",
+                    padding: "1rem",
+                    borderRadius: "0.25rem",
+                    borderWidth: "1px",
                     borderStyle: "dashed",
                     borderColor: dragActive ? "primary" : "neutral/20",
-                    backgroundColor: dragActive ? "primary/10" : "neutral/5",
+                    backgroundColor: dragActive ? "primary/10" : "neutral/1",
                     cursor: "pointer",
-                    textAlign: "center",
                     _hover: {
                         borderColor: "primary",
+                        backgroundColor: "primary/10",
                     },
                 })}
             >
@@ -451,31 +468,19 @@ export function TextConverter() {
                             >
                                 Source encoding
                             </label>
-                            <select
-                                id="text-source-encoding"
+                            <InputSelect
                                 value={sourceEncodingId}
-                                onChange={(event) =>
-                                    setSourceEncodingId(
-                                        event.currentTarget.value,
-                                    )
-                                }
-                                className={css({
-                                    padding: "0.25rem 0.5rem",
-                                    borderRadius: "0.375rem",
-                                    borderWidth: "1px",
-                                    borderColor: "neutral/20",
-                                    backgroundColor: "transparent",
-                                    color: "neutral",
-                                    fontSize: "0.875rem",
-                                    cursor: "pointer",
-                                })}
-                            >
-                                {encodingOptions.map((option) => (
-                                    <option key={option.id} value={option.id}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
+                                onChange={(next) => {
+                                    if (!next) return
+                                    setSourceEncodingId(next)
+                                }}
+                                searchable
+                                options={encodingOptions.map((option) => ({
+                                    key: option.id,
+                                    label: option.label,
+                                }))}
+                                placeholder="Source encoding"
+                            />
                         </div>
                         <div
                             className={css({
@@ -495,31 +500,21 @@ export function TextConverter() {
                             >
                                 Target encoding
                             </label>
-                            <select
-                                id="text-target-encoding"
+                            <InputSelect
                                 value={targetEncodingId}
-                                onChange={(event) =>
-                                    setTargetEncodingId(
-                                        event.currentTarget.value,
-                                    )
-                                }
-                                className={css({
-                                    padding: "0.25rem 0.5rem",
-                                    borderRadius: "0.375rem",
-                                    borderWidth: "1px",
-                                    borderColor: "neutral/20",
-                                    backgroundColor: "transparent",
-                                    color: "neutral",
-                                    fontSize: "0.875rem",
-                                    cursor: "pointer",
-                                })}
-                            >
-                                {encodingOptions.map((option) => (
-                                    <option key={option.id} value={option.id}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
+                                onChange={(next) => {
+                                    if (!next) return
+                                    setTargetEncodingId(next)
+                                }}
+                                searchable
+                                options={outputEncodingOptions.map(
+                                    (option) => ({
+                                        key: option.id,
+                                        label: option.label,
+                                    }),
+                                )}
+                                placeholder="Target encoding"
+                            />
                         </div>
                         <div
                             className={css({
@@ -539,31 +534,19 @@ export function TextConverter() {
                             >
                                 Line endings
                             </label>
-                            <select
-                                id="text-line-ending"
+                            <InputSelect
                                 value={lineEnding}
-                                onChange={(event) =>
-                                    setLineEnding(
-                                        event.currentTarget.value as LineEnding,
-                                    )
-                                }
-                                className={css({
-                                    padding: "0.25rem 0.5rem",
-                                    borderRadius: "0.375rem",
-                                    borderWidth: "1px",
-                                    borderColor: "neutral/20",
-                                    backgroundColor: "transparent",
-                                    color: "neutral",
-                                    fontSize: "0.875rem",
-                                    cursor: "pointer",
-                                })}
-                            >
-                                {lineEndingOptions.map((option) => (
-                                    <option key={option.id} value={option.id}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
+                                onChange={(next) => {
+                                    if (!next) return
+                                    setLineEnding(next as LineEnding)
+                                }}
+                                searchable
+                                options={lineEndingOptions.map((option) => ({
+                                    key: option.id,
+                                    label: option.label,
+                                }))}
+                                placeholder="Line endings"
+                            />
                         </div>
                         <div
                             className={css({
@@ -693,57 +676,57 @@ export function TextConverter() {
                         className={css({
                             display: "flex",
                             flexDirection: "row",
-                            justifyContent: "start",
+                            justifyContent: "space-between",
                             alignItems: "center",
                             gap: "1rem",
                             flexWrap: "wrap",
-                            fontSize: "0.75rem",
-                            color: "neutral/60",
                         })}
                     >
-                        <span>Source {formatBytes(sourceFile.size)}</span>
-                        {outputSize !== null && (
-                            <span>Output {formatBytes(outputSize)}</span>
-                        )}
+                        <span
+                            className={css({
+                                fontSize: "0.75rem",
+                                color: "neutral/60",
+                            })}
+                        >
+                            <span>Source {formatBytes(sourceFile.size)}</span>{" "}
+                            {outputSize !== null && (
+                                <span>Output {formatBytes(outputSize)}</span>
+                            )}
+                        </span>
+                        <Button
+                            type="button"
+                            onClick={download}
+                            isDisabled={!outputUrl}
+                            title="Download file"
+                            className={css({
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                padding: "0.5rem 1rem",
+                                borderRadius: "0.375rem",
+                                backgroundColor: "primary",
+                                color: "background",
+                                fontSize: "0.875rem",
+                                fontWeight: "600",
+                                cursor: "pointer",
+                                border: "none",
+                                _hover: {
+                                    backgroundColor: "primary/80",
+                                },
+                                _disabled: {
+                                    opacity: 0.5,
+                                    cursor: "not-allowed",
+                                },
+                            })}
+                        >
+                            <ButtonContent
+                                leftIcon={<IconDownload />}
+                                text="Download"
+                            />
+                        </Button>
                     </div>
-
-                    <Button
-                        type="button"
-                        onClick={download}
-                        isDisabled={!outputUrl}
-                        title="Download file"
-                        className={css({
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                            padding: "0.5rem 1rem",
-                            borderRadius: "0.375rem",
-                            backgroundColor: "primary",
-                            color: "background",
-                            fontSize: "0.875rem",
-                            fontWeight: "600",
-                            cursor: "pointer",
-                            border: "none",
-                            _hover: {
-                                backgroundColor: "primary/80",
-                            },
-                            _disabled: {
-                                opacity: 0.5,
-                                cursor: "not-allowed",
-                            },
-                        })}
-                    >
-                        <ButtonContent>
-                            <IconDownload size={18} />
-                            Download
-                            {fileBaseName.trim() === ""
-                                ? "converted"
-                                : fileBaseName}
-                            {outputExtension}
-                        </ButtonContent>
-                    </Button>
                 </div>
             )}
         </div>

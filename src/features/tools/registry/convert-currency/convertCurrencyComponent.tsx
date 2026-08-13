@@ -1,13 +1,14 @@
+import { IconSwitchHorizontal } from "@tabler/icons-react"
 import { useEffect, useMemo, useState } from "react"
 import { Section } from "@/components/layouts/section"
 import { css } from "@/styled-system/css"
-import { Button } from "../../../components/button/button"
-import { ButtonContent } from "../../../components/button/buttonContent"
-import { UnitSelect } from "../../../components/convert/unitSelect"
-import { InputText } from "../../../components/inputs/inputText"
+import { Button } from "../../../../components/button/button"
+import { ButtonContent } from "../../../../components/button/buttonContent"
+import { UnitSelect } from "../../../../components/convert/unitSelect"
+import { InputText } from "../../../../components/inputs/inputText"
 import { convertCurrency, currencyUnits, fetchRates } from "./currency"
 
-export function CurrencyConverter() {
+export default function ConvertCurrencyComponent() {
     const [value, setValue] = useState<string>("1")
     const [fromUnit, setFromUnit] = useState<string>("USD")
     const [toUnit, setToUnit] = useState<string>("EUR")
@@ -64,10 +65,6 @@ export function CurrencyConverter() {
         isValidValue,
     ])
 
-    const fromLabel =
-        currencyUnits.find((u) => u.id === fromUnit)?.label ?? fromUnit
-    const toLabel = currencyUnits.find((u) => u.id === toUnit)?.label ?? toUnit
-
     function formatResult(v: number): string {
         const fixed = v.toFixed(10)
         return fixed.replace(/\.?0+$/, "")
@@ -79,110 +76,87 @@ export function CurrencyConverter() {
     }
 
     return (
-        <Section>
-            <div>
+        <Section
+            className={css({
+                padding: 0,
+                gap: 0,
+            })}
+        >
+            {rates && !loading && (
                 <div
                     className={css({
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "0.25rem",
+                        width: "100%",
+                        padding: "1rem",
+                        borderBottomWidth: "1px",
+                        borderBottomColor: "neutral/10",
+                        fontSize: "0.75rem",
+                        color: "neutral/40",
+                        textAlign: "center",
                     })}
                 >
-                    <span
-                        className={css({
-                            fontSize: "0.875rem",
-                            color: "neutral/60",
-                        })}
-                    >
-                        Amount
-                    </span>
-                    <InputText
-                        value={value}
-                        onChange={(v) => setValue(v ?? "")}
-                        type="number"
-                        inputMode="decimal"
-                        placeholder="0.00"
-                    />
+                    1 {fromUnit} ={" "}
+                    {formatResult(convertCurrency(1, fromUnit, toUnit, rates))}{" "}
+                    {toUnit}
                 </div>
-            </div>
-
+            )}
             <div
                 className={css({
-                    display: "flex",
-                    flexDirection: "row",
+                    padding: "1rem",
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "1fr auto 1fr",
                     gap: "0.5rem",
-                    alignItems: "end",
+                    alignItems: "center",
                 })}
             >
-                <div
-                    className={css({
-                        flex: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "0.25rem",
-                    })}
-                >
-                    <span
-                        className={css({
-                            fontSize: "0.875rem",
-                            color: "neutral/60",
-                        })}
-                    >
-                        From
-                    </span>
-                    <UnitSelect
-                        units={currencyUnits}
-                        value={fromUnit}
-                        onChange={(v) => setFromUnit(v ?? "USD")}
-                        placeholder="Select currency"
-                    />
-                </div>
-
+                <UnitSelect
+                    units={currencyUnits}
+                    value={fromUnit}
+                    onChange={(v) => setFromUnit(v ?? "USD")}
+                    placeholder="Select currency"
+                    isFullWidth
+                />
                 <Button
                     type="button"
                     onClick={swap}
-                    className={css({
-                        padding: "0.5rem",
-                        borderRadius: "0.25rem",
-                        cursor: "pointer",
-                        fontSize: "0.875rem",
-                        color: "neutral/50",
-                        backgroundColor: "transparent",
-                        borderWidth: "1px",
-                        borderColor: "neutral/20",
-                        _hover: {
-                            backgroundColor: "neutral/5",
-                            color: "neutral",
-                        },
-                    })}
-                    aria-label="Swap currencies"
-                    title="Swap currencies"
+                    aria-label="Swap units"
+                    title="Swap units"
                 >
-                    <ButtonContent>⇄</ButtonContent>
+                    <ButtonContent leftIcon={<IconSwitchHorizontal />} />
                 </Button>
-
+                <UnitSelect
+                    units={currencyUnits}
+                    value={toUnit}
+                    onChange={(v) => setToUnit(v ?? "EUR")}
+                    placeholder="Select currency"
+                    isFullWidth
+                />
+                <InputText
+                    value={value}
+                    onChange={(v) => setValue(v ?? "")}
+                    type="number"
+                    inputMode="decimal"
+                    placeholder="0.00"
+                />
+                <div />
                 <div
                     className={css({
-                        flex: 1,
+                        height: "2.5rem",
                         display: "flex",
-                        flexDirection: "column",
-                        gap: "0.25rem",
+                        alignItems: "center",
+                        paddingX: "0.75rem",
+                        borderWidth: "1px",
+                        borderStyle: "solid",
+                        borderColor: "neutral/20",
+                        borderRadius: "0.375rem",
+                        fontSize: "0.875rem",
+                        color: "neutral",
+                        backgroundColor: "neutral/5",
                     })}
                 >
-                    <span
-                        className={css({
-                            fontSize: "0.875rem",
-                            color: "neutral/60",
-                        })}
-                    >
-                        To
-                    </span>
-                    <UnitSelect
-                        units={currencyUnits}
-                        value={toUnit}
-                        onChange={(v) => setToUnit(v ?? "EUR")}
-                        placeholder="Select currency"
-                    />
+                    {!loading && !error && result !== null
+                        ? formatResult(result)
+                        : ""}
                 </div>
             </div>
 
@@ -241,51 +215,10 @@ export function CurrencyConverter() {
                 </div>
             )}
 
-            {!loading && !error && result !== null && (
-                <div
-                    className={css({
-                        marginTop: "0.5rem",
-                        padding: "1rem",
-                        borderRadius: "0.5rem",
-                        backgroundColor: "neutral/5",
-                        borderWidth: "1px",
-                        borderColor: "neutral/10",
-                        fontSize: "1.25rem",
-                        fontWeight: "500",
-                        textAlign: "center",
-                        color: "neutral",
-                    })}
-                >
-                    {value} {fromLabel} ={" "}
-                    <span
-                        className={css({
-                            color: "primary",
-                        })}
-                    >
-                        {formatResult(result)}
-                    </span>{" "}
-                    {toLabel}
-                </div>
-            )}
-
-            {rates && !loading && (
-                <div
-                    className={css({
-                        fontSize: "0.75rem",
-                        color: "neutral/40",
-                        textAlign: "center",
-                    })}
-                >
-                    1 {fromUnit} ={" "}
-                    {formatResult(convertCurrency(1, fromUnit, toUnit, rates))}{" "}
-                    {toUnit}
-                </div>
-            )}
-
             <div
                 className={css({
-                    marginTop: "0.5rem",
-                    paddingTop: "0.75rem",
+                    width: "100%",
+                    padding: "1rem",
                     borderTopWidth: "1px",
                     borderTopColor: "neutral/10",
                     display: "flex",

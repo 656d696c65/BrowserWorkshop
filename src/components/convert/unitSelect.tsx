@@ -13,6 +13,7 @@ export function UnitSelect(props: {
         | undefined
     placeholder?: string
     className?: Styles
+    isFullWidth?: boolean
 }) {
     const options = props.units?.map((unit) => ({
         key: unit.id,
@@ -27,7 +28,8 @@ export function UnitSelect(props: {
             options={options}
             placeholder={props.placeholder}
             searchable
-            className={props.className}
+            isFullWidth={props.isFullWidth}
+            css={props.className}
         />
     )
 }

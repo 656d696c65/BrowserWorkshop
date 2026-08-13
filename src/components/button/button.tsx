@@ -7,7 +7,7 @@ import {
     useRef,
     useState,
 } from "react"
-import { css, cx } from "@/styled-system/css"
+import { css, cx, type Styles } from "@/styled-system/css"
 import { sleep } from "@/utilities/sleep"
 
 /**
@@ -39,6 +39,8 @@ export function Button(
         children: ReactNode
         title?: string
         isDisabled?: boolean
+        css?: Styles
+        className?: string
     },
 ) {
     const [isLoading, setIsLoading] = useState(false)
@@ -82,24 +84,27 @@ export function Button(
                 {...buttonProps}
                 ref={props.ref}
                 className={cx(
-                    css({
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        cursor: "pointer",
-                        width: "fit-content",
-                        maxWidth: "100%",
-                        height: "fit-content",
-                        maxHeight: "fit-content",
-                        bg: "transparent",
-                        border: "none",
-                        padding: "0",
-                        _disabled: {
-                            cursor: "not-allowed",
-                            pointerEvents: "none",
+                    css(
+                        {
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            cursor: "pointer",
+                            width: "fit-content",
+                            maxWidth: "100%",
+                            height: "fit-content",
+                            maxHeight: "fit-content",
+                            bg: "transparent",
+                            border: "none",
+                            padding: "0",
+                            _disabled: {
+                                cursor: "not-allowed",
+                                pointerEvents: "none",
+                            },
                         },
-                    }),
-                    className,
+                        props.css,
+                    ),
+                    props.className,
                 )}
                 onClick={handleClick}
                 type={props.type ?? "button"}
