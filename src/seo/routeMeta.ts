@@ -27,34 +27,6 @@ export const routeMeta: Record<string, RouteMeta> = {
         description:
             "Find a browser-based tool by name, category, or tag. No account, no uploads — everything runs locally in your browser.",
     },
-    "/tools/convert-units": {
-        path: "/tools/convert-units",
-        label: "Unit Converter",
-        title: "Unit Converter | BrowserWorkshop",
-        description:
-            "Free unit converter that runs in your browser. Convert between length, weight, and temperature units instantly, locally, with no uploads.",
-    },
-    "/tools/convert-currency": {
-        path: "/tools/convert-currency",
-        label: "Currency Converter",
-        title: "Currency Converter | BrowserWorkshop",
-        description:
-            "Free currency converter with live exchange rates. Convert between world currencies in your browser and see current rates — no sign-up required.",
-    },
-    "/tools/convert-files-images": {
-        path: "/tools/convert-files-images",
-        label: "Image Converter",
-        title: "Image Converter | BrowserWorkshop",
-        description:
-            "Free image converter that runs entirely in your browser. Convert images between formats locally — nothing is uploaded, your files stay on your device.",
-    },
-    "/tools/convert-files-text": {
-        path: "/tools/convert-files-text",
-        label: "Text File Converter",
-        title: "Text File Converter | BrowserWorkshop",
-        description:
-            "Free text file converter that runs in your browser. Convert text files between encodings and line endings locally — nothing is uploaded, your files stay on your device.",
-    },
 }
 
 export function canonicalUrl(path: string): string {

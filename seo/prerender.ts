@@ -2,6 +2,10 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs"
 import { dirname, relative, resolve } from "node:path"
 import type { Plugin, ResolvedConfig } from "vite"
 import {
+    type ToolManifestEntry,
+    toolManifest,
+} from "../src/features/tools/toolManifest.js"
+import {
     canonicalUrl,
     OG_IMAGE,
     OG_IMAGE_ALT,
@@ -43,7 +47,9 @@ export function seoPrerender(): Plugin {
                 "<head>__SEO_HEAD__</head>",
             )
 
-            for (const route of Object.values(routeMeta)) {
+            const routes = collectRoutes(toolManifest)
+
+            for (const route of routes) {
                 const head = buildHead(baseHead, route)
                 const output = template.replace("__SEO_HEAD__", head)
                 const filePath =
@@ -58,8 +64,73 @@ export function seoPrerender(): Plugin {
                     `[seo-prerender] wrote ${relative(process.cwd(), filePath)}`,
                 )
             }
+
+            writeSitemap(buildDir, routes)
         },
     }
+}
+
+/**
+ * Combines the hand-maintained static routes (`/` and `/search`) with every
+ * registered tool (sourced from the lightweight tool manifest, which carries
+ * only string metadata so the build plugin never has to load a tool's
+ * icon/component code) so the sitemap and prerendered pages stay in sync with
+ * the registry automatically on every build.
+ */
+function collectRoutes(manifest: readonly ToolManifestEntry[]): RouteMeta[] {
+    const staticRoutes = Object.values(routeMeta)
+    const toolRoutes = manifest.map<RouteMeta>((tool) => ({
+        path: `/tools/${tool.id}`,
+        label: tool.name,
+        title: `${tool.name} | ${SITE_NAME}`,
+        description: tool.description,
+    }))
+    return [
+        ...staticRoutes,
+        ...toolRoutes,
+    ]
+}
+
+function sitemapProps(path: string): {
+    changefreq: string
+    priority: number
+} {
+    if (path === "/") {
+        return {
+            changefreq: "daily",
+            priority: 1.0,
+        }
+    }
+    if (path === "/search") {
+        return {
+            changefreq: "weekly",
+            priority: 0.8,
+        }
+    }
+    return {
+        changefreq: "monthly",
+        priority: 0.8,
+    }
+}
+
+function writeSitemap(buildDir: string, routes: RouteMeta[]): void {
+    const lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for (const route of routes) {
+        const { changefreq, priority } = sitemapProps(route.path)
+        lines.push("    <url>")
+        lines.push(`        <loc>${canonicalUrl(route.path)}</loc>`)
+        lines.push(`        <changefreq>${changefreq}</changefreq>`)
+        lines.push(`        <priority>${priority}</priority>`)
+        lines.push("    </url>")
+    }
+    lines.push("</urlset>")
+    const output = `${lines.join("\n")}\n`
+    const sitemapPath = resolve(buildDir, "sitemap.xml")
+    writeFileSync(sitemapPath, output)
+    console.log(`[seo-prerender] wrote ${relative(process.cwd(), sitemapPath)}`)
 }
 
 const HEAD_STRIPPERS: RegExp[] = [
