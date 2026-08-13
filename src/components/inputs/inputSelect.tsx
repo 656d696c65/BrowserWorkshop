@@ -23,7 +23,8 @@ export function InputSelect<TValue extends string>(
               }>
             | undefined
         searchable?: boolean
-        className?: Styles
+        isFullWidth?: boolean
+        css?: Styles
         popoverProps?: ComponentProps<typeof Popover>
     },
 ) {
@@ -58,12 +59,12 @@ export function InputSelect<TValue extends string>(
                         props.placeholder ??
                         "Select an option"
                     }
-                    className={css(
+                    css={css.raw(
                         {
-                            width: "100%",
+                            width: props.isFullWidth ? "100%" : "fit-content",
                             cursor: "pointer",
                         },
-                        props.className,
+                        props.css,
                     )}
                 >
                     <ButtonContent
@@ -74,6 +75,7 @@ export function InputSelect<TValue extends string>(
                         }
                         rightIcon={<IconSelector />}
                         isCurrent={currentOption?.label === undefined}
+                        isFullWidth={props.isFullWidth ?? false}
                     />
                 </Button>
             }
@@ -105,7 +107,6 @@ export function InputSelect<TValue extends string>(
                                     paddingY: "0.25rem",
                                     borderBottomWidth: "1px",
                                     borderBottomColor: "neutral/10",
-                                    marginBottom: "0.25rem",
                                 })}
                             >
                                 <IconSearch
@@ -148,19 +149,20 @@ export function InputSelect<TValue extends string>(
                                 flexDirection: "column",
                                 justifyContent: "start",
                                 alignItems: "start",
-                                gap: "0.125rem",
-                                padding: "0.25rem",
+                                // gap: "0.5rem",
+                                padding: "0.5rem",
                                 flexShrink: 1,
                             })}
                         >
                             {props.options === undefined ? (
-                                <FormatNull text="No available options" />
+                                <FormatNull
+                                    text="No available options"
+                                    className={{}}
+                                />
                             ) : filteredOptions?.length === 0 ? (
                                 <FormatNull
                                     text="No options match your search"
-                                    className={{
-                                        padding: "0.5rem",
-                                    }}
+                                    className={{}}
                                 />
                             ) : (
                                 filteredOptions?.map((option) => {
@@ -188,24 +190,43 @@ export function InputSelect<TValue extends string>(
 
                                                 context.setIsOpen(false)
                                             }}
-                                            className={css({
+                                            css={css.raw({
                                                 width: "100%",
-                                                padding: "0.125rem 0",
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                                gap: "0.5rem",
+                                                padding: "0.5rem",
+                                                borderRadius: "0.25rem",
+                                                _hover: {
+                                                    backgroundColor:
+                                                        "neutral/5",
+                                                },
                                             })}
                                         >
-                                            <ButtonContent
-                                                key={option.key}
-                                                text={option.label}
-                                                isCurrent={isSelected}
-                                                rightIcon={
-                                                    isSelected ? (
-                                                        <IconCheck />
-                                                    ) : undefined
-                                                }
+                                            <span
                                                 className={css({
-                                                    width: "100%",
+                                                    lineHeight: 1,
+                                                    ...(isSelected && {
+                                                        color: "primary",
+                                                    }),
                                                 })}
-                                            />
+                                            >
+                                                {option.label}
+                                            </span>
+                                            {isSelected ? (
+                                                <IconCheck
+                                                    size={16}
+                                                    className={css(
+                                                        {
+                                                            marginLeft: "auto",
+                                                        },
+                                                        isSelected && {
+                                                            stroke: "primary",
+                                                        },
+                                                    )}
+                                                />
+                                            ) : undefined}
                                         </Button>
                                     )
                                 })

@@ -1,4 +1,4 @@
-import { createRoute, Outlet, redirect } from "@tanstack/react-router"
+import { createRoute, redirect } from "@tanstack/react-router"
 import { toolsLayoutRoute } from "./toolsLayoutRoute"
 
 export const toolsRootRoute = createRoute({
@@ -6,8 +6,7 @@ export const toolsRootRoute = createRoute({
     path: "/",
     beforeLoad: () => {
         throw redirect({
-            to: "/tools/convert/units",
+            to: "/",
         })
     },
-    component: () => <Outlet />,
 })

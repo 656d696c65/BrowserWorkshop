@@ -10,10 +10,10 @@ export function InputText(
         value?: string | null
         onChange?: (value?: string | null | undefined) => void
         error?: FieldError
-        className?: Styles
+        css?: Styles
     },
 ) {
-    const { className, error, value, onChange, ...rest } = props
+    const { error, value, onChange, ...rest } = props
 
     function input(value: string | undefined | null) {
         if (value === null) return ""
@@ -41,7 +41,7 @@ export function InputText(
                     transition: "all 0.15s",
                     _focusWithin: {
                         borderColor: "primary",
-                        outlineWidth: "2px",
+                        outlineWidth: "1px",
                         outlineStyle: "solid",
                         outlineColor: "primary/20",
                         outlineOffset: "0px",
@@ -52,18 +52,17 @@ export function InputText(
                     : {
                           borderColor: "red",
                       },
-                className,
+                props.css,
             )}
         >
             <input
                 {...rest}
                 className={css({
                     width: "100%",
-                    height: "2.5rem",
                     fontSize: "0.875rem",
                     lineHeight: "1rem",
                     backgroundColor: "transparent",
-                    paddingX: "0.75rem",
+                    padding: "0.5rem",
                     borderRadius: "inherit",
                     _placeholder: {
                         color: "neutral/40",

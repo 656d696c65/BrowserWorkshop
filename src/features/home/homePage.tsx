@@ -1,17 +1,21 @@
 import {
+    IconAdOff,
     IconBolt,
     IconBrandGithub,
+    IconBrandX,
     IconGift,
     IconHeart,
+    IconSearch,
     IconShieldCheck,
-    IconSparkles,
-    IconUserOff,
+    IconTrendingUp,
     IconWifiOff,
 } from "@tabler/icons-react"
+import { useNavigate } from "@tanstack/react-router"
+import { Button } from "@/components/button/button"
+import { ButtonContent } from "@/components/button/buttonContent"
 import { Page } from "@/components/layouts/page/page"
 import { Section } from "@/components/layouts/section"
 import { css } from "@/styled-system/css"
-import { InstallPwaButton } from "../../components/installPwaButton"
 
 interface ProsItem {
     icon: typeof IconShieldCheck
@@ -22,7 +26,7 @@ interface ProsItem {
 const prosItems: ProsItem[] = [
     {
         icon: IconShieldCheck,
-        title: "100% Private",
+        title: "100% local",
         description:
             "Everything runs in your browser — nothing is uploaded to a server.",
     },
@@ -32,9 +36,9 @@ const prosItems: ProsItem[] = [
         description: "Open source, no accounts, no subscriptions, no paywalls.",
     },
     {
-        icon: IconUserOff,
-        title: "No account",
-        description: "No sign-up, no ads, no tracking. Just open and use.",
+        icon: IconAdOff,
+        title: "Ad-free",
+        description: "No ads, no tracking. Just open and use.",
     },
     {
         icon: IconBolt,
@@ -46,59 +50,18 @@ const prosItems: ProsItem[] = [
         icon: IconWifiOff,
         title: "Works offline",
         description:
-            "Installable as a PWA, so tools keep working without a connection.",
+            "Installable as a PWA, so tools keep working without a connection (some tools might need a connection).",
     },
     {
-        icon: IconSparkles,
+        icon: IconTrendingUp,
         title: "Always growing",
         description: "New tools are added regularly to cover everyday tasks.",
     },
 ]
 
-const prosCard = css({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "start",
-    alignItems: "start",
-    gap: "0.5rem",
-    padding: "1rem",
-    borderRadius: "0.5rem",
-    borderWidth: "1px",
-    borderColor: "neutral/10",
-})
-
-const _helpSection = css({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "start",
-    alignItems: "start",
-    gap: "0.75rem",
-    padding: "1rem",
-    borderRadius: "0.5rem",
-    borderWidth: "1px",
-    borderColor: "neutral/10",
-})
-
-const helpButton = css({
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "0.5rem",
-    padding: "0.5rem 1rem",
-    borderRadius: "0.375rem",
-    borderWidth: "1px",
-    borderColor: "neutral/20",
-    fontSize: "0.875rem",
-    fontWeight: "600",
-    color: "neutral",
-    textDecoration: "none",
-    _hover: {
-        backgroundColor: "neutral/5",
-    },
-})
-
 export default function HomePage() {
+    const navigate = useNavigate()
+
     return (
         <Page.Root>
             <Page.Header>
@@ -108,50 +71,83 @@ export default function HomePage() {
                     everyday tasks. No ads, no tracking, no server uploads —
                     everything runs locally in your browser.
                 </Page.Description>
+                <Button
+                    type="button"
+                    onClick={() =>
+                        navigate({
+                            to: "/search",
+                        })
+                    }
+                    title="Search tools"
+                    className={css({
+                        width: "100%",
+                    })}
+                >
+                    <ButtonContent
+                        variant="plain"
+                        leftIcon={<IconSearch />}
+                        text="Search tools"
+                    />
+                </Button>
             </Page.Header>
             <Page.Body>
-                <Section>
-                    <div
-                        className={css({
-                            display: "grid",
-                            gridTemplateColumns:
-                                "repeat(auto-fill, minmax(11rem, 1fr))",
-                            gap: "0.75rem",
-                        })}
-                    >
-                        {prosItems.map((item) => {
-                            const Icon = item.icon
-                            return (
-                                <div key={item.title} className={prosCard}>
-                                    <span
-                                        className={css({
-                                            color: "primary",
-                                            display: "flex",
-                                        })}
-                                    >
-                                        <Icon size={20} />
-                                    </span>
+                <Section
+                    className={css({
+                        padding: 0,
+                        gap: 0,
+                    })}
+                >
+                    {prosItems.map((item) => {
+                        const Icon = item.icon
+                        return (
+                            <div
+                                key={item.title}
+                                className={css({
+                                    width: "100%",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "start",
+                                    alignItems: "start",
+                                    gap: "0.5rem",
+                                    padding: "1rem",
+                                    borderTopWidth: "1px",
+                                    borderTopColor: "neutral/5",
+                                    _first: {
+                                        border: "none",
+                                    },
+                                })}
+                            >
+                                <div
+                                    className={css({
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        justifyContent: "start",
+                                        alignItems: "center",
+                                        gap: "0.5rem",
+                                    })}
+                                >
+                                    <Icon size={20} />
                                     <span
                                         className={css({
                                             fontSize: "0.875rem",
-                                            fontWeight: "600",
+                                            fontWeight: "500",
                                         })}
                                     >
                                         {item.title}
                                     </span>
-                                    <span
-                                        className={css({
-                                            fontSize: "0.75rem",
-                                            color: "neutral/60",
-                                            lineHeight: "1.4",
-                                        })}
-                                    >
-                                        {item.description}
-                                    </span>
                                 </div>
-                            )
-                        })}
-                    </div>
+                                <span
+                                    className={css({
+                                        fontSize: "0.75rem",
+                                        color: "neutral/60",
+                                        lineHeight: "1.4",
+                                    })}
+                                >
+                                    {item.description}
+                                </span>
+                            </div>
+                        )
+                    })}
                 </Section>
 
                 <Section>
@@ -175,31 +171,29 @@ export default function HomePage() {
                         contribute code on GitHub.
                     </span>
                     <a
-                        href="https://github.com/barbote/BrowserWorkshop"
+                        href="https://github.com/656d696c65/BrowserWorkshop"
                         target="_blank"
                         rel="noreferrer"
                         title="GitHub"
-                        className={helpButton}
+                        className={css({
+                            textDecoration: "none",
+                        })}
                     >
-                        <IconBrandGithub size={18} />
-                        GitHub
+                        <ButtonContent
+                            leftIcon={<IconBrandGithub />}
+                            text="GitHub"
+                        />
                     </a>
                 </Section>
-                <Section
-                    className={css({
-                        display: {
-                            base: "flex",
-                            md: "none",
-                        },
-                    })}
-                >
+
+                <Section>
                     <span
                         className={css({
                             fontSize: "0.875rem",
                             fontWeight: "600",
                         })}
                     >
-                        Install the app
+                        Follow us on X
                     </span>
                     <span
                         className={css({
@@ -208,10 +202,23 @@ export default function HomePage() {
                             lineHeight: "1.5",
                         })}
                     >
-                        Add BrowserWorkshop to your home screen and use it
-                        offline, just like a native app.
+                        Get updates, announcements, and new tool releases
+                        directly in your feed.
                     </span>
-                    <InstallPwaButton />
+                    <a
+                        href="https://x.com/BrowserWorkshop"
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Follow us on X"
+                        className={css({
+                            textDecoration: "none",
+                        })}
+                    >
+                        <ButtonContent
+                            leftIcon={<IconBrandX />}
+                            text="Twitter / X"
+                        />
+                    </a>
                 </Section>
 
                 <Section>
@@ -239,10 +246,11 @@ export default function HomePage() {
                         target="_blank"
                         rel="noreferrer"
                         title="Donate"
-                        className={helpButton}
+                        className={css({
+                            textDecoration: "none",
+                        })}
                     >
-                        <IconHeart size={18} />
-                        Donate
+                        <ButtonContent leftIcon={<IconHeart />} text="Donate" />
                     </a>
                 </Section>
             </Page.Body>

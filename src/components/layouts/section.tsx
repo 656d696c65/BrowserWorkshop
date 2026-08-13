@@ -15,9 +15,9 @@ export function Section(props: { className?: string; children: ReactNode }) {
                     alignItems: "start",
                     gap: "1rem",
                     border: "1px solid",
-                    borderColor: "neutral/25",
+                    borderColor: "neutral/10",
                     padding: "1rem",
-                    borderRadius: "0.25rem",
+                    // borderRadius: "0.25rem",
                 }),
                 props.className,
             )}
